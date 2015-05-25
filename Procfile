@@ -1,1 +1,1 @@
-foreman start
+web dist/index.html
