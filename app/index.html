@@ -18,9 +18,10 @@
 </head>
 <body>
   <div id="scoreboard" data-bind='template: { foreach: players}'>
-    <div data-bind="text: $data.status"></div>
-    <div data-bind="text: $data.name"></div>
-    <div data-bind="text: $data.score"></div>
+    <div class="player-card" data-bind="status: $data.status">
+      <div class="name" data-bind="text: $data.name"></div>
+      <div class="score" data-bind="text: $data.score"></div>
+    </div>
   </div>
 
   <svg id="dartboard" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="787px" height="774px" viewBox="0 0 787 774" enable-background="new 0 0 787 774" xml:space="preserve">

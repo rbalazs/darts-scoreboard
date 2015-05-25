@@ -9,3 +9,12 @@
   margin: 0 auto;
   border-bottom: 1px solid silver
 }
+
+#scoreboard .score {
+  font-weight: bold;
+}
+
+.player-card {
+  float: left;
+  min-width: 100px;
+}

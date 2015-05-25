@@ -45,6 +45,20 @@ var playerModel = function(name, status, score) {
 
 var viewDatas = new ViewDatas();
 
+ko.bindingHandlers.status = {
+    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        var value = valueAccessor();
+        var valueUnwrapped = ko.unwrap(value);
+
+        if (valueUnwrapped == 1) {
+            $(element).css('background-color', '#AFE1AB')
+        } else {
+            $(element).css('background-color', '')
+        }
+    }
+};
+
+
 $(function() {
     ko.applyBindings({
         players: viewDatas.players
