@@ -5,37 +5,53 @@ var ViewDatas = function() {
 
     this.thrown = ko.observable(0);
 
+    this.scoreAtStepIn = 0;
+
+    this.jumpToNextPlayer = function (currentPlayer) {
+        _this.thrown(0);  
+        currentPlayer.status(0);   
+        nextInLine = ko.utils.arrayFirst(_this.players(), function(item) {
+            return 2 === item.status();
+        })
+
+        if (nextInLine) {
+            nextInLine.status(1)
+        } else {
+            ko.utils.arrayForEach(_this.players(), function(player) {
+                player.status(2)
+            });    
+            nextInLine = ko.utils.arrayFirst(_this.players(), function(player) {
+                return 2 === player.status()
+            });
+
+            nextInLine.status(1);
+        }
+
+        _this.scoreAtStepIn = nextInLine.score();
+    }
+
     this.handleThrow = function(score) {
         var nextInLine;
+        var currentPlayer;
 
-        var match = ko.utils.arrayFirst(this.players(), function(item) {
+        var currentPlayer = ko.utils.arrayFirst(this.players(), function(item) {
             return 1 === item.status();
         });
 
-        if (match) {
-            match.score(match.score() - score)
+        if (currentPlayer.score() - score < 0) {
+            currentPlayer.score(_this.scoreAtStepIn);
+            _this.jumpToNextPlayer(currentPlayer);
+        } else {
+            currentPlayer.score(currentPlayer.score() - score);
+
             if (_this.thrown() == 2) {
-                _this.thrown(0);  
-                match.status(0);   
-                nextInLine = ko.utils.arrayFirst(this.players(), function(item) {
-                    return 2 === item.status();
-                })
-                if (nextInLine) {
-                    nextInLine.status(1)
-                } else {
-                  ko.utils.arrayForEach(this.players(), function(player) {
-                    player.status(2)
-                });
-                  ko.utils.arrayFirst(this.players(), function(player) {
-                    return 2 === player.status()
-                }).status(1);
-              }
-          } else {
-            _this.thrown(_this.thrown() + 1);
+                _this.jumpToNextPlayer(currentPlayer);
+            } else {
+                _this.thrown(_this.thrown() + 1);
+            }
         }
-    }
+    };
 }
-};
 
 var playerModel = function(name, status, score) {
     this.name = name;
@@ -60,14 +76,16 @@ ko.bindingHandlers.status = {
 
 
 $(function() {
+    var scoreLimit = 101;
+
     ko.applyBindings({
         players: viewDatas.players,
         thrown: viewDatas.thrown
     });
 
-    viewDatas.players.push(new playerModel('Eszti', 1, 301));
-    viewDatas.players.push(new playerModel('Balázs', 2, 301));
-    viewDatas.players.push(new playerModel('Csaba', 2, 301));
+    viewDatas.players.push(new playerModel('Eszti', 1, scoreLimit));
+    viewDatas.players.push(new playerModel('Balázs', 2, scoreLimit));
+    viewDatas.players.push(new playerModel('Csaba', 2, scoreLimit));
 
     $("#dartboard #areas g").children().click(function(){
         var id;
