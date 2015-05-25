@@ -3,7 +3,7 @@ var ViewDatas = function() {
 
     this.games = [101, 301, 501];
 
-    this.gameIndex = 0;
+    this.gameIndex = 1;
 
     this.players = ko.observableArray([]);
 
@@ -62,9 +62,16 @@ var ViewDatas = function() {
     };
 
     this.winner = function (currentPlayer) {
+        if(_this.players().length == 1) {
+            currentPlayer.victories(currentPlayer.victories() + 1);
+            currentPlayer.score(_this.games[_this.gameIndex]);
+            return;
+        }
+
         ko.utils.arrayForEach(_this.players(), function(player) {
             player.score(_this.games[_this.gameIndex]);
             player.status(2);
+            player.history([]);
         });
 
         _this.thrown(0);
