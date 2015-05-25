@@ -3,9 +3,10 @@
 }
 
 #scoreboard {
-  height: 50px;
+  font-size: 20px;
+  height: 60px;
   float: left;
-  min-width: 371px;
+  min-width: 469px;
   clear: both;
   border-bottom: 1px solid silver;
 }
