@@ -3,7 +3,7 @@ var ViewDatas = function() {
 
     this.games = [101, 301, 501];
 
-    this.gameIndex = 0;
+    this.gameIndex = 1;
 
     this.players = ko.observableArray([]);
 
