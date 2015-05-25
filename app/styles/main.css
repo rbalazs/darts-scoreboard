@@ -1,13 +1,12 @@
 #dartboard {
-  margin: 0 auto;
-  display: block;
+
 }
 
 #scoreboard {
   height: 50px;
-  width: 700px;
-  margin: 0 auto;
-  border-bottom: 1px solid silver
+  float: left;
+  min-width: 370px;
+  border-bottom: 1px solid silver;
 }
 
 #scoreboard .score {
@@ -20,5 +19,11 @@
 }
 
 #thrown {
+
+  float: right;
+}
+
+button {
+  display: block;
   float: right;
 }

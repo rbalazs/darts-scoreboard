@@ -17,19 +17,21 @@
   <!-- endbuild -->
 </head>
 <body>
-  <div id="scoreboard" data-bind='template: { foreach: players}'>
-    <div class="player-card" data-bind="status: $data.status">
-      <div class="name" data-bind="text: $data.name"></div>
-      <div class="score" data-bind="text: $data.score"></div>
+  <div id="scoreboard">
+    <div data-bind='template: { foreach: players}'>
+      <div class="player-card" data-bind="status: $data.status">
+        <span class="name" data-bind="text: $data.name"></span> : 
+        <span data-bind="text: $data.victories"></span>
+        <div class="score" data-bind="text: $data.score"></div>
+      </div>
     </div>
+    <button type="button" id="zero" class="btn btn-default btn-lg">
+      <div id="thrown" data-bind="text: thrown"></div>
+    </button>
+    
   </div>
 
-<div id="thrown" data-bind="text: thrown"></div>
-
-  
-  
-
-  <svg id="dartboard" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="787px" height="774px" viewBox="0 0 787 774" enable-background="new 0 0 787 774" xml:space="preserve">
+  <svg id="dartboard" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="700px" height="688px" viewBox="0 0 787 774" enable-background="new 0 0 787 774" xml:space="preserve">
     <g id="areas">
       <g id="s">
         <path id="s19" fill="#F7E9CD" d="M327.95 561.926c-1.952-0.825-3.879-1.693-5.795-2.581l66.1-138.906 c2.034 0.8 4.2 1.5 6.4 1.884L374.688 574.84C358.626 572.6 343 568.3 327.9 561.926z M358.728 696.9 l13.366-102.239c-17.849-2.479-35.233-7.257-51.936-14.321c-2.225-0.941-4.422-1.932-6.605-2.945l-44.31 93.1 c3.562 1.7 7.2 3.3 10.8 4.827C305.328 686.1 331.7 693.3 358.7 696.928z"/>
