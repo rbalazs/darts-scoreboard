@@ -3,13 +3,11 @@ var ViewDatas = function() {
 
     this.games = [101, 301, 501];
 
-    this.gameIndex = 1;
+    this.gameIndex = 0;
 
     this.players = ko.observableArray([]);
 
     this.thrown = ko.observable(0);
-
-    this.scoreAtStepIn = _this.games[_this.gameIndex];
 
     this.currentPlayerIndex = 0;
 
@@ -18,7 +16,11 @@ var ViewDatas = function() {
     this.jumpToNextPlayer = function (currentPlayer) {
         var nextPlayerIndex;
 
-        currentPlayer.avg(((currentPlayer.sum / currentPlayer.throwsNum ) * 3).toFixed(2));
+        var sum = currentPlayer.history().reduce( function(total, num){ return total + num }, 0);
+
+        currentPlayer.avg(((sum / currentPlayer.history().length) * 3).toFixed(2));
+
+        currentPlayer.require = currentPlayer.score();
 
         nextPlayerIndex = _this.currentPlayerIndex + 1;
 
@@ -31,7 +33,6 @@ var ViewDatas = function() {
 
         nextInLine = _this.players()[nextPlayerIndex];
         nextInLine.status(1);
-        _this.scoreAtStepIn = nextInLine.score();
 
         _this.currentPlayerIndex = nextPlayerIndex;
     }
@@ -41,23 +42,17 @@ var ViewDatas = function() {
         var currentPlayer;
 
         currentPlayer = _this.players()[_this.currentPlayerIndex];
-
-        if (_this.thrown() == 0) {
-            currentPlayer.lastScore = 0;
-        }
-
         currentPlayer.sum = parseInt(currentPlayer.sum) + parseInt(score);
         currentPlayer.throwsNum++;
-        currentPlayer.lastScore += parseInt(score);
+        currentPlayer.history.push(parseInt(score));
 
         if (currentPlayer.score() - score < 0) {
-            currentPlayer.score(_this.scoreAtStepIn);
+            currentPlayer.score(currentPlayer.require)
             _this.jumpToNextPlayer(currentPlayer);
         } else if (currentPlayer.score() - score == 0) {
             _this.winner(currentPlayer);
         } else {
             currentPlayer.score(currentPlayer.score() - score);
-
             if (_this.thrown() == 2) {
                 _this.jumpToNextPlayer(currentPlayer);
             } else {
@@ -100,7 +95,7 @@ var ViewDatas = function() {
     };
 
     this.undo = function () {
-        var previusScore;
+        var previusPlayer;
         if  (_this.thrown() == 0) {
             _this.getCurrentPlayer().status(2);
             _this.currentPlayerIndex--;
@@ -108,10 +103,17 @@ var ViewDatas = function() {
                 _this.currentPlayerIndex = (_this.players().length - 1);
             }
 
-            previusScore = _this.getCurrentPlayer().score() + _this.getCurrentPlayer().lastScore;
-            _this.getCurrentPlayer().score(previusScore)
+            previusPlayer = _this.getCurrentPlayer();
+
+            previusPlayer.history.splice(-3, 3).forEach(function(value) {
+                previusPlayer.require += value;
+            })
+
+            previusPlayer.score(previusPlayer.require)
+
         } else {
-            _this.getCurrentPlayer().score(_this.scoreAtStepIn);
+            _this.getCurrentPlayer().history.splice((0 - _this.thrown()), _this.thrown());
+            _this.getCurrentPlayer().score(_this.getCurrentPlayer().require);
             _this.thrown(0);    
         }
 
@@ -130,9 +132,8 @@ var playerModel = function(name, status, score, victories) {
     this.victories = ko.observable(victories || 0)
     var zero = 0;
     this.avg = ko.observable(zero.toFixed(3));
-    this.throwsNum = 0;
-    this.sum = 0;
-    this.lastScore = 0;
+    this.history = ko.observableArray([])
+    this.require = score;
 }
 
 var viewDatas = new ViewDatas();
