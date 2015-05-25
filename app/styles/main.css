@@ -1,0 +1,11 @@
+#dartboard {
+  margin: 0 auto;
+  display: block;
+}
+
+#scoreboard {
+  height: 50px;
+  width: 700px;
+  margin: 0 auto;
+  border-bottom: 1px solid silver
+}
