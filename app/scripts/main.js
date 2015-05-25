@@ -14,13 +14,11 @@ var ViewDatas = function() {
     }
 };
 
-
 var playerModel = function(name, status, score) {
     this.name = name;
     this.status = status;
     this.score = ko.observable(score)
 }
-
 
 var viewDatas = new ViewDatas();
 
@@ -35,11 +33,21 @@ $(function() {
     $("#dartboard #areas g").children().click(function(){
         var id;
         var score;
+        var color;
+        var _this = this;
+
 
         id = $(this).attr('id');
-        
-        score = id.substring(1);
+            
+        color = $(this).css('fill');
 
+        $(this).css('fill', 'red')
+
+        setTimeout(function () {
+            $(_this).css('fill', color)            
+        }, 500)
+
+        score = id.substring(1);
         
         if (id[0] == 'd') {
             score = score * 2
