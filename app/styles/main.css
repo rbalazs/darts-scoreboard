@@ -6,6 +6,7 @@
   height: 50px;
   float: left;
   min-width: 370px;
+  clear: both;
   border-bottom: 1px solid silver;
 }
 
