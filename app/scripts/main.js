@@ -3,20 +3,20 @@ var ViewDatas = function() {
 
     this.players = ko.observableArray([]);
 
-    this.refreshPlayer = function(playerScore) {
+    this.refreshPlayer = function(score) {
         var match = ko.utils.arrayFirst(this.players(), function(item) {
-            return playerScore.name === item.name;
+            return 1 === item.status();
         });
 
         if (match) {
-            match.score(match.score() - playerScore.score)
+            match.score(match.score() - score)
         }
     }
 };
 
 var playerModel = function(name, status, score) {
     this.name = name;
-    this.status = status;
+    this.status = ko.observable(status);
     this.score = ko.observable(score)
 }
 
@@ -35,7 +35,6 @@ $(function() {
         var score;
         var color;
         var _this = this;
-
 
         id = $(this).attr('id');
             
@@ -57,7 +56,7 @@ $(function() {
             score = score * 3
         }
 
-        viewDatas.refreshPlayer({name: "Eszti", score:score});
+        viewDatas.refreshPlayer(score);
 
     });
 });
