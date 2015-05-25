@@ -1,13 +1,15 @@
 var ViewDatas = function() {
     var _this = this;
 
-    this.scoreLimit = 101;
+    this.games = [101, 301, 501];
+
+    this.gameIndex = 0;
 
     this.players = ko.observableArray([]);
 
     this.thrown = ko.observable(0);
 
-    this.scoreAtStepIn = _this.scoreLimit;
+    this.scoreAtStepIn = _this.games[_this.gameIndex];
 
     this.currentPlayerIndex = 0;
 
@@ -56,7 +58,7 @@ var ViewDatas = function() {
 
     this.winner = function (currentPlayer) {
         ko.utils.arrayForEach(_this.players(), function(player) {
-            player.score(_this.scoreLimit);
+            player.score(_this.games[_this.gameIndex]);
             player.status(2);
         });
 
@@ -72,7 +74,20 @@ var ViewDatas = function() {
         }
 
         currentPlayer.victories(currentPlayer.victories() + 1);
-    }
+    };
+
+    this.swapScore = function () {
+        _this.gameIndex++;
+
+        if (_this.gameIndex >= _this.games.length) {
+            _this.gameIndex = 0;
+        }
+
+        ko.utils.arrayForEach(_this.players(), function(player) {
+            player.score(_this.games[_this.gameIndex]);
+            player.status(2);
+        });
+    };
 }
 
 var playerModel = function(name, status, score, victories) {
@@ -101,17 +116,25 @@ ko.bindingHandlers.status = {
 
 
 $(function() {
+    var scoreLimit;
+
     ko.applyBindings({
         players: viewDatas.players,
         thrown: viewDatas.thrown
     });
 
-    viewDatas.players.push(new playerModel('Eszti', 1, viewDatas.scoreLimit));
-    viewDatas.players.push(new playerModel('Balázs', 2, viewDatas.scoreLimit));
-    viewDatas.players.push(new playerModel('Csaba', 2, viewDatas.scoreLimit));
+    scoreLimit = viewDatas.games[viewDatas.gameIndex];
+
+    viewDatas.players.push(new playerModel('Eszti', 1, scoreLimit));
+    viewDatas.players.push(new playerModel('Balázs', 2, scoreLimit));
+    viewDatas.players.push(new playerModel('Csaba', 2, scoreLimit));
 
     $('#zero').click(function () {
         viewDatas.handleThrow(0);        
+    });
+
+    $('#up').click(function () {
+        viewDatas.swapScore();        
     });
 
     $("#dartboard #areas g").children().click(function(){
