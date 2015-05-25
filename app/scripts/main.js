@@ -3,7 +3,7 @@ var ViewDatas = function() {
 
     this.players = ko.observableArray([]);
 
-    this.thrown = 0;
+    this.thrown = ko.observable(0);
 
     this.handleThrow = function(score) {
         var nextInLine;
@@ -14,8 +14,8 @@ var ViewDatas = function() {
 
         if (match) {
             match.score(match.score() - score)
-            if (_this.thrown == 2) {
-                _this.thrown = 0;  
+            if (_this.thrown() == 2) {
+                _this.thrown(0);  
                 match.status(0);   
                 nextInLine = ko.utils.arrayFirst(this.players(), function(item) {
                     return 2 === item.status();
@@ -31,7 +31,7 @@ var ViewDatas = function() {
                 }).status(1);
               }
           } else {
-            _this.thrown += 1;
+            _this.thrown(_this.thrown() + 1);
         }
     }
 }
@@ -61,7 +61,8 @@ ko.bindingHandlers.status = {
 
 $(function() {
     ko.applyBindings({
-        players: viewDatas.players
+        players: viewDatas.players,
+        thrown: viewDatas.thrown
     });
 
     viewDatas.players.push(new playerModel('Eszti', 1, 301));

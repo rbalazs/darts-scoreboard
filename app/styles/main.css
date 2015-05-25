@@ -18,3 +18,7 @@
   float: left;
   min-width: 100px;
 }
+
+#thrown {
+  float: right;
+}
