@@ -3,15 +3,38 @@ var ViewDatas = function() {
 
     this.players = ko.observableArray([]);
 
-    this.refreshPlayer = function(score) {
+    this.thrown = 0;
+
+    this.handleThrow = function(score) {
+        var nextInLine;
+
         var match = ko.utils.arrayFirst(this.players(), function(item) {
             return 1 === item.status();
         });
 
         if (match) {
             match.score(match.score() - score)
+            if (_this.thrown == 2) {
+                _this.thrown = 0;  
+                match.status(0);   
+                nextInLine = ko.utils.arrayFirst(this.players(), function(item) {
+                    return 2 === item.status();
+                })
+                if (nextInLine) {
+                    nextInLine.status(1)
+                } else {
+                  ko.utils.arrayForEach(this.players(), function(player) {
+                    player.status(2)
+                });
+                  ko.utils.arrayFirst(this.players(), function(player) {
+                    return 2 === player.status()
+                }).status(1);
+              }
+          } else {
+            _this.thrown += 1;
         }
     }
+}
 };
 
 var playerModel = function(name, status, score) {
@@ -28,7 +51,8 @@ $(function() {
     });
 
     viewDatas.players.push(new playerModel('Eszti', 1, 301));
-    viewDatas.players.push(new playerModel('Balázs', 0, 301));
+    viewDatas.players.push(new playerModel('Balázs', 2, 301));
+    viewDatas.players.push(new playerModel('Csaba', 2, 301));
 
     $("#dartboard #areas g").children().click(function(){
         var id;
@@ -37,7 +61,7 @@ $(function() {
         var _this = this;
 
         id = $(this).attr('id');
-            
+
         color = $(this).css('fill');
 
         $(this).css('fill', 'red')
@@ -56,7 +80,6 @@ $(function() {
             score = score * 3
         }
 
-        viewDatas.refreshPlayer(score);
-
+        viewDatas.handleThrow(score);
     });
 });
