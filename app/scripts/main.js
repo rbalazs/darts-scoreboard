@@ -42,8 +42,13 @@ var ViewDatas = function() {
 
         currentPlayer = _this.players()[_this.currentPlayerIndex];
 
+        if (_this.thrown == 0) {
+            currentPlayer.lastScore = 0;
+        }
+
         currentPlayer.sum = parseInt(currentPlayer.sum) + parseInt(score);
         currentPlayer.throwsNum++;
+        currentPlayer.lastScore += parseInt(score);
 
         if (currentPlayer.score() - score < 0) {
             currentPlayer.score(_this.scoreAtStepIn);
@@ -95,12 +100,16 @@ var ViewDatas = function() {
     };
 
     this.undo = function () {
-        if (_this.thrown() == 0) {
+        var previusScore;
+        if  (_this.thrown() == 0) {
             _this.getCurrentPlayer().status(2);
             _this.currentPlayerIndex--;
             if (_this.currentPlayerIndex < 0) {
                 _this.currentPlayerIndex = (_this.players().length - 1);
             }
+
+            previusScore = _this.getCurrentPlayer().score() + _this.getCurrentPlayer().lastScore;
+            _this.getCurrentPlayer().score(previusScore)
         } else {
             _this.getCurrentPlayer().score(_this.scoreAtStepIn);
             _this.thrown(0);    
@@ -122,6 +131,7 @@ var playerModel = function(name, status, score, victories) {
     this.avg = ko.observable(0);
     this.throwsNum = 0;
     this.sum = 0;
+    this.lastScore = 0;
 }
 
 var viewDatas = new ViewDatas();
