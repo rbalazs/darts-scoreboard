@@ -1,1 +1,0 @@
-web dist/index.html
