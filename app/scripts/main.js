@@ -95,8 +95,18 @@ var ViewDatas = function() {
     };
 
     this.undo = function () {
-        _this.getCurrentPlayer().score(_this.scoreAtStepIn);
-        _this.thrown(0);
+        if (_this.thrown() == 0) {
+            _this.getCurrentPlayer().status(2);
+            _this.currentPlayerIndex--;
+            if (_this.currentPlayerIndex < 0) {
+                _this.currentPlayerIndex = (_this.players().length - 1);
+            }
+        } else {
+            _this.getCurrentPlayer().score(_this.scoreAtStepIn);
+            _this.thrown(0);    
+        }
+
+        _this.getCurrentPlayer().status(1);
     };
 
     this.getCurrentPlayer = function () {
