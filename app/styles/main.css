@@ -15,6 +15,11 @@
   font-weight: bold;
 }
 
+#zero {
+  margin-left: 2px;
+  position: fixed;
+}
+
 .player-card {
   float: left;
   min-width: 100px;
