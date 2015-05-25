@@ -95,6 +95,14 @@ $(function() {
             score = score * 3
         }
 
+        if (id == 'Outer') {
+            score = 25;
+        }
+
+        if (id == 'Bull') {
+            score = 50;
+        }
+
         viewDatas.handleThrow(score);
     });
 });
