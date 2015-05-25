@@ -168,7 +168,7 @@ $(function() {
 
         color = $(this).css('fill');
 
-        $(this).css('fill', 'red')
+        $(this).css('fill', 'yellow')
 
         setTimeout(function () {
             $(_this).css('fill', color)            
