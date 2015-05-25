@@ -42,7 +42,7 @@ var ViewDatas = function() {
 
         currentPlayer = _this.players()[_this.currentPlayerIndex];
 
-        if (_this.thrown == 0) {
+        if (_this.thrown() == 0) {
             currentPlayer.lastScore = 0;
         }
 
