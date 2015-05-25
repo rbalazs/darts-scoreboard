@@ -90,8 +90,12 @@ var ViewDatas = function() {
     };
 
     this.undo = function () {
-        _this.players()[_this.currentPlayerIndex].score(_this.scoreAtStepIn);
-        _this.thrown(0)
+        _this.getCurrentPlayer().score(_this.scoreAtStepIn);
+        _this.thrown(0);
+    };
+
+    this.getCurrentPlayer = function () {
+        return _this.players()[_this.currentPlayerIndex]
     };
 }
 
