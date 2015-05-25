@@ -88,6 +88,11 @@ var ViewDatas = function() {
             player.status(2);
         });
     };
+
+    this.undo = function () {
+        _this.players()[_this.currentPlayerIndex].score(_this.scoreAtStepIn);
+        _this.thrown(0)
+    };
 }
 
 var playerModel = function(name, status, score, victories) {
@@ -135,6 +140,10 @@ $(function() {
 
     $('#up').click(function () {
         viewDatas.swapScore();        
+    });
+
+    $('#undo').click(function () {
+        viewDatas.undo();        
     });
 
     $("#dartboard #areas g").children().click(function(){
