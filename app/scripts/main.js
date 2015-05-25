@@ -18,6 +18,8 @@ var ViewDatas = function() {
     this.jumpToNextPlayer = function (currentPlayer) {
         var nextPlayerIndex;
 
+        currentPlayer.avg(((currentPlayer.sum / currentPlayer.throwsNum ) * 3).toFixed(2));
+
         nextPlayerIndex = _this.currentPlayerIndex + 1;
 
         if (nextPlayerIndex >= _this.players().length) {
@@ -39,6 +41,9 @@ var ViewDatas = function() {
         var currentPlayer;
 
         currentPlayer = _this.players()[_this.currentPlayerIndex];
+
+        currentPlayer.sum = parseInt(currentPlayer.sum) + parseInt(score);
+        currentPlayer.throwsNum++;
 
         if (currentPlayer.score() - score < 0) {
             currentPlayer.score(_this.scoreAtStepIn);
@@ -104,6 +109,9 @@ var playerModel = function(name, status, score, victories) {
     this.status = ko.observable(status);
     this.score = ko.observable(score);
     this.victories = ko.observable(victories || 0)
+    this.avg = ko.observable(0);
+    this.throwsNum = 0;
+    this.sum = 0;
 }
 
 var viewDatas = new ViewDatas();
