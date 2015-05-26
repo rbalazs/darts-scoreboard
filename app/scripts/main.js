@@ -3,11 +3,13 @@ var ViewDatas = function() {
 
     this.games = [101, 301, 501];
 
-    this.gameIndex = 0;
+    this.gameIndex = 2;
 
     this.players = ko.observableArray([]);
 
     this.thrown = ko.observable(0);
+
+    this.switchViewIndex = ko.observable(0);
 
     this.currentPlayerIndex = 0;
 
@@ -102,6 +104,23 @@ var ViewDatas = function() {
         });
     };
 
+    this.switchView = function () {
+        var style = $('#switchable')[0].getAttribute("href");
+        if(style == "styles/view.css") {
+            style = "styles/main.css"
+            _this.switchViewIndex(0);
+        } else if(style == "styles/main.css" ) {
+            style = "styles/view.css"
+            _this.switchViewIndex(1);
+        }
+        var a = $('#switchable')[0].getAttribute("href");
+        
+        var link = document.getElementById('switchable');
+        link.href = style;
+        
+        console.log(style);
+    };
+
     this.undo = function () {
         var previusPlayer;
         if  (_this.thrown() == 0) {
@@ -167,7 +186,8 @@ $(function() {
 
     ko.applyBindings({
         players: viewDatas.players,
-        thrown: viewDatas.thrown
+        thrown: viewDatas.thrown,
+        _switch: viewDatas.switchViewIndex
     });
 
     scoreLimit = viewDatas.games[viewDatas.gameIndex];
@@ -175,6 +195,10 @@ $(function() {
     viewDatas.players.push(new playerModel('Eszti', 1, scoreLimit));
     viewDatas.players.push(new playerModel('Balázs', 2, scoreLimit));
     viewDatas.players.push(new playerModel('Csaba', 2, scoreLimit));
+
+    $('#switch-btn').click(function() {
+        viewDatas.switchView();
+    });
 
     $('#zero').click(function () {
         viewDatas.handleThrow(0);        

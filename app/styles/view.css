@@ -3,10 +3,10 @@
 }
 
 #scoreboard {
-  font-size: 20px;
-  height: 60px;
+  font-size: 30px;
+  height: 600px;
   float: left;
-  min-width: 480px;
+  width: 450px;
   clear: both;
   border-bottom: 1px solid silver;
 }
@@ -22,12 +22,16 @@
 
 .player-card {
   float: left;
-  min-width: 100px;
+  min-width: 300px;
 }
 
 #thrown {
 
   float: right;
+}
+
+.score {
+  font-size: 100px;
 }
 
 #switch-btn {
