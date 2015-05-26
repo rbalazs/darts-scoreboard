@@ -40,11 +40,9 @@ var ViewDatas = function() {
     }
 
     this.handleThrow = function(score) {
-        var nextInLine;
         var currentPlayer;
 
         currentPlayer = _this.players()[_this.currentPlayerIndex];
-        currentPlayer.sum = parseInt(currentPlayer.sum) + parseInt(score);
         currentPlayer.history.push(parseInt(score));
 
         if (currentPlayer.score() - score < 0) {
