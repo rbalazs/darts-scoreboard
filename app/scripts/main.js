@@ -3,7 +3,7 @@ var ViewDatas = function() {
 
     this.games = [101, 301, 501];
 
-    this.gameIndex = 1;
+    this.gameIndex = 0;
 
     this.players = ko.observableArray([]);
 
@@ -43,11 +43,12 @@ var ViewDatas = function() {
 
         currentPlayer = _this.players()[_this.currentPlayerIndex];
         currentPlayer.sum = parseInt(currentPlayer.sum) + parseInt(score);
-        currentPlayer.throwsNum++;
         currentPlayer.history.push(parseInt(score));
 
         if (currentPlayer.score() - score < 0) {
             currentPlayer.score(currentPlayer.require)
+            _this.thrown(_this.thrown() + 1);
+            currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
             _this.jumpToNextPlayer(currentPlayer);
         } else if (currentPlayer.score() - score == 0) {
             _this.winner(currentPlayer);
