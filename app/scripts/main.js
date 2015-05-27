@@ -52,9 +52,11 @@ var ViewDatas = function() {
             currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
             _this.jumpToNextPlayer(currentPlayer);
         } else if (currentPlayer.score() == 0) {
+            _this.turnScore(currentPlayer)
             _this.winner(currentPlayer);
         } else {
             if (_this.thrown() == 2) {
+                _this.turnScore(currentPlayer)
                 _this.jumpToNextPlayer(currentPlayer);
             } else {
                 _this.thrown(_this.thrown() + 1);
@@ -91,6 +93,15 @@ var ViewDatas = function() {
         currentPlayer.victories(currentPlayer.victories() + 1);
     };
 
+    this.turnScore = function (currentPlayer) {
+        var turnThrows = currentPlayer.history.slice(-3);
+        var turnSum = 0;
+        for (var i = 0; i < 3; i++) {
+            turnSum += turnThrows[i];
+        }
+        currentPlayer.turnHistory.push(turnSum);
+    };
+
     this.swapScore = function () {
         _this.gameIndex++;
 
@@ -114,6 +125,7 @@ var ViewDatas = function() {
             style = link.replace("main","view")
             _this.switchViewIndex(1);
         }
+        console.log(style)
         $("#switchable").attr("href", style);
     };
 
@@ -127,6 +139,7 @@ var ViewDatas = function() {
             }
 
             _this.getCurrentPlayer().history.splice(-3, 3);
+            _this.getCurrentPlayer().turnHistory.splice(-1, 1);
         } else {
             _this.getCurrentPlayer().history.splice((0 - _this.thrown()), _this.thrown());
             _this.thrown(0);    
@@ -152,7 +165,11 @@ var playerModel = function(name, status, score, victories) {
     this.require = score;
     this.score = ko.computed(function() {
         return viewDatas.games[viewDatas.gameIndex] - this.history().reduce(function(total, num){ return total + num }, 0)
-    }, this);   
+    }, this);
+    this.turnHistory = ko.observableArray([])
+    this.highestScore = ko.computed(function() {
+        return this.turnHistory().reduce(function(p, v){ return ( p > v ? p : v ); }, 0)
+    }, this);
 }
 
 ko.bindingHandlers.status = {
@@ -183,8 +200,8 @@ $(function() {
 
     scoreLimit = viewDatas.games[viewDatas.gameIndex];
 
-    viewDatas.players.push(new playerModel('Balázs', 1, scoreLimit));
-    viewDatas.players.push(new playerModel('Csaba', 2, scoreLimit));
+    viewDatas.players.push(new playerModel('Márki', 1, scoreLimit));
+    viewDatas.players.push(new playerModel('Csé', 2, scoreLimit));
 
     $('#switch-btn').click(function() {
         viewDatas.switchView();

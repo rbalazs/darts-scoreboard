@@ -55,6 +55,13 @@
                 <div data-bind="text: $data.history"></div>
         </li>
     </ul>
+    <h5>Legnagyobb dobás:</h5>
+    <ul data-bind="foreach: players">
+        <li>
+            <b data-bind="text: $data.name"> </b>
+                <div data-bind="text: $data.highestScore"></div>
+        </li>
+    </ul>
   </div>
   <svg id="dartboard" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="700px" height="688px" viewBox="0 0 787 774" enable-background="new 0 0 787 774" xml:space="preserve">
     <g id="areas">
