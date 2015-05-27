@@ -106,14 +106,14 @@ var ViewDatas = function() {
 
     this.switchView = function () {
         var style;
+        var link = $("#switchable").attr("href");
         if(_this.switchViewIndex() == 1) {
-            style = "styles/main.css"
+            style = link.replace("view","main")
             _this.switchViewIndex(0);
         } else if(_this.switchViewIndex() == 0) {
-            style = "styles/view.css"
+            style = link.replace("main","view")
             _this.switchViewIndex(1);
         }
-        
         $("#switchable").attr("href", style);
     };
 
