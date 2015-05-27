@@ -4,7 +4,7 @@
 
 #scoreboard {
   font-size: 30px;
-  height: 600px;
+  max-height: 600px;
   float: left;
   width: 450px;
   clear: both;
@@ -36,6 +36,7 @@
 
 #switch-btn {
   margin-left: 60px;
+  background-color: silver;
   position: fixed;
 }
 

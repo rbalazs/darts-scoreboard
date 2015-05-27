@@ -105,20 +105,16 @@ var ViewDatas = function() {
     };
 
     this.switchView = function () {
-        var style = $('#switchable')[0].getAttribute("href");
-        if(style == "styles/view.css") {
+        var style;
+        if(_this.switchViewIndex() == 1) {
             style = "styles/main.css"
             _this.switchViewIndex(0);
-        } else if(style == "styles/main.css" ) {
+        } else if(_this.switchViewIndex() == 0) {
             style = "styles/view.css"
             _this.switchViewIndex(1);
         }
-        var a = $('#switchable')[0].getAttribute("href");
         
-        var link = document.getElementById('switchable');
-        link.href = style;
-        
-        console.log(style);
+        $("#switchable").attr("href", style);
     };
 
     this.undo = function () {
