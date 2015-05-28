@@ -94,9 +94,10 @@ var ViewDatas = function() {
     };
 
     this.turnScore = function (currentPlayer) {
-        var turnThrows = currentPlayer.history.slice(-3);
+        var countDarts = _this.thrown() + 1;
+        var turnThrows = currentPlayer.history.slice(-countDarts);
         var turnSum = 0;
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < countDarts; i++) {
             turnSum += turnThrows[i];
         }
         currentPlayer.turnHistory.push(turnSum);
