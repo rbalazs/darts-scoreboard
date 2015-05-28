@@ -135,7 +135,6 @@ var ViewDatas = function() {
             style = link.replace("main","view")
             _this.switchViewIndex(1);
         }
-        console.log(style)
         $("#switchable").attr("href", style);
     };
 
@@ -202,6 +201,7 @@ ko.bindingHandlers.status = {
 
 $(function() {
     var scoreLimit;
+    var clickCount = 0;
 
     ko.applyBindings({
         players: viewDatas.players,
@@ -230,7 +230,7 @@ $(function() {
     $('#undo').click(function () {
         viewDatas.undo();        
     });
-
+    
     $("#dartboard #areas g").children().click(function(){
         var id;
         var score;
@@ -239,13 +239,24 @@ $(function() {
 
         id = $(this).attr('id');
 
-        color = $(this).css('fill');
+        if ($(this).css('fill') != "rgb(255, 255, 0)") {
+            color = $(this).css('fill');    
+        } else {
+            return;
+        }
 
-        $(this).css('fill', 'yellow')
+        clickCount++;
 
-        setTimeout(function () {
-            $(_this).css('fill', color)            
-        }, 250)
+        if (clickCount === 1) {
+            $(this).css('fill', 'yellow')
+            singleClickTimer = setTimeout(function() {
+                clickCount = 0;
+                $(_this).css('fill', color)            
+            }, 250);
+        } else if (clickCount === 2) {
+            clearTimeout(singleClickTimer);
+            clickCount = 0;
+        }
 
         score = id.substring(1);
         
