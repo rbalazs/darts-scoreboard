@@ -20,9 +20,7 @@ var ViewDatas = function() {
     this.jumpToNextPlayer = function (currentPlayer) {
         var nextPlayerIndex;
 
-        var sum = currentPlayer.history().reduce( function(total, num){ return total + num }, 0);
-
-        currentPlayer.avg(((sum / currentPlayer.history().length) * 3).toFixed(2));
+        _this.updateAvg(currentPlayer);
 
         currentPlayer.require = currentPlayer.score();
 
@@ -70,9 +68,12 @@ var ViewDatas = function() {
             return;
         }
 
+        _this.updateAvg(currentPlayer);
+
         ko.utils.arrayForEach(_this.players(), function(player) {
             player.status(2);
             player.history([]);
+            player.turnHistory([]);
         });
 
         if (_this.highestGameShot()[0] < currentPlayer.require) {
@@ -101,7 +102,15 @@ var ViewDatas = function() {
             turnSum += turnThrows[i];
         }
         currentPlayer.turnHistory.push(turnSum);
+        currentPlayer.allTurnHistory.push(turnSum);
     };
+
+    this.updateAvg = function (currentPlayer) {
+
+        var sum = currentPlayer.turnHistory().reduce( function(total, num){ return total + num }, 0);
+
+        currentPlayer.avg(((sum / currentPlayer.turnHistory().length)).toFixed(2));
+    }
 
     this.swapScore = function () {
         _this.gameIndex++;
@@ -141,6 +150,7 @@ var ViewDatas = function() {
 
             _this.getCurrentPlayer().history.splice(-3, 3);
             _this.getCurrentPlayer().turnHistory.splice(-1, 1);
+            _this.getCurrentPlayer().allTurnHistory.splice(-1, 1);
         } else {
             _this.getCurrentPlayer().history.splice((0 - _this.thrown()), _this.thrown());
             _this.thrown(0);    
@@ -168,8 +178,9 @@ var playerModel = function(name, status, score, victories) {
         return viewDatas.games[viewDatas.gameIndex] - this.history().reduce(function(total, num){ return total + num }, 0)
     }, this);
     this.turnHistory = ko.observableArray([])
+    this.allTurnHistory = ko.observableArray([])
     this.highestScore = ko.computed(function() {
-        return this.turnHistory().reduce(function(p, v){ return ( p > v ? p : v ); }, 0)
+        return this.allTurnHistory().reduce(function(p, v){ return ( p > v ? p : v ); }, 0)
     }, this);
 }
 
