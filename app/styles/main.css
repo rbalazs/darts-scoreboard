@@ -3,50 +3,62 @@
 }
 
 #scoreboard {
-  font-size: 20px;
-  height: 60px;
-  float: left;
-  min-width: 480px;
-  clear: both;
-  border-bottom: 1px solid silver;
+    float: left;
+    clear: both;
+    min-width: 350px;
 }
 
 #scoreboard .score {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 #zero {
-  margin-left: 2px;
-  position: fixed;
+    margin-left: 2px;
+    position: fixed;
 }
 
 .player-card {
-  float: left;
-  min-width: 100px;
+    float: left;
+    min-width: 100px;
 }
 
 #thrown {
 
-  float: right;
+    float: right;
 }
 
 #switch_double_btn {
 
-  background-color: rgb(123, 123, 123);
+    background-color: rgb(123, 123, 123);
 }
 
 #switch_view_btn {
-  margin-left: 60px;
-  background-color: silver;
-  position: fixed;
+    margin-left: 60px;
+    background-color: silver;
+    position: fixed;
 }
 
 #switch {
 
-  float: right;
+    float: right;
 }
 
 button {
-  display: block;
-  float: left;
+    display: block;
+    float: left;
+}
+
+.alert-info {
+    font-size: 32px;
+}
+
+.name {
+    font-size: 18px;
+}
+
+.label-success {
+    background-color: #5cb85c;
+    position: relative;
+    top: -3px;
+    left: 4px;
 }

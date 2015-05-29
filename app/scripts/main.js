@@ -13,7 +13,7 @@ var ViewDatas = function() {
 
     this.switchViewIndex = ko.observable(0);
 
-    this.switchToDoubleOut = ko.observable(0);
+    this.switchToDoubleOut = ko.observable(false);
 
     this.currentPlayerIndex = 0;
 
@@ -147,10 +147,10 @@ var ViewDatas = function() {
         
         if(_this.switchToDoubleOut() == 1) {
             console.log(_this.switchToDoubleOut())
-            _this.switchToDoubleOut(0)
+            _this.switchToDoubleOut(false)
         } else if (_this.switchToDoubleOut() == 0) {
             console.log(_this.switchToDoubleOut())
-            _this.switchToDoubleOut(1)
+            _this.switchToDoubleOut(true)
         }
         console.log("asd")
 
@@ -200,8 +200,7 @@ var playerModel = function(name, status, score, victories) {
     this.name = name;
     this.status = ko.observable(status);
     this.victories = ko.observable(victories || 0)
-    var zero = 0;
-    this.avg = ko.observable(zero.toFixed(3));
+    this.avg = ko.observable(0);
     this.history = ko.observableArray([])
     this.require = score;
     this.score = ko.computed(function() {
