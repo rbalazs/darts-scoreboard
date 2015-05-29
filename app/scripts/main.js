@@ -65,13 +65,19 @@ var ViewDatas = function() {
                     currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
                     _this.jumpToNextPlayer(currentPlayer);
                 }
-            }
-        } else {
-            if (_this.thrown() == 2) {
-                _this.turnScore(currentPlayer)
+            }            
+        } else  {
+            if (_this.switchToDoubleOut() == 1 && currentPlayer.score() == 1 ) {
+                _this.thrown(_this.thrown() + 1);
+                currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
                 _this.jumpToNextPlayer(currentPlayer);
             } else {
-                _this.thrown(_this.thrown() + 1);
+                if (_this.thrown() == 2) {
+                    _this.turnScore(currentPlayer)
+                    _this.jumpToNextPlayer(currentPlayer);
+                } else {
+                    _this.thrown(_this.thrown() + 1);
+                }    
             }
         }
     };
