@@ -1,5 +1,6 @@
 #dartboard {
-
+    position: relative;
+    left: 150px;
 }
 
 #scoreboard {
@@ -10,11 +11,6 @@
 
 #scoreboard .score {
     font-weight: bold;
-}
-
-#zero {
-    margin-left: 2px;
-    position: fixed;
 }
 
 .player-card {
@@ -28,24 +24,11 @@
 }
 
 #switch_double_btn {
-
     background-color: rgb(123, 123, 123);
 }
 
 #switch_view_btn {
-    margin-left: 60px;
     background-color: silver;
-    position: fixed;
-}
-
-#switch {
-
-    float: right;
-}
-
-button {
-    display: block;
-    float: left;
 }
 
 .alert-info {
@@ -61,4 +44,12 @@ button {
     position: relative;
     top: -3px;
     left: 4px;
+}
+
+#button-holder {
+    float: left;
+    clear: both;
+    position: absolute;
+    bottom: 5px;
+    left: 3px;
 }
