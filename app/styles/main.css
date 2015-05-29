@@ -30,7 +30,12 @@
   float: right;
 }
 
-#switch-btn {
+#switch_double_btn {
+
+  background-color: rgb(123, 123, 123);
+}
+
+#switch_view_btn {
   margin-left: 60px;
   background-color: silver;
   position: fixed;

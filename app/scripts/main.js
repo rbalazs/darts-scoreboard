@@ -3,7 +3,7 @@ var ViewDatas = function() {
 
     this.games = [101, 301, 501];
 
-    this.gameIndex = 1;
+    this.gameIndex = 0;
 
     this.players = ko.observableArray([]);
 
@@ -12,6 +12,8 @@ var ViewDatas = function() {
     this.highestGameShot = ko.observableArray([0,'']);
 
     this.switchViewIndex = ko.observable(0);
+
+    this.switchToDoubleOut = ko.observable(0);
 
     this.currentPlayerIndex = 0;
 
@@ -39,7 +41,7 @@ var ViewDatas = function() {
         _this.currentPlayerIndex = nextPlayerIndex;
     }
 
-    this.handleThrow = function(score) {
+    this.handleThrow = function(score,id) {
         var currentPlayer;
 
         currentPlayer = _this.getCurrentPlayer()
@@ -50,8 +52,19 @@ var ViewDatas = function() {
             currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
             _this.jumpToNextPlayer(currentPlayer);
         } else if (currentPlayer.score() == 0) {
-            _this.turnScore(currentPlayer)
-            _this.winner(currentPlayer);
+            if (_this.switchToDoubleOut() == 0) {
+                _this.turnScore(currentPlayer)
+                _this.winner(currentPlayer);    
+            } else  if (_this.switchToDoubleOut() == 1) {
+                if (id[0] == 'd' || id == 'Bull') {
+                    _this.turnScore(currentPlayer)
+                    _this.winner(currentPlayer);    
+                } else {
+                    _this.thrown(_this.thrown() + 1);
+                    currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
+                    _this.jumpToNextPlayer(currentPlayer);
+                }
+            }
         } else {
             if (_this.thrown() == 2) {
                 _this.turnScore(currentPlayer)
@@ -70,15 +83,16 @@ var ViewDatas = function() {
 
         _this.updateAvg(currentPlayer);
 
+        if (_this.highestGameShot()[0] < currentPlayer.require) {
+            _this.highestGameShot([currentPlayer.require, currentPlayer.name]);
+        }
+
         ko.utils.arrayForEach(_this.players(), function(player) {
             player.status(2);
             player.history([]);
             player.turnHistory([]);
+            player.require = player.score();
         });
-
-        if (_this.highestGameShot()[0] < currentPlayer.require) {
-            _this.highestGameShot([currentPlayer.require, currentPlayer.name]);
-        }
 
         _this.thrown(0);
 
@@ -103,6 +117,8 @@ var ViewDatas = function() {
         }
         currentPlayer.turnHistory.push(turnSum);
         currentPlayer.allTurnHistory.push(turnSum);
+        console.log("...tHis: " + currentPlayer.turnHistory().toString())
+        console.log("allTHis: " + currentPlayer.allTurnHistory().toString())
     };
 
     this.updateAvg = function (currentPlayer) {
@@ -122,7 +138,22 @@ var ViewDatas = function() {
         ko.utils.arrayForEach(_this.players(), function(player) {
             player.status(2);
             player.history([])
+            player.turnHistory([])
+            player.require = player.score();
         });
+    };
+
+    this.switchDoubleOut = function() {
+        
+        if(_this.switchToDoubleOut() == 1) {
+            console.log(_this.switchToDoubleOut())
+            _this.switchToDoubleOut(0)
+        } else if (_this.switchToDoubleOut() == 0) {
+            console.log(_this.switchToDoubleOut())
+            _this.switchToDoubleOut(1)
+        }
+        console.log("asd")
+
     };
 
     this.switchView = function () {
@@ -183,6 +214,7 @@ var playerModel = function(name, status, score, victories) {
     }, this);
 }
 
+
 ko.bindingHandlers.status = {
     update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
         var value = valueAccessor();
@@ -207,7 +239,8 @@ $(function() {
         players: viewDatas.players,
         thrown: viewDatas.thrown,
         _switch: viewDatas.switchViewIndex,
-        highestGameShot: viewDatas.highestGameShot
+        highestGameShot: viewDatas.highestGameShot,
+        _switch_double: viewDatas.switchToDoubleOut
     });
 
     scoreLimit = viewDatas.games[viewDatas.gameIndex];
@@ -215,7 +248,11 @@ $(function() {
     viewDatas.players.push(new playerModel('Márki', 1, scoreLimit));
     viewDatas.players.push(new playerModel('Csé', 2, scoreLimit));
 
-    $('#switch-btn').click(function() {
+    $('#switch_double_btn').click(function() {
+        viewDatas.switchDoubleOut();
+    });
+
+    $('#switch_view_btn').click(function() {
         viewDatas.switchView();
     });
 
@@ -276,6 +313,6 @@ $(function() {
             score = 50;
         }
 
-        viewDatas.handleThrow(score);
+        viewDatas.handleThrow(score,id);
     });
 });
