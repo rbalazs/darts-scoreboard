@@ -28,7 +28,7 @@
         </li>
         <div class="alert alert-info" role="alert" data-bind="text: $data.score"></div>
         <div class="alert alert-success" role="alert" data-bind="text: $data.history"></div>
-        <div data-bind="progress: { value: $data.avg, type: 'info', text: 'átlag pont', textHidden: false, animated: true, striped: true }"></div>
+        <div data-bind="progress: { value: $data.avg, type: 'info', text: 'átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
     </ul>
 </div>
 
@@ -138,7 +138,6 @@
 <!-- bower:js -->
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/knockout/dist/knockout.js"></script>
-<script src="bower_components/knockout.js/knockout.js"></script>
 <script src="bower_components/knockstrap/build/knockstrap.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
