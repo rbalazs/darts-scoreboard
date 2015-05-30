@@ -86,7 +86,9 @@ var ViewDatas = function() {
             return;
         }
 
-        currentPlayer.highestGameShot(currentPlayer.require);
+        if (currentPlayer.highestGameShot() < currentPlayer.require) {
+            currentPlayer.highestGameShot(currentPlayer.require);    
+        }
 
         _this.updateAvg(currentPlayer);
 
@@ -253,7 +255,8 @@ $(function() {
 
     scoreLimit = viewDatas.games[viewDatas.gameIndex];
 
-    viewDatas.players.push(new playerModel('Márki', 1, scoreLimit));
+    viewDatas.players.push(new playerModel('Eszti', 1, scoreLimit));
+    viewDatas.players.push(new playerModel('Balu', 2, scoreLimit));
     viewDatas.players.push(new playerModel('Csé', 2, scoreLimit));
 
     $('#switch_double_btn').click(function() {
