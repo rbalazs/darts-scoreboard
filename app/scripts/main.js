@@ -20,7 +20,8 @@ var ViewDatas = function() {
     this.nextPlayerToThrowFirst = 1;
 
     this.jumpToNextPlayer = function (currentPlayer) {
-        var nextPlayerIndex;
+        var nextPlayerIndex,
+            nextInLine;
 
         _this.updateAvg(currentPlayer);
 
