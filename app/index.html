@@ -9,7 +9,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -22,8 +22,12 @@
         <li class="list-group-item">
             <span class="badge" data-bind="text: $data.victories"></span>
             <span class="name" data-bind="text: $data.name"></span>
+            <span class="" data-bind="status: $data.status"></span>
             <span data-bind="visible: $data.highestScore">
                 <span data-bind="text: $data.highestScore" class="label label-success"></span>
+            </span>
+            <span data-bind="visible: $data.highestGameShot">
+                <span data-bind="text: $data.highestGameShot" class="label label-primary"></span>
             </span>
         </li>
         <div class="alert alert-info" role="alert" data-bind="text: $data.score"></div>
@@ -36,10 +40,6 @@
     <button class="btn btn-info" data-bind="toggle: _switch_double">Dupla kiszálló</button>
 </div>
 
-<div style="float:left; clear: both">
-    <h5>Top kiszálló:</h5>
-    <h4 data-bind="text: highestGameShot"></h4>
-</div>
 
 <div id="button-holder">
     <button type="button" id="zero" class="btn btn-default btn-lg">

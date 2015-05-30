@@ -9,8 +9,6 @@ var ViewDatas = function() {
 
     this.thrown = ko.observable(0);
 
-    this.highestGameShot = ko.observableArray([0,'']);
-
     this.switchViewIndex = ko.observable(0);
 
     this.switchToDoubleOut = ko.observable(false);
@@ -88,11 +86,9 @@ var ViewDatas = function() {
             return;
         }
 
-        _this.updateAvg(currentPlayer);
+        currentPlayer.highestGameShot(currentPlayer.require);
 
-        if (_this.highestGameShot()[0] < currentPlayer.require) {
-            _this.highestGameShot([currentPlayer.require, currentPlayer.name]);
-        }
+        _this.updateAvg(currentPlayer);
 
         ko.utils.arrayForEach(_this.players(), function(player) {
             player.status(2);
@@ -218,24 +214,26 @@ var playerModel = function(name, status, score, victories) {
     this.highestScore = ko.computed(function() {
         return this.allTurnHistory().reduce(function(p, v){ return ( p > v ? p : v ); }, 0)
     }, this);
+    this.highestGameShot = ko.observable(0);
 }
-
 
 ko.bindingHandlers.status = {
     update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
         var value = valueAccessor();
         var valueUnwrapped = ko.unwrap(value);
+        var element;
+
+        element = $(element).parent().children('span.name');
 
         if (valueUnwrapped == 1) {
-            $(element).css('background-color', '#AFE1AB')
+            element.css('background-color', '#AFE1AB')
         } else if (valueUnwrapped == 0) {
-            $(element).css('background-color', '')
+            element.css('background-color', '')
         } else {
-            $(element).css('background-color', '')
+            element.css('background-color', '')
         }
     }
 };
-
 
 $(function() {
     var scoreLimit;
@@ -245,7 +243,11 @@ $(function() {
         players: viewDatas.players,
         thrown: viewDatas.thrown,
         _switch: viewDatas.switchViewIndex,
-        highestGameShot: viewDatas.highestGameShot,
+        highestGameShotAll: ko.computed(function() {
+            return viewDatas.players().reduce(function (highest, player) {
+                return (player.highestGameShot() > highest ? player.highestGameShot() : highest);
+            }, 0);
+        }, this),
         _switch_double: viewDatas.switchToDoubleOut
     });
 

@@ -39,8 +39,7 @@
     font-size: 18px;
 }
 
-.label-success {
-    background-color: #5cb85c;
+.label {
     position: relative;
     top: -3px;
     left: 4px;
