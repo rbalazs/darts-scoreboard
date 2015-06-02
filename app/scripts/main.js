@@ -3,7 +3,7 @@ var ViewDatas = function() {
 
     this.games = [101, 301, 501];
 
-    this.gameIndex = 0;
+    this.gameIndex = 1;
 
     this.players = ko.observableArray([]);
 
@@ -256,6 +256,7 @@ $(function() {
     scoreLimit = viewDatas.games[viewDatas.gameIndex];
 
     viewDatas.players.push(new playerModel('Eszti', 1, scoreLimit));
+    viewDatas.players.push(new playerModel('Apa', 2, scoreLimit));
     viewDatas.players.push(new playerModel('Balu', 2, scoreLimit));
     viewDatas.players.push(new playerModel('Csé', 2, scoreLimit));
 
@@ -326,4 +327,19 @@ $(function() {
 
         viewDatas.handleThrow(score,id);
     });
+
+    $(document).keyup(function(evt) {
+        console.log(evt.keyCode)
+        evt.preventDefault();
+        /*if (evt.keyCode == 17) {
+            $('#s20').trigger("click");
+            return false;
+        }
+        else*/ if (evt.keyCode == 16) {
+            $('#zero').trigger("click");
+            return false;
+        }
+
+    });
+
 });
