@@ -123,15 +123,35 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
             });
 
             $(document).keydown(function (evt) {
+                console.log(evt.keyCode);
                 if (evt.keyCode == 32) {
-                    $('#s20').trigger("click");
+                    $('#t20').trigger("click");
                     return false;
                 }
                 else if (evt.keyCode == 16) {
                     $('#zero').trigger("click");
                     return false;
                 }
-
+                else if (evt.keyCode == 8) {
+                    $('#undo').trigger("click");
+                    return false;
+                }
+                else if (evt.keyCode == 40) {
+                    $('#s20').trigger("click");
+                    return false;
+                }
+                else if (evt.keyCode == 37) {
+                    $('#s5').trigger("click");
+                    return false;
+                }
+                else if (evt.keyCode == 39) {
+                    $('#s1').trigger("click");
+                    return false;
+                }
+                else if (evt.keyCode == 38) {
+                    $('#d20').trigger("click");
+                    return false;
+                }
             });
 
         });
