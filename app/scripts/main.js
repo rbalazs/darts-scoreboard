@@ -22,11 +22,11 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
                 element = $(element).parent().children('span.name');
 
                 if (valueUnwrapped == 1) {
-                    element.css('background-color', '#AFE1AB')
+                    element.parent().css('background-color', '#AFE1AB')
                 } else if (valueUnwrapped == 0) {
-                    element.css('background-color', '')
+                    element.parent().css('background-color', '')
                 } else {
-                    element.css('background-color', '')
+                    element.parent().css('background-color', '')
                 }
             }
         };
@@ -51,6 +51,8 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
 
             viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Csé', 1, scoreLimit));
             viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Balu', 2, scoreLimit));
+            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'bÉLABUGRIS', 2, scoreLimit));
+            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'YoloSwag', 2, scoreLimit));
 
             $('#switch_double_btn').click(function () {
                 viewDatas.switchDoubleOut();

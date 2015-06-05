@@ -30,33 +30,21 @@
                 <span data-bind="text: $data.highestGameShot" class="label label-primary"></span>
             </span>
         </li>
-        <div class="alert alert-info" role="alert" data-bind="text: $data.score"></div>
-        <div class="alert alert-success" role="alert" data-bind="text: $data.history"></div>
-        <span>Leg átlag:</span>
-        <div data-bind="progress: { value: $data.roundAvg, type: 'info', text: 'átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
-        <span>Összes átlag:</span>
-        <div data-bind="progress: { value: $data.totalAvg, type: 'warning', text: 'TOTÁL átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
+
+        <div class="alert alert-info scoreCard" role="alert">
+            <span data-bind="text: $data.score"></span>
+            <span  style="font-size: 10px; float: right" role="alert" data-bind="text: $data.history"></span>
+
+            <div data-bind="progress: { value: $data.roundAvg, type: 'info', text: 'átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
+            <div data-bind="progress: { value: $data.totalAvg, type: 'warning', text: 'TOTÁL átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
+        </div>
+
+
     </ul>
 </div>
 
 <div style="float:left; clear: both">
     <button class="btn btn-info" data-bind="toggle: _switch_double">Dupla kiszálló</button>
-</div>
-
-
-<div id="button-holder">
-    <button type="button" id="zero" class="btn btn-default btn-lg">
-        <div id="thrown" data-bind="text: thrown"></div>
-    </button>
-    <button type="button" id="switch_view_btn" class="btn btn-default btn-lg">
-        <div id="switch" data-bind="text: _switch"></div>
-    </button>
-    <button type="button" id="up" class="btn btn-default" aria-label="Left Align">
-        <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-    </button>
-    <button type="button" id="undo" class="btn btn-default" aria-label="Left Align">
-        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
-    </button>
 </div>
 
 <svg id="dartboard" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="700px" height="688px" viewBox="0 0 787 774" enable-background="new 0 0 787 774" xml:space="preserve">

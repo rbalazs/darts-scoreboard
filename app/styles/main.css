@@ -52,3 +52,12 @@
     bottom: 5px;
     left: 355px;
 }
+
+.progress {
+    margin-bottom: 4px !important;
+}
+
+.scoreCard {
+    margin-bottom: 2px;
+    padding-bottom: 4px;
+}
