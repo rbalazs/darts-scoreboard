@@ -23,8 +23,6 @@ define("ViewDatas", function () {
             var nextPlayerIndex,
                 nextInLine;
 
-            _this.updateAvg(currentPlayer);
-
             currentPlayer.require = currentPlayer.score();
 
             nextPlayerIndex = _this.currentPlayerIndex + 1;
@@ -92,8 +90,6 @@ define("ViewDatas", function () {
                 currentPlayer.highestGameShot(currentPlayer.require);
             }
 
-            _this.updateAvg(currentPlayer);
-
             ko.utils.arrayForEach(_this.players(), function (player) {
                 player.status(2);
                 player.history([]);
@@ -127,14 +123,6 @@ define("ViewDatas", function () {
             console.log("...tHis: " + currentPlayer.turnHistory().toString())
             console.log("allTHis: " + currentPlayer.allTurnHistory().toString())
         };
-
-        this.updateAvg = function (currentPlayer) {
-            var sum = currentPlayer.turnHistory().reduce(function (total, num) {
-                return total + num
-            }, 0);
-
-            currentPlayer.avg(((sum / currentPlayer.turnHistory().length)).toFixed(2));
-        }
 
         this.swapScore = function () {
             _this.gameIndex++;

@@ -49,10 +49,8 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
 
             scoreLimit = viewDatas.games[viewDatas.gameIndex];
 
-            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Eszti', 1, scoreLimit));
-            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Apa', 2, scoreLimit));
+            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Csé', 1, scoreLimit));
             viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Balu', 2, scoreLimit));
-            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Csé', 2, scoreLimit));
 
             $('#switch_double_btn').click(function () {
                 viewDatas.switchDoubleOut();

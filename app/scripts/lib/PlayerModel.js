@@ -2,9 +2,13 @@ define("PlayerModel", function () {
         return function PlayerModel(ko, viewDatas, name, status, score, victories) {
             this.name = name;
             this.status = ko.observable(status);
-            this.victories = ko.observable(victories || 0)
-            this.avg = ko.observable(0);
             this.history = ko.observableArray([])
+            this.victories = ko.observable(victories || 0)
+            this.roundAvg = ko.computed(function () {
+                return Math.round(this.history().reduce(function (total, num) {
+                    return total + num
+                }, 0) / this.history().length)
+            }, this);
             this.require = score;
             this.score = ko.computed(function () {
                 return viewDatas.games[viewDatas.gameIndex] - this.history().reduce(function (total, num) {
