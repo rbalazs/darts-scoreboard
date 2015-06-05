@@ -3,26 +3,41 @@ define("PlayerModel", function () {
             this.name = name;
             this.status = ko.observable(status);
             this.history = ko.observableArray([])
+            this.turnHistory = ko.observableArray([])
+            this.allTurnHistory = ko.observableArray([])
             this.victories = ko.observable(victories || 0)
-            this.roundAvg = ko.computed(function () {
-                return Math.round(this.history().reduce(function (total, num) {
-                    return total + num
-                }, 0) / this.history().length)
-            }, this);
             this.require = score;
+            this.highestGameShot = ko.observable(0);
+
+            this.roundAvg = ko.computed(function () {
+                var avg = Math.round(this.history().reduce(function (total, num) {
+                    return total + num
+                }, 0) / this.history().length);
+
+                if (this.history().length >= 3) {
+                    return avg * 3
+                } else {
+                    return 0;
+                }
+            }, this);
+
+            this.totalAvg = ko.computed(function () {
+                return Math.round(this.allTurnHistory().reduce(function (total, num) {
+                    return total + num
+                }, 0) / this.allTurnHistory().length)
+            }, this);
+
             this.score = ko.computed(function () {
                 return viewDatas.games[viewDatas.gameIndex] - this.history().reduce(function (total, num) {
                     return total + num
                 }, 0)
             }, this);
-            this.turnHistory = ko.observableArray([])
-            this.allTurnHistory = ko.observableArray([])
+
             this.highestScore = ko.computed(function () {
                 return this.allTurnHistory().reduce(function (p, v) {
                     return ( p > v ? p : v );
                 }, 0)
             }, this);
-            this.highestGameShot = ko.observable(0);
         }
     }
 );

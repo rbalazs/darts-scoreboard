@@ -32,7 +32,10 @@
         </li>
         <div class="alert alert-info" role="alert" data-bind="text: $data.score"></div>
         <div class="alert alert-success" role="alert" data-bind="text: $data.history"></div>
+        <span>Leg átlag:</span>
         <div data-bind="progress: { value: $data.roundAvg, type: 'info', text: 'átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
+        <span>Összes átlag:</span>
+        <div data-bind="progress: { value: $data.totalAvg, type: 'warning', text: 'TOTÁL átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
     </ul>
 </div>
 

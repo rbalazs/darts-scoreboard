@@ -118,6 +118,7 @@ define("ViewDatas", function () {
             for (var i = 0; i < countDarts; i++) {
                 turnSum += turnThrows[i];
             }
+
             currentPlayer.turnHistory.push(turnSum);
             currentPlayer.allTurnHistory.push(turnSum);
             console.log("...tHis: " + currentPlayer.turnHistory().toString())
