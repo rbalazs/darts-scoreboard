@@ -39,6 +39,7 @@
     font-size: 18px;
     background-color: transparent;
     border: none;
+    width: 110px;
 }
 
 .label {
@@ -53,6 +54,28 @@
     position: absolute;
     bottom: 5px;
     left: 355px;
+}
+
+#nameAndVictories {
+    width: 60%;
+    float: left;
+}
+
+div #nameAndVictories span {
+    margin: 0 10px 0 0;
+}
+
+#victoriesBadge {
+    position: relative;
+    top: -2px;
+}
+
+#hundredCounter {
+    margin-right: 1px;
+}
+
+#playerBoard {
+    height: 50px;
 }
 
 .progress {

@@ -44,6 +44,14 @@ define("ViewDatas", function () {
             var currentPlayer;
 
             currentPlayer = _this.getCurrentPlayer()
+
+            var ifGameShot = _this.checkForGameShot(currentPlayer,_this.thrown(),_this.switchToDoubleOut());
+
+            if (ifGameShot) {
+                currentPlayer.gameShotAttempnts(currentPlayer.gameShotAttempnts() + 1);
+                console.log(currentPlayer.name + ": " + currentPlayer.gameShotAttempnts())
+            }
+
             currentPlayer.history.push(parseInt(score));
 
             if (currentPlayer.score() < 0) {
@@ -122,8 +130,30 @@ define("ViewDatas", function () {
                 currentPlayer.turnHistory.push(turnSum);
                 currentPlayer.allTurnHistory.push(turnSum);
             }
+            if (turnSum >= 100) {
+                currentPlayer.hundredPlusCount((currentPlayer.hundredPlusCount() + 1));
+            }
+            console.log(currentPlayer.hundredPlusCount())
             console.log("...tHis: " + currentPlayer.turnHistory().toString())
             console.log("allTHis: " + currentPlayer.allTurnHistory().toString())
+        };
+
+        this.checkForGameShot = function (currentPlayer,dartCount,doubleFlag) {
+            var score = currentPlayer.score();
+            if (doubleFlag) {
+                if ((score <= 40 && score % 2 == 0) || score == 50 && dartCount == 2) {
+                    return true;
+                }
+            } else {
+                if((score <= 40 && score % 2 == 0) || (score == 50 && dartCount == 2) ||
+                    (score <= 60 && score % 3 == 0) ||
+                    (score <= 20) ||
+                    (score == 25 && dartCount == 1)) {
+
+                    return true;
+                }
+            }
+            return false;
         };
 
         this.swapScore = function () {

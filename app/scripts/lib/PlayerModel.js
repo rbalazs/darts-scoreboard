@@ -8,6 +8,8 @@ define("PlayerModel", function () {
             this.victories = ko.observable(victories || 0)
             this.require = score;
             this.highestGameShot = ko.observable(0);
+            this.hundredPlusCount = ko.observable(0);
+            this.gameShotAttempnts = ko.observable(0);
 
             this.roundAvg = ko.computed(function () {
                 var avg = Math.round(this.history().reduce(function (total, num) {
@@ -37,6 +39,13 @@ define("PlayerModel", function () {
                 return this.allTurnHistory().reduce(function (p, v) {
                     return ( p > v ? p : v );
                 }, 0)
+            }, this);
+
+            this.gameShotPercentage = ko.computed(function () {
+                if (this.victories() == 0) {
+                    return this.gameShotAttempnts() + '/0';
+                }
+                return Math.round((this.victories() / this.gameShotAttempnts()) *100) + '%';
             }, this);
         }
     }

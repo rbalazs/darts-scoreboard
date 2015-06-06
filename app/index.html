@@ -9,7 +9,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -19,12 +19,18 @@
 <body>
 <div id="scoreboard">
     <ul class="list-group" data-bind='template: { foreach: players}'>
-        <li class="list-group-item">
-            <span class="badge" data-bind="text: $data.victories"></span>
-            <input class="name" type="text" data-bind="value: $data.name" />
+        <li id="playerBoard" class="list-group-item">
+            <div id="nameAndVictories">
+                <span contenteditable="true" class="name" type="text" data-bind="text: $data.name"></span>
+                <span id="victoriesBadge" class="badge" data-bind="text: $data.victories"></span>
+            </div>
+
             <span class="" data-bind="status: $data.status"></span>
             <span data-bind="visible: $data.highestScore">
                 <span data-bind="text: $data.highestScore" class="label label-success"></span>
+                <span id="hundredCounter" class="label label-danger">
+                    <span data-bind="text: $data.hundredPlusCount"></span></span>
+                <span data-bind="text: $data.gameShotPercentage" class="label label-warning"></span>
             </span>
             <span data-bind="visible: $data.highestGameShot">
                 <span data-bind="text: $data.highestGameShot" class="label label-primary"></span>
@@ -33,7 +39,7 @@
 
         <div class="alert alert-info scoreCard" role="alert">
             <span data-bind="text: $data.score"></span>
-            <span  style="font-size: 10px; float: right" role="alert" data-bind="text: $data.history"></span>
+            <span style="font-size: 10px; float: right" role="alert" data-bind="text: $data.history"></span>
 
             <div data-bind="progress: { value: $data.roundAvg, type: 'info', text: 'átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
             <div data-bind="progress: { value: $data.totalAvg, type: 'warning', text: 'TOTÁL átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>

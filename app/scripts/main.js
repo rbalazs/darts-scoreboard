@@ -19,7 +19,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
                 var valueUnwrapped = ko.unwrap(value);
                 var element;
 
-                element = $(element).parent().children('span.badge');
+                element = $(element);
 
                 if (valueUnwrapped == 1) {
                     element.parent().css('background-color', '#AFE1AB')
@@ -59,16 +59,8 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
                 viewDatas.switchView();
             });
 
-            $('#zero').click(function () {
-                viewDatas.handleThrow(0);
-            });
-
             $('#up').click(function () {
                 viewDatas.swapScore();
-            });
-
-            $('#undo').click(function () {
-                viewDatas.undo();
             });
 
             $('#add-player').click(function () {
@@ -131,11 +123,11 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
                     return false;
                 }
                 else if (evt.keyCode == 16) {
-                    $('#zero').trigger("click");
+                    viewDatas.handleThrow(0);
                     return false;
                 }
                 else if (evt.keyCode == 8) {
-                    $('#undo').trigger("click");
+                    viewDatas.undo();
                     return false;
                 }
                 else if (evt.keyCode == 40) {
