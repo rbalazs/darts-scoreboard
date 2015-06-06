@@ -19,7 +19,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
                 var valueUnwrapped = ko.unwrap(value);
                 var element;
 
-                element = $(element).parent().children('span.name');
+                element = $(element).parent().children('span.badge');
 
                 if (valueUnwrapped == 1) {
                     element.parent().css('background-color', '#AFE1AB')
@@ -49,10 +49,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
 
             scoreLimit = viewDatas.games[viewDatas.gameIndex];
 
-            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Csé', 1, scoreLimit));
-            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Balu', 2, scoreLimit));
-            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'bÉLABUGRIS', 2, scoreLimit));
-            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'YoloSwag', 2, scoreLimit));
+            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 1, scoreLimit));
 
             $('#switch_double_btn').click(function () {
                 viewDatas.switchDoubleOut();
@@ -73,6 +70,11 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
             $('#undo').click(function () {
                 viewDatas.undo();
             });
+
+            $('#add-player').click(function () {
+                viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 2, scoreLimit));
+            });
+
 
             $("#dartboard #areas g").children().click(function () {
                 var id;
