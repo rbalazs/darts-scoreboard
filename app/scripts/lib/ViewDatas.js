@@ -1,9 +1,13 @@
 define("ViewDatas", function () {
 
-    return function ViewDatas(ko) {
+    return function ViewDatas(ko, myLineChart) {
         var _this = this;
 
         this.games = [101, 301, 501];
+
+        this.chart = myLineChart;
+
+        this.chartCount = 0;
 
         this.gameIndex = 1;
 
@@ -22,6 +26,14 @@ define("ViewDatas", function () {
         this.jumpToNextPlayer = function (currentPlayer) {
             var nextPlayerIndex,
                 nextInLine;
+
+            _this.chart.addData([_this.players()[0].roundAvg(), _this.players()[1].roundAvg()], "");
+            _this.chartCount++;
+
+            if (_this.chartCount >= 20) {
+                _this.chartCount--;
+                _this.chart.removeData();
+            }
 
             currentPlayer.require = currentPlayer.score();
 

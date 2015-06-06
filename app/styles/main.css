@@ -86,3 +86,8 @@ div #nameAndVictories span {
     margin-bottom: 2px;
     padding-bottom: 4px;
 }
+#myChart {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
