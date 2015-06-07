@@ -21,11 +21,11 @@
     <ul class="list-group" data-bind='template: { foreach: players}'>
         <li id="playerBoard" class="list-group-item">
             <div id="nameAndVictories">
-                <span contenteditable="true" class="name" type="text" data-bind="text: $data.name"></span>
-                <span id="victoriesBadge" class="badge" data-bind="text: $data.victories"></span>
+                <span contenteditable="true" class="name" data-bind="text: $data.name"></span>
+                <span id="scoreBadge" class="badge" data-bind="text: $data.score"></span>
             </div>
-
-            <span class="" data-bind="status: $data.status"></span>
+            <div class="stats">
+                <span class="" data-bind="status: $data.status"></span>
             <span data-bind="visible: $data.highestScore">
                 <span data-bind="text: $data.highestScore" class="label label-success"></span>
                 <span id="hundredCounter" class="label label-danger">
@@ -35,14 +35,14 @@
             <span data-bind="visible: $data.highestGameShot">
                 <span data-bind="text: $data.highestGameShot" class="label label-primary"></span>
             </span>
+                <span class="badge victoriesBadge" data-bind="text: $data.victories"></span>
+            </div>
         </li>
 
         <div class="alert alert-info scoreCard" role="alert">
-            <span data-bind="text: $data.score"></span>
-            <span style="font-size: 10px; float: right" role="alert" data-bind="text: $data.history"></span>
-
             <div data-bind="progress: { value: $data.roundAvg, type: 'info', text: 'átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
             <div data-bind="progress: { value: $data.totalAvg, type: 'warning', text: 'TOTÁL átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
+            <span style="font-size: 10px; " role="" data-bind="text: $data.history"></span>
         </div>
 
 

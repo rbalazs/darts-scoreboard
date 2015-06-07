@@ -11,28 +11,16 @@ requirejs.config({
 
 requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
     function ($, ko, knockstrap, ViewDatas, PlayerModel) {
-
-        var myLineChart = new Chart(document.getElementById("myChart").getContext("2d")).Line( {
+        var myLineChart = new Chart(document.getElementById("myChart").getContext("2d")).Line({
             labels: [],
             datasets: [
                 {
-                    label: "My First dataset",
-                    fillColor: "rgba(220,220,220,0.2)",
-                    strokeColor: "rgba(220,220,220,1)",
-                    pointColor: "rgba(220,220,220,1)",
+                    fillColor: "rgba(255,222,51,0.2)",
+                    strokeColor: "rgba(255,222,51,1)",
+                    pointColor: "rgba(255,222,51,1)",
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: []
-                },
-                {
-                    label: "My Second dataset",
-                    fillColor: "rgba(151,187,205,0.2)",
-                    strokeColor: "rgba(151,187,205,1)",
-                    pointColor: "rgba(151,187,205,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(151,187,205,1)",
                     data: []
                 }
             ]
@@ -46,7 +34,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
                 var valueUnwrapped = ko.unwrap(value);
                 var element;
 
-                element = $(element);
+                element = $(element).parent();
 
                 if (valueUnwrapped == 1) {
                     element.parent().css('background-color', '#AFE1AB')
@@ -91,7 +79,19 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
             });
 
             $('#add-player').click(function () {
+                var hue = (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256));
                 viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 2, scoreLimit));
+                myLineChart.datasets.push(
+                    {
+                        fillColor: "rgba(" + hue + ",0.2)",
+                        strokeColor: "rgba(" + hue + ",1)",
+                        pointColor: "rgba(" + hue + ",1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(" + hue + ",1)",
+                        points: []
+                    });
+                myLineChart.update();
             });
 
 

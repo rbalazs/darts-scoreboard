@@ -31,10 +31,6 @@
     background-color: silver;
 }
 
-.alert-info {
-    font-size: 32px;
-}
-
 .name {
     font-size: 18px;
     background-color: transparent;
@@ -57,7 +53,7 @@
 }
 
 #nameAndVictories {
-    width: 60%;
+    width: 50%;
     float: left;
 }
 
@@ -65,9 +61,10 @@ div #nameAndVictories span {
     margin: 0 10px 0 0;
 }
 
-#victoriesBadge {
+#scoreBadge {
     position: relative;
-    top: -2px;
+    top: 0px;
+    font-size: 20px;
 }
 
 #hundredCounter {
@@ -90,4 +87,16 @@ div #nameAndVictories span {
     position: fixed;
     bottom: 0px;
     left: 0px;
+}
+
+.stats {
+    position: relative;
+    top: 5px;
+    float: right;
+}
+
+.victoriesBadge {
+    position: relative;
+    top: -3px;
+    left: 10px;
 }

@@ -27,7 +27,13 @@ define("ViewDatas", function () {
             var nextPlayerIndex,
                 nextInLine;
 
-            _this.chart.addData([_this.players()[0].roundAvg(), _this.players()[1].roundAvg()], "");
+            var scoresToChart = [];
+
+            ko.utils.arrayForEach(_this.players(), function(item) {
+                scoresToChart.push(item.roundAvg());
+            });
+
+            _this.chart.addData(scoresToChart, "");
             _this.chartCount++;
 
             if (_this.chartCount >= 20) {
@@ -57,7 +63,7 @@ define("ViewDatas", function () {
 
             currentPlayer = _this.getCurrentPlayer()
 
-            var ifGameShot = _this.checkForGameShot(currentPlayer,_this.thrown(),_this.switchToDoubleOut());
+            var ifGameShot = _this.checkForGameShot(currentPlayer, _this.thrown(), _this.switchToDoubleOut());
 
             if (ifGameShot) {
                 currentPlayer.gameShotAttempnts(currentPlayer.gameShotAttempnts() + 1);
@@ -150,14 +156,14 @@ define("ViewDatas", function () {
             console.log("allTHis: " + currentPlayer.allTurnHistory().toString())
         };
 
-        this.checkForGameShot = function (currentPlayer,dartCount,doubleFlag) {
+        this.checkForGameShot = function (currentPlayer, dartCount, doubleFlag) {
             var score = currentPlayer.score();
             if (doubleFlag) {
                 if ((score <= 40 && score % 2 == 0) || score == 50 && dartCount == 2) {
                     return true;
                 }
             } else {
-                if((score <= 40 && score % 2 == 0) || (score == 50 && dartCount == 2) ||
+                if ((score <= 40 && score % 2 == 0) || (score == 50 && dartCount == 2) ||
                     (score <= 60 && score % 3 == 0) ||
                     (score <= 20) ||
                     (score == 25 && dartCount == 1)) {
