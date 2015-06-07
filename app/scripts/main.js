@@ -64,7 +64,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
 
             scoreLimit = viewDatas.games[viewDatas.gameIndex];
 
-            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 1, scoreLimit));
+            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 1, scoreLimit, true));
 
             $('#switch_double_btn').click(function () {
                 viewDatas.switchDoubleOut();
@@ -80,7 +80,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
 
             $('#add-player').click(function () {
                 var hue = (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256));
-                viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 2, scoreLimit));
+                viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 2, scoreLimit, false));
                 myLineChart.datasets.push(
                     {
                         fillColor: "rgba(" + hue + ",0.2)",

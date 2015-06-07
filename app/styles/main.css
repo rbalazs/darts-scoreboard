@@ -53,8 +53,10 @@
 }
 
 #nameAndVictories {
-    width: 50%;
+    width: 130px;
     float: left;
+    position: relative;
+    left: -3px;
 }
 
 div #nameAndVictories span {
@@ -99,4 +101,8 @@ div #nameAndVictories span {
     position: relative;
     top: -3px;
     left: 10px;
+}
+
+.firstToThrowBadge {
+
 }

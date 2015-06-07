@@ -36,7 +36,7 @@ define("ViewDatas", function () {
             _this.chart.addData(scoresToChart, "");
             _this.chartCount++;
 
-            if (_this.chartCount >= 20) {
+            if (_this.chartCount >= 25) {
                 _this.chartCount--;
                 _this.chart.removeData();
             }
@@ -120,6 +120,7 @@ define("ViewDatas", function () {
                 player.status(2);
                 player.history([]);
                 player.turnHistory([]);
+                player.firstToThrow(false);
                 player.require = player.score();
             });
 
@@ -127,6 +128,7 @@ define("ViewDatas", function () {
 
             _this.currentPlayerIndex = _this.nextPlayerToThrowFirst;
             _this.players()[_this.currentPlayerIndex].status(1);
+            _this.players()[_this.currentPlayerIndex].firstToThrow(true);
 
             _this.nextPlayerToThrowFirst++;
 

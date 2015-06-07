@@ -1,15 +1,16 @@
 define("PlayerModel", function () {
-        return function PlayerModel(ko, viewDatas, name, status, score, victories) {
+        return function PlayerModel(ko, viewDatas, name, status, score, firstToThrow) {
             this.name = name;
             this.status = ko.observable(status);
             this.history = ko.observableArray([])
             this.turnHistory = ko.observableArray([])
             this.allTurnHistory = ko.observableArray([])
-            this.victories = ko.observable(victories || 0)
+            this.victories = ko.observable(0)
             this.require = score;
             this.highestGameShot = ko.observable(0);
             this.hundredPlusCount = ko.observable(0);
             this.gameShotAttempnts = ko.observable(0);
+            this.firstToThrow = ko.observable(firstToThrow || false);
 
             this.roundAvg = ko.computed(function () {
                 var avg = Math.round(this.history().reduce(function (total, num) {

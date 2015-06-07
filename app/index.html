@@ -31,6 +31,7 @@
                 <span id="hundredCounter" class="label label-danger">
                     <span data-bind="text: $data.hundredPlusCount"></span></span>
                 <span data-bind="text: $data.gameShotPercentage" class="label label-warning"></span>
+                <span class="label label-success" data-bind="visible: $data.firstToThrow">kezdő</span>
             </span>
             <span data-bind="visible: $data.highestGameShot">
                 <span data-bind="text: $data.highestGameShot" class="label label-primary"></span>
@@ -55,7 +56,7 @@
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button>
 </div>
-<canvas id="myChart" width="350" height="210"></canvas>
+<canvas id="myChart" width="375" height="210"></canvas>
 <svg id="dartboard" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="700px" height="688px" viewBox="0 0 787 774" enable-background="new 0 0 787 774" xml:space="preserve">
     <g id="areas">
       <g id="s">
