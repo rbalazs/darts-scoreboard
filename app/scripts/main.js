@@ -26,7 +26,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
             ]
         });
 
-        var viewDatas = new ViewDatas(ko, myLineChart);
+        viewDatas = new ViewDatas(ko, myLineChart);
 
         ko.bindingHandlers.status = {
             update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
