@@ -191,6 +191,22 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
                     $('#d20').trigger("click");
                     return false;
                 }
+                else if (evt.keyCode == 225) {
+                    $('#t5').trigger("click");
+                    return false;
+                }
+                else if (evt.keyCode == 17) {
+                    $('#t1').trigger("click");
+                    return false;
+                }
+                else if (evt.keyCode == 190) {
+                    $('#d5').trigger("click");
+                    return false;
+                }
+                else if (evt.keyCode == 189) {
+                    $('#d1').trigger("click");
+                    return false;
+                }
             });
         });
     });

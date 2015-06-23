@@ -53,7 +53,7 @@
 }
 
 #nameAndVictories {
-    width: 130px;
+    min-width: 130px;
     float: left;
     position: relative;
     left: -3px;

@@ -13,12 +13,11 @@ define("PlayerModel", function () {
             this.firstToThrow = ko.observable(firstToThrow || false);
 
             this.roundAvg = ko.computed(function () {
-                var avg = Math.round(this.history().reduce(function (total, num) {
+                var avg = this.history().reduce(function (total, num) {
                     return total + num
-                }, 0) / this.history().length);
-
+                }, 0) / this.history().length;
                 if (this.history().length >= 3) {
-                    return avg * 3
+                    return Math.round(((avg * 3) + 0.00001) * 100) / 100;
                 } else {
                     return 0;
                 }
