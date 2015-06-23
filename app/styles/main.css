@@ -77,6 +77,10 @@ div #nameAndVictories span {
     height: 50px;
 }
 
+.playerList {
+    margin-bottom: 10px !important;
+}
+
 .progress {
     margin-bottom: 4px !important;
 }

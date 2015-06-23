@@ -67,14 +67,16 @@ define("ViewDatas", function () {
 
             if (ifGameShot) {
                 currentPlayer.gameShotAttempnts(currentPlayer.gameShotAttempnts() + 1);
-                console.log(currentPlayer.name + ": " + currentPlayer.gameShotAttempnts())
             }
 
             currentPlayer.history.push(parseInt(score));
 
+            currentPlayer.requireByThrows(currentPlayer.score())
+
             if (currentPlayer.score() < 0) {
                 _this.thrown(_this.thrown() + 1);
                 currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
+                currentPlayer.requireByThrows(currentPlayer.score())
                 _this.jumpToNextPlayer(currentPlayer);
             } else if (currentPlayer.score() == 0) {
                 if (_this.switchToDoubleOut() == 0) {
@@ -87,6 +89,7 @@ define("ViewDatas", function () {
                     } else {
                         _this.thrown(_this.thrown() + 1);
                         currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
+                        currentPlayer.requireByThrows(currentPlayer.score())
                         _this.jumpToNextPlayer(currentPlayer);
                     }
                 }
@@ -94,6 +97,7 @@ define("ViewDatas", function () {
                 if (_this.switchToDoubleOut() == 1 && currentPlayer.score() == 1) {
                     _this.thrown(_this.thrown() + 1);
                     currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
+                    currentPlayer.requireByThrows(currentPlayer.score())
                     _this.jumpToNextPlayer(currentPlayer);
                 } else {
                     if (_this.thrown() == 2) {
@@ -153,7 +157,6 @@ define("ViewDatas", function () {
             if (turnSum >= 100) {
                 currentPlayer.hundredPlusCount((currentPlayer.hundredPlusCount() + 1));
             }
-            console.log(currentPlayer.hundredPlusCount())
             console.log("...tHis: " + currentPlayer.turnHistory().toString())
             console.log("allTHis: " + currentPlayer.allTurnHistory().toString())
         };
@@ -192,16 +195,11 @@ define("ViewDatas", function () {
         };
 
         this.switchDoubleOut = function () {
-
             if (_this.switchToDoubleOut() == 1) {
-                console.log(_this.switchToDoubleOut())
                 _this.switchToDoubleOut(false)
             } else if (_this.switchToDoubleOut() == 0) {
-                console.log(_this.switchToDoubleOut())
                 _this.switchToDoubleOut(true)
             }
-            console.log("asd")
-
         };
 
         this.switchView = function () {
@@ -229,9 +227,11 @@ define("ViewDatas", function () {
                 _this.getCurrentPlayer().history.splice(-3, 3);
                 _this.getCurrentPlayer().turnHistory.splice(-1, 1);
                 _this.getCurrentPlayer().allTurnHistory.splice(-1, 1);
+                _this.getCurrentPlayer().requireByThrows(_this.getCurrentPlayer().score())
             } else {
                 _this.getCurrentPlayer().history.splice((0 - _this.thrown()), _this.thrown());
                 _this.thrown(0);
+                _this.getCurrentPlayer().requireByThrows(_this.getCurrentPlayer().score())
             }
 
             _this.getCurrentPlayer().status(1);

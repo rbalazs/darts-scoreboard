@@ -5,12 +5,13 @@ requirejs.config({
         knockout: 'bower_components/knockout/dist/knockout',
         knockstrap: 'bower_components/knockstrap/build/knockstrap',
         ViewDatas: 'scripts/lib/ViewDatas',
-        PlayerModel: 'scripts/lib/PlayerModel'
+        PlayerModel: 'scripts/lib/PlayerModel',
+        CheckoutTable: 'scripts/lib/CheckoutTable'
     }
 });
 
-requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
-    function ($, ko, knockstrap, ViewDatas, PlayerModel) {
+requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'CheckoutTable'],
+    function ($, ko, knockstrap, ViewDatas, PlayerModel, CheckoutTable) {
         var myLineChart = new Chart(document.getElementById("myChart").getContext("2d")).Line({
             labels: [],
             datasets: [
@@ -27,6 +28,8 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
         });
 
         viewDatas = new ViewDatas(ko, myLineChart);
+
+        checkoutTable = new CheckoutTable();
 
         ko.bindingHandlers.status = {
             update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -59,12 +62,13 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
                         return (player.highestGameShot() > highest ? player.highestGameShot() : highest);
                     }, 0);
                 }, this),
+
                 _switch_double: viewDatas.switchToDoubleOut
             });
 
             scoreLimit = viewDatas.games[viewDatas.gameIndex];
 
-            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 1, scoreLimit, true));
+            viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 1, scoreLimit, true, checkoutTable));
 
             $('#switch_double_btn').click(function () {
                 viewDatas.switchDoubleOut();
@@ -98,7 +102,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
                 }
                 */
                 var hue = (red + ',' + green + ',' + blue);
-                viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 2, scoreLimit, false));
+                viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 2, scoreLimit, false, checkoutTable));
                 myLineChart.datasets.push(
                     {
                         fillColor: "rgba(" + hue + ",0.2)",
@@ -162,7 +166,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
             });
 
             $(document).keydown(function (evt) {
-                console.log(evt.keyCode);
+                //console.log(evt.keyCode);
                 if (evt.keyCode == 32) {
                     $('#t20').trigger("click");
                     return false;
