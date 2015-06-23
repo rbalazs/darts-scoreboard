@@ -82,6 +82,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
                 var red = Math.floor(Math.random() * 256);
                 var green = Math.floor(Math.random() * 256);
                 var blue = Math.floor(Math.random() * 256);
+                /* THIS IS AN UNFINISHED IDEA
                 var checkColorsDifference = true;
                 while (checkColorsDifference) {
                     if ( (red - green > 50)   ||
@@ -95,6 +96,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel'],
                         blue = Math.floor(Math.random() * 256);    
                     }
                 }
+                */
                 var hue = (red + ',' + green + ',' + blue);
                 viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 2, scoreLimit, false));
                 myLineChart.datasets.push(
