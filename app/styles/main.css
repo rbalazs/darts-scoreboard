@@ -83,8 +83,13 @@ div #nameAndVictories span {
 
 .scoreCard {
     margin-bottom: 2px;
-    padding-bottom: 4px;
+    padding: 6px 10px 4px 10px !important;
 }
+
+#leg {
+    margin-bottom: 4px !important;   
+}
+
 #myChart {
     position: fixed;
     bottom: 0px;

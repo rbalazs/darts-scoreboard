@@ -41,6 +41,9 @@
         </li>
 
         <div class="alert alert-info scoreCard" role="alert">
+            <div  id ="leg" >
+                <span style="font-size: 10px; " role="" data-bind="text: $data.turnHistory"></span>
+            </div>
             <div data-bind="progress: { value: $data.roundAvg, type: 'info', text: 'átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
             <div data-bind="progress: { value: $data.totalAvg, type: 'warning', text: 'TOTÁL átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
             <span style="font-size: 10px; " role="" data-bind="text: $data.history"></span>
