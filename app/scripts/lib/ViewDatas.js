@@ -41,7 +41,7 @@ define("ViewDatas", function () {
                 _this.chart.removeData();
             }
 
-            currentPlayer.require = currentPlayer.score();
+            currentPlayer.requireByTurns = currentPlayer.require();
 
             nextPlayerIndex = _this.currentPlayerIndex + 1;
 
@@ -58,7 +58,7 @@ define("ViewDatas", function () {
             _this.currentPlayerIndex = nextPlayerIndex;
         }
 
-        this.handleThrow = function (score, id) {
+        this.handleThrow = function (scoreOfThrow, id) {
             var currentPlayer;
 
             currentPlayer = _this.getCurrentPlayer()
@@ -69,16 +69,13 @@ define("ViewDatas", function () {
                 currentPlayer.gameShotAttempnts(currentPlayer.gameShotAttempnts() + 1);
             }
 
-            currentPlayer.history.push(parseInt(score));
+            currentPlayer.history.push(parseInt(scoreOfThrow));
 
-            currentPlayer.requireByThrows(currentPlayer.score())
-
-            if (currentPlayer.score() < 0) {
+            if (currentPlayer.require() < 0) {
                 _this.thrown(_this.thrown() + 1);
                 currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
-                currentPlayer.requireByThrows(currentPlayer.score())
                 _this.jumpToNextPlayer(currentPlayer);
-            } else if (currentPlayer.score() == 0) {
+            } else if (currentPlayer.require() == 0) {
                 if (_this.switchToDoubleOut() == 0) {
                     _this.turnScore(currentPlayer)
                     _this.winner(currentPlayer);
@@ -89,15 +86,13 @@ define("ViewDatas", function () {
                     } else {
                         _this.thrown(_this.thrown() + 1);
                         currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
-                        currentPlayer.requireByThrows(currentPlayer.score())
                         _this.jumpToNextPlayer(currentPlayer);
                     }
                 }
             } else {
-                if (_this.switchToDoubleOut() == 1 && currentPlayer.score() == 1) {
+                if (_this.switchToDoubleOut() == 1 && currentPlayer.require() == 1) {
                     _this.thrown(_this.thrown() + 1);
                     currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
-                    currentPlayer.requireByThrows(currentPlayer.score())
                     _this.jumpToNextPlayer(currentPlayer);
                 } else {
                     if (_this.thrown() == 2) {
@@ -116,8 +111,8 @@ define("ViewDatas", function () {
                 return;
             }
 
-            if (currentPlayer.highestGameShot() < currentPlayer.require) {
-                currentPlayer.highestGameShot(currentPlayer.require);
+            if (currentPlayer.highestGameShot() < currentPlayer.requireByTurns) {
+                currentPlayer.highestGameShot(currentPlayer.requireByTurns);
             }
 
             ko.utils.arrayForEach(_this.players(), function (player) {
@@ -125,7 +120,7 @@ define("ViewDatas", function () {
                 player.history([]);
                 player.turnHistory([]);
                 player.firstToThrow(false);
-                player.require = player.score();
+                player.requireByTurns = player.require();
             });
 
             _this.thrown(0);
@@ -162,7 +157,7 @@ define("ViewDatas", function () {
         };
 
         this.checkForGameShot = function (currentPlayer, dartCount, doubleFlag) {
-            var score = currentPlayer.score();
+            var score = currentPlayer.require();
             if (doubleFlag) {
                 if ((score <= 40 && score % 2 == 0) || score == 50 && dartCount == 2) {
                     return true;
@@ -190,7 +185,7 @@ define("ViewDatas", function () {
                 player.status(2);
                 player.history([])
                 player.turnHistory([])
-                player.require = player.score();
+                player.requireByTurns = player.require();
             });
         };
 
@@ -227,11 +222,9 @@ define("ViewDatas", function () {
                 _this.getCurrentPlayer().history.splice(-3, 3);
                 _this.getCurrentPlayer().turnHistory.splice(-1, 1);
                 _this.getCurrentPlayer().allTurnHistory.splice(-1, 1);
-                _this.getCurrentPlayer().requireByThrows(_this.getCurrentPlayer().score())
             } else {
                 _this.getCurrentPlayer().history.splice((0 - _this.thrown()), _this.thrown());
                 _this.thrown(0);
-                _this.getCurrentPlayer().requireByThrows(_this.getCurrentPlayer().score())
             }
 
             _this.getCurrentPlayer().status(1);

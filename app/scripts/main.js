@@ -119,7 +119,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
 
             $("#dartboard #areas g").children().click(function () {
                 var id;
-                var score;
+                var scoreOfThrow;
                 var color;
                 var _this = this;
 
@@ -144,29 +144,29 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
                     clickCount = 0;
                 }
 
-                score = id.substring(1);
+                scoreOfThrow = id.substring(1);
 
                 if (id[0] == 'd') {
-                    score = score * 2
+                    scoreOfThrow = scoreOfThrow * 2
                 }
 
                 if (id[0] == 't') {
-                    score = score * 3
+                    scoreOfThrow = scoreOfThrow * 3
                 }
 
                 if (id == 'Outer') {
-                    score = 25;
+                    scoreOfThrow = 25;
                 }
 
                 if (id == 'Bull') {
-                    score = 50;
+                    scoreOfThrow = 50;
                 }
 
-                viewDatas.handleThrow(score, id);
+                viewDatas.handleThrow(scoreOfThrow, id);
             });
 
             $(document).keydown(function (evt) {
-                console.log(evt.keyCode);
+                //console.log(evt.keyCode);
                 if (evt.keyCode == 32) {
                     $('#t20').trigger("click");
                     return false;
