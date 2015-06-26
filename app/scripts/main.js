@@ -166,7 +166,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
             });
 
             $(document).keydown(function (evt) {
-                //console.log(evt.keyCode);
+                console.log(evt.keyCode);
                 if (evt.keyCode == 32) {
                     $('#t20').trigger("click");
                     return false;
@@ -195,20 +195,20 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
                     $('#d20').trigger("click");
                     return false;
                 }
-                else if (evt.keyCode == 225) {
-                    $('#t5').trigger("click");
-                    return false;
-                }
-                else if (evt.keyCode == 17) {
+                else if (evt.keyCode == 188) {
                     $('#t1').trigger("click");
                     return false;
                 }
-                else if (evt.keyCode == 190) {
-                    $('#d5').trigger("click");
+                else if (evt.keyCode == 77) {
+                    $('#t5').trigger("click");
                     return false;
                 }
                 else if (evt.keyCode == 189) {
                     $('#d1').trigger("click");
+                    return false;
+                }
+                else if (evt.keyCode == 190) {
+                    $('#d5').trigger("click");
                     return false;
                 }
             });
