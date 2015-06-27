@@ -23,6 +23,16 @@ define("ViewDatas", function () {
 
         this.nextPlayerToThrowFirst = 1;
 
+        this.activeHelper = function () {
+            if(this.switchToDoubleOut()) {
+                $('#helper').css("visibility", "visible")
+            }
+            else if(!this.switchToDoubleOut()) {
+                $('#helper').css("visibility", "hidden")   
+            }
+            return 0;
+        }
+
         this.jumpToNextPlayer = function (currentPlayer) {
             var nextPlayerIndex,
                 nextInLine;
@@ -187,14 +197,6 @@ define("ViewDatas", function () {
                 player.turnHistory([])
                 player.requireByTurns = player.require();
             });
-        };
-
-        this.switchDoubleOut = function () {
-            if (_this.switchToDoubleOut() == 1) {
-                _this.switchToDoubleOut(false)
-            } else if (_this.switchToDoubleOut() == 0) {
-                _this.switchToDoubleOut(true)
-            }
         };
 
         this.switchView = function () {

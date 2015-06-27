@@ -70,8 +70,8 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
 
             viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 1, scoreLimit, true, checkoutTable));
 
-            $('#switch_double_btn').click(function () {
-                viewDatas.switchDoubleOut();
+            $('#hideHelper').click(function () {
+                viewDatas.activeHelper();
             });
 
             $('#switch_view_btn').click(function () {
@@ -115,7 +115,6 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
                     });
                 myLineChart.update();
             });
-
 
             $("#dartboard #areas g").children().click(function () {
                 var id;
@@ -199,7 +198,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
                     $('#t1').trigger("click");
                     return false;
                 }
-                else if (evt.keyCode == 77) {
+                else if (evt.keyCode == 225) {
                     $('#t5').trigger("click");
                     return false;
                 }

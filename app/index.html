@@ -21,9 +21,8 @@
     <ul class="list-group playerList" data-bind='template: { foreach: players}'>
         <li id="playerBoard" class="list-group-item">
             <div id="nameAndVictories">
-                <span contenteditable="true" class="name" data-bind="text: $data.name"></span>
+                <span contenteditable="true" class="name editableName" data-bind="text: $data.name"></span>
                 <span id="scoreBadge" class="badge" data-bind="text: $data.require"></span>
-                <span data-bind="text: $data.advise" class="label label-info"></span>
             </div>
             <div class="stats">
                 <span class="" data-bind="status: $data.status"></span>
@@ -49,13 +48,20 @@
             <div data-bind="progress: { value: $data.totalAvg, type: 'warning', text: 'TOTÁL átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
             <span style="font-size: 10px; " role="" data-bind="text: $data.history"></span>
         </div>
-
-
     </ul>
 </div>
 
+<div id="helper" style="visibility: hidden;">
+    <ul class="list-group playerList" data-bind='template: { foreach: players}'>
+        <div class="checkoutHelper alert alert-info" role="alert">
+            <span data-bind="text: $data.advise"></span>
+        </div>
+    </ul>
+</div>
+
+
 <div style="float:left; clear: both">
-    <button class="btn btn-info" data-bind="toggle: _switch_double">Dupla kiszálló</button>
+    <button id="hideHelper" class="btn btn-info" data-bind="toggle: _switch_double">Dupla kiszálló</button>
     <button type="button" id="add-player" class="btn btn-default" aria-label="Left Align">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button>

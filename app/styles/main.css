@@ -115,3 +115,19 @@ div #nameAndVictories span {
 .firstToThrowBadge {
 
 }
+
+#helper {
+    float: left;
+    position: fixed;
+    left: 330px;
+    width: 285px;
+}
+
+.checkoutHelper{
+    position: relative;
+    top: 0px;
+    left: 0px;
+    font-size: 20px;
+    margin-left: 20px;
+    margin-bottom: 93px;
+}
