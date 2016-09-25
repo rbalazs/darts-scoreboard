@@ -280,6 +280,14 @@ module.exports = function (grunt) {
 
     // Copies remaining files to places other tasks can use
     copy: {
+      dev: {
+        files: [{
+          cwd: 'node_modules/requirejs/',
+          src: 'require.js',
+          dest: 'app/scripts/',
+          expand: true
+        }]
+      },
       dist: {
         files: [{
           expand: true,
@@ -315,7 +323,8 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up build process
     concurrent: {
       server: [
-        'copy:styles'
+        'copy:styles',
+        'copy:dev'
       ],
       test: [
         'copy:styles'

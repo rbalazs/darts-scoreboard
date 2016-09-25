@@ -1,5 +1,5 @@
 {
-  "name": "fylingdarts",
+  "name": "darts-scoreboard",
   "devDependencies": {
     "apache-server-configs": "^2.7.1",
     "grunt": "^0.4.5",
@@ -29,6 +29,7 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "express": "~4.12.4"
+    "express": "~4.12.4",
+    "requirejs": "~2.1.14"
   }
 }
