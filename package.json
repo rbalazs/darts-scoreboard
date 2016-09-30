@@ -36,5 +36,8 @@
     "express": "~4.12.4",
     "requirejs": "~2.1.14"
   },
+  "scripts": {
+    "postinstall": "bower install"
+  },
   "license": "UNLICENSED"
 }
