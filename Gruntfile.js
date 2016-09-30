@@ -323,8 +323,7 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up build process
     concurrent: {
       server: [
-        'copy:styles',
-        'copy:dev'
+        'copy:styles'
       ],
       test: [
         'copy:styles'
