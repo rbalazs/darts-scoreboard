@@ -9,3 +9,7 @@ Provide a usable app wiht dozens of real life features about the game of darts.
 ## Installation
 
 Basic web app. Yet no server side is critical. Installations is easier with npm, though.
+
+## Play
+
+https://darts-scores.herokuapp.com/
