@@ -34,7 +34,8 @@
   },
   "dependencies": {
     "express": "~4.12.4",
-    "requirejs": "~2.1.14"
+    "requirejs": "~2.1.14",
+    "bower" : "1.7.9"
   },
   "scripts": {
     "postinstall": "bower install"
