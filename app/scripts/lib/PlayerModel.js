@@ -2,19 +2,17 @@ define("PlayerModel", function () {
         return function PlayerModel(ko, viewDatas, name, status, scoreLimit, firstToThrow, table) {
             this.name = name;
             this.status = ko.observable(status);
-            this.history = ko.observableArray([])
-            this.turnHistory = ko.observableArray([])
-            this.allTurnHistory = ko.observableArray([])
-            this.victories = ko.observable(0)
+            this.history = ko.observableArray([]);
+            this.turnHistory = ko.observableArray([]);
+            this.allTurnHistory = ko.observableArray([]);
+            this.victories = ko.observable(0);
             this.requireByTurns = scoreLimit;
-            this.requireByThrows = ko.observable(scoreLimit);
             this.highestGameShot = ko.observable(0);
             this.hundredPlusCount = ko.observable(0);
             this.gameShotAttempnts = ko.observable(0);
             this.firstToThrow = ko.observable(firstToThrow || false);
             this.checkoutTable = table;
 
-            // this was named score
             this.require = ko.computed(function () {
                 return viewDatas.games[viewDatas.gameIndex] - this.history().reduce(function (total, num) {
                     return total + num

@@ -24,14 +24,14 @@ define("ViewDatas", function () {
         this.nextPlayerToThrowFirst = 1;
 
         this.activeHelper = function () {
-            if(this.switchToDoubleOut()) {
+            if (this.switchToDoubleOut()) {
                 $('#helper').css("visibility", "visible")
             }
-            else if(!this.switchToDoubleOut()) {
-                $('#helper').css("visibility", "hidden")   
+            else if (!this.switchToDoubleOut()) {
+                $('#helper').css("visibility", "hidden")
             }
             return 0;
-        }
+        };
 
         this.jumpToNextPlayer = function (currentPlayer) {
             var nextPlayerIndex,
@@ -39,7 +39,7 @@ define("ViewDatas", function () {
 
             var scoresToChart = [];
 
-            ko.utils.arrayForEach(_this.players(), function(item) {
+            ko.utils.arrayForEach(_this.players(), function (item) {
                 scoresToChart.push(item.roundAvg());
             });
 
@@ -66,7 +66,7 @@ define("ViewDatas", function () {
             nextInLine.status(1);
 
             _this.currentPlayerIndex = nextPlayerIndex;
-        }
+        };
 
         this.handleThrow = function (scoreOfThrow, id) {
             var currentPlayer;
@@ -193,8 +193,8 @@ define("ViewDatas", function () {
 
             ko.utils.arrayForEach(_this.players(), function (player) {
                 player.status(2);
-                player.history([])
-                player.turnHistory([])
+                player.history([]);
+                player.turnHistory([]);
                 player.requireByTurns = player.require();
             });
         };
