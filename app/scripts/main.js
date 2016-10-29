@@ -2,6 +2,7 @@ requirejs.config({
     baseUrl: '..',
     paths: {
         jquery: 'bower_components/jquery/dist/jquery',
+        text: 'bower_components/requirejs-text/text',
         knockout: 'bower_components/knockout/dist/knockout',
         knockstrap: 'bower_components/knockstrap/build/knockstrap',
         ViewDatas: 'scripts/lib/ViewDatas',
@@ -31,6 +32,11 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
 
         checkoutTable = new CheckoutTable();
 
+        ko.components.register('darts-board-widget', {
+            viewModel: { require: 'scripts/component/dartsBoardWidget' },
+            template: { require: 'text!scripts/component/template/darts-board-widget.html' }
+        });
+
         ko.bindingHandlers.status = {
             update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
                 var value = valueAccessor();
@@ -51,8 +57,6 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
 
         $(function () {
             var scoreLimit;
-            var clickCount = 0;
-
             ko.applyBindings({
                 players: viewDatas.players,
                 thrown: viewDatas.thrown,
@@ -114,102 +118,6 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
                         points: []
                     });
                 myLineChart.update();
-            });
-
-            $("#dartboard #areas g").children().click(function () {
-                var id;
-                var scoreOfThrow;
-                var color;
-                var _this = this;
-
-                id = $(this).attr('id');
-
-                if ($(this).css('fill') != "rgb(255, 255, 0)") {
-                    color = $(this).css('fill');
-                } else {
-                    return;
-                }
-
-                clickCount++;
-
-                if (clickCount === 1) {
-                    $(this).css('fill', 'yellow')
-                    singleClickTimer = setTimeout(function () {
-                        clickCount = 0;
-                        $(_this).css('fill', color)
-                    }, 250);
-                } else if (clickCount === 2) {
-                    clearTimeout(singleClickTimer);
-                    clickCount = 0;
-                }
-
-                scoreOfThrow = id.substring(1);
-
-                if (id[0] == 'd') {
-                    scoreOfThrow = scoreOfThrow * 2
-                }
-
-                if (id[0] == 't') {
-                    scoreOfThrow = scoreOfThrow * 3
-                }
-
-                if (id == 'Outer') {
-                    scoreOfThrow = 25;
-                }
-
-                if (id == 'Bull') {
-                    scoreOfThrow = 50;
-                }
-
-                viewDatas.handleThrow(scoreOfThrow, id);
-            });
-
-            $(document).keydown(function (evt) {
-                //console.log(evt.keyCode);
-                if (evt.keyCode == 32) {
-                    $('#t20').trigger("click");
-                    return false;
-                }
-                else if (evt.keyCode == 16) {
-                    viewDatas.handleThrow(0);
-                    return false;
-                }
-                else if (evt.keyCode == 8) {
-                    viewDatas.undo();
-                    return false;
-                }
-                else if (evt.keyCode == 40) {
-                    $('#s20').trigger("click");
-                    return false;
-                }
-                else if (evt.keyCode == 37) {
-                    $('#s5').trigger("click");
-                    return false;
-                }
-                else if (evt.keyCode == 39) {
-                    $('#s1').trigger("click");
-                    return false;
-                }
-                else if (evt.keyCode == 38) {
-                    $('#d20').trigger("click");
-                    return false;
-                }
-                else if (evt.keyCode == 188) {
-                    $('#t1').trigger("click");
-                    return false;
-                }
-                else if (evt.keyCode == 225) {
-                    $('#t5').trigger("click");
-                    return false;
-                }
-                else if (evt.keyCode == 189) {
-                    $('#d1').trigger("click");
-                    return false;
-                }
-                else if (evt.keyCode == 190) {
-                    $('#d5').trigger("click");
-                    return false;
-                }
             });
         });
     });

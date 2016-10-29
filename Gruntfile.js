@@ -114,7 +114,10 @@ module.exports = function (grunt) {
       app: {
         ignorePath: /^\/|\.\.\//,
         src: ['<%= config.app %>/index.html'],
-        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']
+        exclude: [
+          'bower_components/bootstrap/dist/js/bootstrap.js',
+          'bower_components/requirejs-text/text.js'
+        ]
       }
     },
 

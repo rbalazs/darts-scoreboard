@@ -6,6 +6,7 @@
     "knockout": "~3.3.0",
     "knockstrap": "git://github.com/rbalazs/Knockstrap#progress-bar-without-percentage",
     "Chart.js": "~1.0.2",
-    "requirejs": "^2.3.2"
+    "requirejs": "^2.3.2",
+    "requirejs-text": "2.0.*"
   }
 }
