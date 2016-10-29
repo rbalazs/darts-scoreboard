@@ -13,50 +13,50 @@ requirejs.config({
 
 requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'CheckoutTable'],
     function ($, ko, knockstrap, ViewDatas, PlayerModel, CheckoutTable) {
-        var myLineChart = new Chart(document.getElementById("myChart").getContext("2d")).Line({
-            labels: [],
-            datasets: [
-                {
-                    fillColor: "rgba(255,222,51,0.2)",
-                    strokeColor: "rgba(255,222,51,1)",
-                    pointColor: "rgba(255,222,51,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: []
-                }
-            ]
-        });
-
-        viewDatas = new ViewDatas(ko, myLineChart);
-
-        checkoutTable = new CheckoutTable();
-
-        ko.components.register('darts-board-widget', {
-            viewModel: {require: 'scripts/component/dartsBoardWidget'},
-            template: {require: 'text!scripts/component/template/darts-board-widget.html'}
-        });
-
-        ko.bindingHandlers.status = {
-            update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-                var value = valueAccessor();
-                var valueUnwrapped = ko.unwrap(value);
-                var element;
-
-                element = $(element).parent();
-
-                if (valueUnwrapped == 1) {
-                    element.parent().css('background-color', '#AFE1AB')
-                } else if (valueUnwrapped == 0) {
-                    element.parent().css('background-color', '')
-                } else {
-                    element.parent().css('background-color', '')
-                }
-            }
-        };
-
         $(function () {
             var scoreLimit;
+            var myLineChart = new Chart(document.getElementById("myChart").getContext("2d")).Line({
+                labels: [],
+                datasets: [
+                    {
+                        fillColor: "rgba(255,222,51,0.2)",
+                        strokeColor: "rgba(255,222,51,1)",
+                        pointColor: "rgba(255,222,51,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        data: []
+                    }
+                ]
+            });
+
+            viewDatas = new ViewDatas(ko, myLineChart);
+
+            checkoutTable = new CheckoutTable();
+
+            ko.components.register('darts-board-widget', {
+                viewModel: {require: 'scripts/component/dartsBoardWidget'},
+                template: {require: 'text!scripts/component/template/darts-board-widget.html'}
+            });
+
+            ko.bindingHandlers.status = {
+                update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+                    var value = valueAccessor();
+                    var valueUnwrapped = ko.unwrap(value);
+                    var element;
+
+                    element = $(element).parent();
+
+                    if (valueUnwrapped == 1) {
+                        element.parent().css('background-color', '#AFE1AB')
+                    } else if (valueUnwrapped == 0) {
+                        element.parent().css('background-color', '')
+                    } else {
+                        element.parent().css('background-color', '')
+                    }
+                }
+            };
+
             ko.applyBindings({
                 players: viewDatas.players,
                 thrown: viewDatas.thrown,
