@@ -33,8 +33,8 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
         checkoutTable = new CheckoutTable();
 
         ko.components.register('darts-board-widget', {
-            viewModel: { require: 'scripts/component/dartsBoardWidget' },
-            template: { require: 'text!scripts/component/template/darts-board-widget.html' }
+            viewModel: {require: 'scripts/component/dartsBoardWidget'},
+            template: {require: 'text!scripts/component/template/darts-board-widget.html'}
         });
 
         ko.bindingHandlers.status = {
@@ -90,21 +90,6 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
                 var red = Math.floor(Math.random() * 256);
                 var green = Math.floor(Math.random() * 256);
                 var blue = Math.floor(Math.random() * 256);
-                /* THIS IS AN UNFINISHED IDEA
-                var checkColorsDifference = true;
-                while (checkColorsDifference) {
-                    if ( (red - green > 50)   ||
-                         (red - blue > 50)    ||
-                         (blue - green > 50) ) {
-                        
-                        checkColorsDifference = false;
-                    } else {
-                        red = Math.floor(Math.random() * 256);
-                        green = Math.floor(Math.random() * 256);
-                        blue = Math.floor(Math.random() * 256);    
-                    }
-                }
-                */
                 var hue = (red + ',' + green + ',' + blue);
                 viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 2, scoreLimit, false, checkoutTable));
                 myLineChart.datasets.push(
