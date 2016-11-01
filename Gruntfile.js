@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 
   // Configurable paths
   var config = {
-    app: 'app',
+    app: 'public',
     dist: 'dist'
   };
 
@@ -236,7 +236,7 @@ module.exports = function (grunt) {
         files: [{
           cwd: 'node_modules/requirejs/',
           src: 'require.js',
-          dest: 'app/scripts/',
+          dest: 'public/scripts/',
           expand: true
         }]
       },

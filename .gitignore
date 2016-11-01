@@ -1,5 +1,5 @@
 node_modules
 .tmp
 bower_components
-/app/scripts/require.js
+/public/scripts/require.js
 .idea/
