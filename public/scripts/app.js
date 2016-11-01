@@ -72,7 +72,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'Chec
 
       scoreLimit = gameModel.games[gameModel.gameIndex];
 
-      gameModel.players.push(new PlayerModel(ko, gameModel, 'Player', 1, scoreLimit, true, checkoutTable));
+      gameModel.players.push(new PlayerModel(ko, gameModel, 1, scoreLimit, true, checkoutTable));
 
       $('#hideHelper').click(function () {
         gameModel.activeHelper();
@@ -91,7 +91,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'Chec
         var green = Math.floor(Math.random() * 256);
         var blue = Math.floor(Math.random() * 256);
         var hue = (red + ',' + green + ',' + blue);
-        gameModel.players.push(new PlayerModel(ko, gameModel, 'Player', 2, scoreLimit, false, checkoutTable));
+        gameModel.players.push(new PlayerModel(ko, gameModel, 2, scoreLimit, false, checkoutTable));
         myLineChart.datasets.push(
           {
             fillColor: "rgba(" + hue + ",0.2)",

@@ -21,7 +21,7 @@
     <div class="playerList" data-bind='template: { foreach: players}'>
         <div class="playerBoard">
             <div id="nameAndVictories">
-                <span contenteditable="true" class="name editableName" data-bind="text: $data.name"></span>
+                <input class="player-name-input" data-bind="value: $data.name"></input>
                 <span id="scoreBadge" class="badge" data-bind="text: $data.require"></span>
             </div>
             <div class="stats">

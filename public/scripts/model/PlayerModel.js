@@ -1,7 +1,7 @@
 /* global define*/
 define('PlayerModel', function () {
-  return function PlayerModel(ko, gameModel, name, status, scoreLimit, firstToThrow, table) {
-    this.name = name;
+  return function PlayerModel(ko, gameModel, status, scoreLimit, firstToThrow, table) {
+    this.name = ko.observable("PhillTaylor");;
     this.status = ko.observable(status);
     this.history = ko.observableArray([]);
     this.turnHistory = ko.observableArray([]);
