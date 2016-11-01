@@ -170,7 +170,7 @@ define('GameModel', function () {
           return true;
         }
       } else {
-        if ((score <= 40 && score % 2 === 0) || (score == 50 && dartCount === 2) ||
+        if ((score <= 40 && score % 2 === 0) || (score === 50 && dartCount === 2) ||
           (score <= 60 && score % 3 === 0) ||
           (score <= 20) ||
           (score === 25 && dartCount === 1))
@@ -198,7 +198,8 @@ define('GameModel', function () {
 
     this.switchView = function () {
       var style;
-      var link = $('#switchable').attr('href');
+      var $switchable = $('#switchable');
+      var link = $switchable.attr('href');
       if (_this.switchViewIndex() === 1) {
         style = link.replace('view', 'main');
         _this.switchViewIndex(0);
@@ -206,11 +207,11 @@ define('GameModel', function () {
         style = link.replace('main', 'view');
         _this.switchViewIndex(1);
       }
-      $('#switchable').attr('href', style);
+      $switchable.attr('href', style);
     };
 
     this.undo = function () {
-      if (_this.thrown() == 0) {
+      if (_this.thrown() === 0) {
         _this.getCurrentPlayer().status(2);
 
         _this.currentPlayerIndex--;
