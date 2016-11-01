@@ -1,133 +1,158 @@
-#dartboard {
-    position: relative;
-    left: 150px;
-}
-
-#scoreboard {
-    float: left;
-    clear: both;
-    min-width: 350px;
-}
-
-#scoreboard .score {
-    font-weight: bold;
-}
-
-.player-card {
-    float: left;
-    min-width: 100px;
-}
-
-#thrown {
-
-    float: right;
-}
-
-#switch_double_btn {
-    background-color: rgb(123, 123, 123);
-}
-
-#switch_view_btn {
-    background-color: silver;
-}
-
-.name {
-    font-size: 18px;
-    background-color: transparent;
-    border: none;
-    width: 110px;
-}
-
-.label {
-    position: relative;
-    top: -3px;
-    left: 4px;
-}
-
 #button-holder {
-    float: left;
-    clear: both;
-    position: absolute;
-    bottom: 5px;
-    left: 355px;
+    bottom:5px;
+    clear:both;
+    float:left;
+    left:355px;
+    position:absolute;
 }
 
-#nameAndVictories {
-    min-width: 130px;
-    float: left;
-    position: relative;
-    left: -3px;
-}
-
-div #nameAndVictories span {
-    margin: 0 10px 0 0;
-}
-
-#scoreBadge {
-    position: relative;
-    top: 0px;
-    font-size: 20px;
-}
-
-#hundredCounter {
-    margin-right: 1px;
-}
-
-#playerBoard {
-    height: 50px;
-}
-
-.playerList {
-    margin-bottom: 10px !important;
-}
-
-.progress {
-    margin-bottom: 4px !important;
-}
-
-.scoreCard {
-    margin-bottom: 2px;
-    padding: 6px 10px 4px 10px !important;
-}
-
-#leg {
-    margin-bottom: 4px !important;   
-}
-
-#myChart {
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-}
-
-.stats {
-    position: relative;
-    top: 5px;
-    float: right;
-}
-
-.victoriesBadge {
-    position: relative;
-    top: -3px;
-    left: 10px;
-}
-
-.firstToThrowBadge {
-
+#dartboard {
+    position:absolute;
+    right:2px;
+    top:44px;
 }
 
 #helper {
-    float: left;
-    position: fixed;
-    left: 330px;
-    width: 285px;
+    float:left;
+    left:330px;
+    position:fixed;
+    width:285px;
 }
 
-.checkoutHelper{
-    position: relative;
-    top: 0px;
-    left: 0px;
-    font-size: 20px;
-    margin-left: 20px;
-    margin-bottom: 93px;
+#hundredCounter {
+    margin-right:1px;
+}
+
+#myChart {
+    bottom:0;
+    left:0;
+    position:fixed;
+}
+
+#nameAndVictories {
+    float:left;
+    left:-3px;
+    min-width:130px;
+    position:relative;
+}
+
+#scoreBadge {
+    font-size:20px;
+    position:relative;
+    top:0;
+}
+
+#scoreboard {
+    clear:both;
+    min-height: 50px;
+    float:left;
+    min-width:100%;
+}
+
+#scoreboard .score {
+    font-weight:700;
+}
+
+#switch_double_btn {
+    background:#7b7b7b;
+}
+
+#switch_view_btn {
+    background:silver;
+}
+
+#thrown {
+    float:right;
+}
+
+.checkoutHelper {
+    font-size:20px;
+    left:0;
+    margin-bottom:93px;
+    margin-left:20px;
+    position:relative;
+    top:0;
+}
+
+.controls {
+    clear:both;
+    float:left;
+    position:absolute;
+    right:1px;
+    top:5px;
+}
+
+.label {
+    left:4px;
+    position:relative;
+    top:-3px;
+}
+
+.name {
+    border:none;
+    font-size:18px;
+    width:110px;
+}
+
+.player-card {
+    float:left;
+    min-width:100px;
+}
+
+.playerBoard {
+    border:1px dotted silver;
+    float:left;
+    height:50px;
+    padding-left:10px;
+    padding-right:15px;
+    width:400px;
+}
+
+.playerList {
+    height:50px;
+    padding:0;
+    position:absolute;
+    width:100%;
+}
+
+.playerList .activePlayer{
+    background-color: #AFE1AB;
+}
+
+.progress,#leg {
+    margin-bottom:4px!important;
+}
+
+.scoreCard {
+    margin-bottom:2px;
+    display: none;
+    padding:6px 10px 4px!important;
+}
+
+.scoreCard.activePlayer {
+    display: block;
+}
+
+.playerCards {
+    margin-top: 30px;
+    float: left;
+    clear: both;
+    height: 200px;
+    width: 400px
+}
+
+.stats {
+    float:right;
+    position:relative;
+    top:5px;
+}
+
+.victoriesBadge {
+    left:10px;
+    position:relative;
+    top:-3px;
+}
+
+div #nameAndVictories span {
+    margin:0 10px 0 0;
 }

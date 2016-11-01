@@ -44,16 +44,13 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'Chec
         update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
           var value = valueAccessor();
           var valueUnwrapped = ko.unwrap(value);
-          var element;
-
-          element = $(element).parent();
-
-          if (valueUnwrapped == 1) {
-            element.parent().css('background-color', '#AFE1AB')
+          var parent = $(element).parent();
+          if (valueUnwrapped === 1) {
+            parent.parent().addClass('activePlayer');
           } else if (valueUnwrapped == 0) {
-            element.parent().css('background-color', '')
+            parent.parent().removeClass('activePlayer');
           } else {
-            element.parent().css('background-color', '')
+            parent.parent().removeClass('activePlayer');
           }
         }
       };

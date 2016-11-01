@@ -11,7 +11,6 @@ define('HotkeyService', function () {
      */
     startListeningToKeyboard: function ($, gameModel) {
       $(document).keydown(function (evt) {
-        evt.preventDefault();
         if (evt.keyCode === 32) {
           $('#t20').trigger('click');
         } else if (evt.keyCode === 16) {
@@ -36,8 +35,6 @@ define('HotkeyService', function () {
         } else if (evt.keyCode === 190) {
           $('#d5').trigger('click');
         }
-
-        return false;
       });
     }
   };

@@ -9,7 +9,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -18,37 +18,45 @@
 </head>
 <body>
 <div id="scoreboard">
-    <ul class="list-group playerList" data-bind='template: { foreach: players}'>
-        <li id="playerBoard" class="list-group-item">
+    <div class="playerList" data-bind='template: { foreach: players}'>
+        <div class="playerBoard">
             <div id="nameAndVictories">
                 <span contenteditable="true" class="name editableName" data-bind="text: $data.name"></span>
                 <span id="scoreBadge" class="badge" data-bind="text: $data.require"></span>
             </div>
             <div class="stats">
                 <span class="" data-bind="status: $data.status"></span>
-            <span data-bind="visible: $data.highestScore">
-                <span data-bind="text: $data.highestScore" class="label label-success"></span>
-                <span id="hundredCounter" class="label label-danger">
-                    <span data-bind="text: $data.hundredPlusCount"></span></span>
-                <span data-bind="text: $data.gameShotPercentage" class="label label-warning"></span>
-                <span class="label label-success" data-bind="visible: $data.firstToThrow">kezdő</span>
-            </span>
-            <span data-bind="visible: $data.highestGameShot">
-                <span data-bind="text: $data.highestGameShot" class="label label-primary"></span>
-            </span>
+                    <span data-bind="visible: $data.highestScore">
+                        <span data-bind="text: $data.highestScore" class="label label-success"></span>
+                        <span id="hundredCounter" class="label label-danger">
+                            <span data-bind="text: $data.hundredPlusCount"></span>
+                        </span>
+                        <span data-bind="text: $data.gameShotPercentage" class="label label-warning"></span>
+                        <span class="label label-success" data-bind="visible: $data.firstToThrow">kezdő</span>
+                    </span>
+                    <span data-bind="visible: $data.highestGameShot">
+                    <span data-bind="text: $data.highestGameShot" class="label label-primary"></span>
+                    </span>
                 <span class="badge victoriesBadge" data-bind="text: $data.victories"></span>
             </div>
-        </li>
-
-        <div class="alert alert-info scoreCard" role="alert">
-            <div  id ="leg" >
-                <span style="font-size: 10px; " role="" data-bind="text: $data.turnHistory"></span>
-            </div>
-            <div data-bind="progress: { value: $data.roundAvg, type: 'info', text: 'átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
-            <div data-bind="progress: { value: $data.totalAvg, type: 'warning', text: 'TOTÁL átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
-            <span style="font-size: 10px; " role="" data-bind="text: $data.history"></span>
         </div>
-    </ul>
+    </div>
+</div>
+
+<div class="playerCards" data-bind='template: { foreach: players}'>
+    <div class="alert alert-info scoreCard" role="alert">
+        <h2>
+            <span data-bind="text: $data.name"></span> -
+            <span data-bind="text: $data.require"></span>
+        </h2>
+        <div id="leg">
+            <span class="" data-bind="status: $data.status"></span>
+            <span style="font-size: 10px; " role="" data-bind="text: $data.turnHistory"></span>
+        </div>
+        <div data-bind="progress: { value: $data.roundAvg, type: 'info', text: 'átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
+        <div data-bind="progress: { value: $data.totalAvg, type: 'warning', text: 'TOTÁL átlag pont', textHidden: false, animated: true, striped: true, percentageSignVisible: false }"></div>
+        <span style="font-size: 10px; " role="" data-bind="text: $data.history"></span>
+    </div>
 </div>
 
 <div id="helper" style="visibility: hidden;">
@@ -58,18 +66,14 @@
         </div>
     </ul>
 </div>
-
-<div style="float:left; clear: both">
+<div class="controls">
     <button id="hideHelper" class="btn btn-info" data-bind="toggle: _switch_double">Dupla kiszálló</button>
     <button type="button" id="add-player" class="btn btn-default" aria-label="Left Align">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     </button>
 </div>
-
-<canvas id="myChart" width="375" height="210"></canvas>
-
+<canvas id="myChart" width="540" height="340"></canvas>
 <div data-bind='component: "darts-board-widget"'></div>
-
 <!-- build:js(.) scripts/vendor.js -->
 <!-- bower:js -->
 <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -78,7 +82,6 @@
 <script src="bower_components/Chart.js/Chart.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
-
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script>
     (function (b, o, i, l, e, r) {
@@ -96,7 +99,6 @@
     ga('create', 'UA-XXXXX-X');
     ga('send', 'pageview');
 </script>
-
 <!-- build:js(.) scripts/plugins.js -->
 <script src="bower_components/bootstrap/js/affix.js"></script>
 <script src="bower_components/bootstrap/js/alert.js"></script>
@@ -111,8 +113,6 @@
 <script src="bower_components/bootstrap/js/collapse.js"></script>
 <script src="bower_components/bootstrap/js/tab.js"></script>
 <!-- endbuild -->
-
 <script data-main="scripts/app.js" src="bower_components/requirejs/require.js"></script>
-
 </body>
 </html>
