@@ -8,12 +8,13 @@ requirejs.config({
     knockstrap: 'bower_components/knockstrap/build/knockstrap',
     GameModel: 'scripts/model/GameModel',
     PlayerModel: 'scripts/model/PlayerModel',
-    CheckoutTable: 'scripts/service/CheckoutTable'
+    CheckoutTable: 'scripts/service/CheckoutTable',
+    HotkeyService: 'scripts/service/HotkeyService'
   }
 });
 
-requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'CheckoutTable'],
-  function ($, ko, knockstrap, GameModel, PlayerModel, CheckoutTable) {
+requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'CheckoutTable', 'HotkeyService'],
+  function ($, ko, knockstrap, GameModel, PlayerModel, CheckoutTable, HotkeyService) {
     $(function () {
       var scoreLimit;
       var myLineChart = new Chart(document.getElementById("myChart").getContext("2d")).Line({
@@ -32,7 +33,6 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'Chec
       });
 
       gameModel = new GameModel(ko, myLineChart);
-
       checkoutTable = new CheckoutTable();
 
       ko.components.register('darts-board-widget', {
@@ -70,6 +70,8 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'Chec
 
         _switch_double: gameModel.switchToDoubleOut
       });
+
+      HotkeyService.startListeningToKeyboard($, gameModel);
 
       scoreLimit = gameModel.games[gameModel.gameIndex];
 
