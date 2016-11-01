@@ -1,6 +1,6 @@
 /* global define*/
-define("ViewDatas", function () {
-  return function ViewDatas(ko, myLineChart) {
+define('GameModel', function () {
+  return function GameModel(ko, myLineChart) {
     var _this = this;
 
     this.games = [101, 301, 501];

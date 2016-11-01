@@ -6,14 +6,14 @@ requirejs.config({
     text: 'bower_components/requirejs-text/text',
     knockout: 'bower_components/knockout/dist/knockout',
     knockstrap: 'bower_components/knockstrap/build/knockstrap',
-    ViewDatas: 'scripts/lib/ViewDatas',
-    PlayerModel: 'scripts/lib/PlayerModel',
-    CheckoutTable: 'scripts/lib/CheckoutTable'
+    GameModel: 'scripts/model/GameModel',
+    PlayerModel: 'scripts/model/PlayerModel',
+    CheckoutTable: 'scripts/service/CheckoutTable'
   }
 });
 
-requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'CheckoutTable'],
-  function ($, ko, knockstrap, ViewDatas, PlayerModel, CheckoutTable) {
+requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'CheckoutTable'],
+  function ($, ko, knockstrap, GameModel, PlayerModel, CheckoutTable) {
     $(function () {
       var scoreLimit;
       var myLineChart = new Chart(document.getElementById("myChart").getContext("2d")).Line({
@@ -31,13 +31,13 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
         ]
       });
 
-      viewDatas = new ViewDatas(ko, myLineChart);
+      gameModel = new GameModel(ko, myLineChart);
 
       checkoutTable = new CheckoutTable();
 
       ko.components.register('darts-board-widget', {
-        viewModel: {require: 'scripts/component/dartsBoardWidget'},
-        template: {require: 'text!scripts/component/template/darts-board-widget.html'}
+        viewModel: {require: 'scripts/component/dartsboard/dartsBoardWidget'},
+        template: {require: 'text!scripts/component/dartsboard/template/darts-board-widget.html'}
       });
 
       ko.bindingHandlers.status = {
@@ -59,32 +59,32 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
       };
 
       ko.applyBindings({
-        players: viewDatas.players,
-        thrown: viewDatas.thrown,
-        _switch: viewDatas.switchViewIndex,
+        players: gameModel.players,
+        thrown: gameModel.thrown,
+        _switch: gameModel.switchViewIndex,
         highestGameShotAll: ko.computed(function () {
-          return viewDatas.players().reduce(function (highest, player) {
+          return gameModel.players().reduce(function (highest, player) {
             return (player.highestGameShot() > highest ? player.highestGameShot() : highest);
           }, 0);
         }, this),
 
-        _switch_double: viewDatas.switchToDoubleOut
+        _switch_double: gameModel.switchToDoubleOut
       });
 
-      scoreLimit = viewDatas.games[viewDatas.gameIndex];
+      scoreLimit = gameModel.games[gameModel.gameIndex];
 
-      viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 1, scoreLimit, true, checkoutTable));
+      gameModel.players.push(new PlayerModel(ko, gameModel, 'Player', 1, scoreLimit, true, checkoutTable));
 
       $('#hideHelper').click(function () {
-        viewDatas.activeHelper();
+        gameModel.activeHelper();
       });
 
       $('#switch_view_btn').click(function () {
-        viewDatas.switchView();
+        gameModel.switchView();
       });
 
       $('#up').click(function () {
-        viewDatas.swapScore();
+        gameModel.swapScore();
       });
 
       $('#add-player').click(function () {
@@ -92,7 +92,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'ViewDatas', 'PlayerModel', 'Chec
         var green = Math.floor(Math.random() * 256);
         var blue = Math.floor(Math.random() * 256);
         var hue = (red + ',' + green + ',' + blue);
-        viewDatas.players.push(new PlayerModel(ko, viewDatas, 'Player', 2, scoreLimit, false, checkoutTable));
+        gameModel.players.push(new PlayerModel(ko, gameModel, 'Player', 2, scoreLimit, false, checkoutTable));
         myLineChart.datasets.push(
           {
             fillColor: "rgba(" + hue + ",0.2)",

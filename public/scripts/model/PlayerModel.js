@@ -1,6 +1,6 @@
 /* global define*/
 define("PlayerModel", function () {
-    return function PlayerModel(ko, viewDatas, name, status, scoreLimit, firstToThrow, table) {
+    return function PlayerModel(ko, gameModel, name, status, scoreLimit, firstToThrow, table) {
       this.name = name;
       this.status = ko.observable(status);
       this.history = ko.observableArray([]);
@@ -15,7 +15,7 @@ define("PlayerModel", function () {
       this.checkoutTable = table;
 
       this.require = ko.computed(function () {
-        return viewDatas.games[viewDatas.gameIndex] - this.history().reduce(function (total, num) {
+        return gameModel.games[gameModel.gameIndex] - this.history().reduce(function (total, num) {
             return total + num
           }, 0)
       }, this);

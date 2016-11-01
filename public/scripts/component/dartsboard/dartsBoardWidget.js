@@ -48,7 +48,7 @@ define(['knockout', 'jquery'], function (ko, $) {
           scoreOfThrow = 50;
         }
 
-        viewDatas.handleThrow(scoreOfThrow, id);
+        gameModel.handleThrow(scoreOfThrow, id);
       });
 
       $(document).keydown(function (evt) {
@@ -58,11 +58,11 @@ define(['knockout', 'jquery'], function (ko, $) {
           return false;
         }
         else if (evt.keyCode == 16) {
-          viewDatas.handleThrow(0);
+          gameModel.handleThrow(0);
           return false;
         }
         else if (evt.keyCode == 8) {
-          viewDatas.undo();
+          gameModel.undo();
           return false;
         }
         else if (evt.keyCode == 40) {
