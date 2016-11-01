@@ -1,4 +1,4 @@
-/* global define*/
+/* global define, $*/
 define('GameModel', function () {
   return function GameModel(ko, myLineChart) {
     var _this = this;
@@ -25,17 +25,16 @@ define('GameModel', function () {
 
     this.activeHelper = function () {
       if (this.switchToDoubleOut()) {
-        $('#helper').css("visibility", "visible")
-      }
-      else if (!this.switchToDoubleOut()) {
-        $('#helper').css("visibility", "hidden")
+        $('#helper').css('visibility', 'visible');
+      } else if (!this.switchToDoubleOut()) {
+        $('#helper').css('visibility', 'hidden');
       }
       return 0;
     };
 
     this.jumpToNextPlayer = function (currentPlayer) {
-      var nextPlayerIndex,
-        nextInLine;
+      var nextPlayerIndex;
+      var nextInLine;
 
       var scoresToChart = [];
 
@@ -43,7 +42,7 @@ define('GameModel', function () {
         scoresToChart.push(item.roundAvg());
       });
 
-      _this.chart.addData(scoresToChart, "");
+      _this.chart.addData(scoresToChart, '');
       _this.chartCount++;
 
       if (_this.chartCount >= 25) {
@@ -71,7 +70,7 @@ define('GameModel', function () {
     this.handleThrow = function (scoreOfThrow, id) {
       var currentPlayer;
 
-      currentPlayer = _this.getCurrentPlayer()
+      currentPlayer = _this.getCurrentPlayer();
 
       var ifGameShot = _this.checkForGameShot(currentPlayer, _this.thrown(), _this.switchToDoubleOut());
 
@@ -85,13 +84,13 @@ define('GameModel', function () {
         _this.thrown(_this.thrown() + 1);
         currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
         _this.jumpToNextPlayer(currentPlayer);
-      } else if (currentPlayer.require() == 0) {
-        if (_this.switchToDoubleOut() == 0) {
-          _this.turnScore(currentPlayer)
+      } else if (currentPlayer.require() === 0) {
+        if (_this.switchToDoubleOut() === 0) {
+          _this.turnScore(currentPlayer);
           _this.winner(currentPlayer);
-        } else if (_this.switchToDoubleOut() == 1) {
-          if (id[0] == 'd' || id == 'Bull') {
-            _this.turnScore(currentPlayer)
+        } else if (_this.switchToDoubleOut() === 1) {
+          if (id[0] === 'd' || id === 'Bull') {
+            _this.turnScore(currentPlayer);
             _this.winner(currentPlayer);
           } else {
             _this.thrown(_this.thrown() + 1);
@@ -100,13 +99,13 @@ define('GameModel', function () {
           }
         }
       } else {
-        if (_this.switchToDoubleOut() == 1 && currentPlayer.require() == 1) {
+        if (_this.switchToDoubleOut() === 1 && currentPlayer.require() === 1) {
           _this.thrown(_this.thrown() + 1);
           currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
           _this.jumpToNextPlayer(currentPlayer);
         } else {
-          if (_this.thrown() == 2) {
-            _this.turnScore(currentPlayer)
+          if (_this.thrown() === 2) {
+            _this.turnScore(currentPlayer);
             _this.jumpToNextPlayer(currentPlayer);
           } else {
             _this.thrown(_this.thrown() + 1);
@@ -116,7 +115,7 @@ define('GameModel', function () {
     };
 
     this.winner = function (currentPlayer) {
-      if (_this.players().length == 1) {
+      if (_this.players().length === 1) {
         currentPlayer.victories(currentPlayer.victories() + 1);
         return;
       }
@@ -155,29 +154,27 @@ define('GameModel', function () {
       for (var i = 0; i < countDarts; i++) {
         turnSum += turnThrows[i];
       }
-      if (turnSum != 0) {
+      if (turnSum !== 0) {
         currentPlayer.turnHistory.push(turnSum);
         currentPlayer.allTurnHistory.push(turnSum);
       }
       if (turnSum >= 100) {
         currentPlayer.hundredPlusCount((currentPlayer.hundredPlusCount() + 1));
       }
-      console.log("...tHis: " + currentPlayer.turnHistory().toString())
-      console.log("allTHis: " + currentPlayer.allTurnHistory().toString())
     };
 
     this.checkForGameShot = function (currentPlayer, dartCount, doubleFlag) {
       var score = currentPlayer.require();
       if (doubleFlag) {
-        if ((score <= 40 && score % 2 == 0) || score == 50 && dartCount == 2) {
+        if ((score <= 40 && score % 2 === 0) || score === 50 && dartCount === 2) {
           return true;
         }
       } else {
-        if ((score <= 40 && score % 2 == 0) || (score == 50 && dartCount == 2) ||
-          (score <= 60 && score % 3 == 0) ||
+        if ((score <= 40 && score % 2 === 0) || (score == 50 && dartCount === 2) ||
+          (score <= 60 && score % 3 === 0) ||
           (score <= 20) ||
-          (score == 25 && dartCount == 1)) {
-
+          (score === 25 && dartCount === 1))
+        {
           return true;
         }
       }
@@ -201,15 +198,15 @@ define('GameModel', function () {
 
     this.switchView = function () {
       var style;
-      var link = $("#switchable").attr("href");
-      if (_this.switchViewIndex() == 1) {
-        style = link.replace("view", "main")
+      var link = $('#switchable').attr('href');
+      if (_this.switchViewIndex() === 1) {
+        style = link.replace('view', 'main');
         _this.switchViewIndex(0);
-      } else if (_this.switchViewIndex() == 0) {
-        style = link.replace("main", "view")
+      } else if (_this.switchViewIndex() === 0) {
+        style = link.replace('main', 'view');
         _this.switchViewIndex(1);
       }
-      $("#switchable").attr("href", style);
+      $('#switchable').attr('href', style);
     };
 
     this.undo = function () {
@@ -233,7 +230,7 @@ define('GameModel', function () {
     };
 
     this.getCurrentPlayer = function () {
-      return _this.players()[_this.currentPlayerIndex]
+      return _this.players()[_this.currentPlayerIndex];
     };
-  }
+  };
 });
