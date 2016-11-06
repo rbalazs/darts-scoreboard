@@ -9,29 +9,27 @@ requirejs.config({
     GameModel: 'scripts/model/GameModel',
     PlayerModel: 'scripts/model/PlayerModel',
     CheckoutTable: 'scripts/service/CheckoutTable',
-    HotkeyService: 'scripts/service/HotkeyService'
+    HotkeyService: 'scripts/service/HotkeyService',
+    ChartWidget: 'scripts/service/ChartWidget'
   }
 });
 
-requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'CheckoutTable', 'HotkeyService'],
-  function ($, ko, knockstrap, GameModel, PlayerModel, CheckoutTable, HotkeyService) {
+requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'CheckoutTable', 'HotkeyService', 'ChartWidget'],
+  /**
+   * @param {jQuery} $
+   * @param {ko} ko
+   * @param {knockstrap} knockstrap
+   * @param {GameModel} GameModel
+   * @param {PlayerModel}PlayerModel
+   * @param {CheckoutTable} CheckoutTable
+   * @param {HotkeyService} HotkeyService
+   * @param {ChartWidget} ChartWidget
+   */
+  function ($, ko, knockstrap, GameModel, PlayerModel, CheckoutTable, HotkeyService, ChartWidget) {
     var scoreLimit;
-    var myLineChart = new Chart(document.getElementById("myChart").getContext("2d")).Line({
-      labels: [],
-      datasets: [
-        {
-          fillColor: "rgba(255,222,51,0.2)",
-          strokeColor: "rgba(255,222,51,1)",
-          pointColor: "rgba(255,222,51,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: []
-        }
-      ]
-    });
+    var chartWidget = new ChartWidget();
 
-    gameModel = new GameModel(ko, myLineChart);
+    gameModel = new GameModel(ko, chartWidget.getInstance());
     checkoutTable = new CheckoutTable();
 
     ko.components.register('darts-board-widget', {
@@ -91,7 +89,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'Chec
       var blue = Math.floor(Math.random() * 256);
       var hue = (red + ',' + green + ',' + blue);
       gameModel.players.push(new PlayerModel(ko, gameModel, 2, scoreLimit, false, checkoutTable));
-      myLineChart.datasets.push(
+      chartWidget.getInstance().datasets.push(
         {
           fillColor: "rgba(" + hue + ",0.2)",
           strokeColor: "rgba(" + hue + ",1)",
@@ -101,6 +99,6 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'Chec
           pointHighlightStroke: "rgba(" + hue + ",1)",
           points: []
         });
-      myLineChart.update();
+      chartWidget.getInstance().update();
     });
   });
