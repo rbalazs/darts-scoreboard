@@ -15,94 +15,92 @@ requirejs.config({
 
 requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'CheckoutTable', 'HotkeyService'],
   function ($, ko, knockstrap, GameModel, PlayerModel, CheckoutTable, HotkeyService) {
-    $(function () {
-      var scoreLimit;
-      var myLineChart = new Chart(document.getElementById("myChart").getContext("2d")).Line({
-        labels: [],
-        datasets: [
-          {
-            fillColor: "rgba(255,222,51,0.2)",
-            strokeColor: "rgba(255,222,51,1)",
-            pointColor: "rgba(255,222,51,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: []
-          }
-        ]
-      });
-
-      gameModel = new GameModel(ko, myLineChart);
-      checkoutTable = new CheckoutTable();
-
-      ko.components.register('darts-board-widget', {
-        viewModel: {require: 'scripts/component/dartsboard/dartsBoardWidget'},
-        template: {require: 'text!scripts/component/dartsboard/template/darts-board-widget.html'}
-      });
-
-      ko.bindingHandlers.status = {
-        update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-          var value = valueAccessor();
-          var valueUnwrapped = ko.unwrap(value);
-          var parent = $(element).parent();
-          if (valueUnwrapped === 1) {
-            parent.parent().addClass('activePlayer');
-          } else if (valueUnwrapped == 0) {
-            parent.parent().removeClass('activePlayer');
-          } else {
-            parent.parent().removeClass('activePlayer');
-          }
+    var scoreLimit;
+    var myLineChart = new Chart(document.getElementById("myChart").getContext("2d")).Line({
+      labels: [],
+      datasets: [
+        {
+          fillColor: "rgba(255,222,51,0.2)",
+          strokeColor: "rgba(255,222,51,1)",
+          pointColor: "rgba(255,222,51,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: []
         }
-      };
+      ]
+    });
 
-      ko.applyBindings({
-        players: gameModel.players,
-        thrown: gameModel.thrown,
-        _switch: gameModel.switchViewIndex,
-        highestGameShotAll: ko.computed(function () {
-          return gameModel.players().reduce(function (highest, player) {
-            return (player.highestGameShot() > highest ? player.highestGameShot() : highest);
-          }, 0);
-        }, this),
+    gameModel = new GameModel(ko, myLineChart);
+    checkoutTable = new CheckoutTable();
 
-        _switch_double: gameModel.switchToDoubleOut
-      });
+    ko.components.register('darts-board-widget', {
+      viewModel: {require: 'scripts/component/dartsboard/dartsBoardWidget'},
+      template: {require: 'text!scripts/component/dartsboard/template/darts-board-widget.html'}
+    });
 
-      HotkeyService.startListeningToKeyboard($, gameModel);
+    ko.bindingHandlers.status = {
+      update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+        var value = valueAccessor();
+        var valueUnwrapped = ko.unwrap(value);
+        var parent = $(element).parent();
+        if (valueUnwrapped === 1) {
+          parent.parent().addClass('activePlayer');
+        } else if (valueUnwrapped == 0) {
+          parent.parent().removeClass('activePlayer');
+        } else {
+          parent.parent().removeClass('activePlayer');
+        }
+      }
+    };
 
-      scoreLimit = gameModel.games[gameModel.gameIndex];
+    ko.applyBindings({
+      players: gameModel.players,
+      thrown: gameModel.thrown,
+      _switch: gameModel.switchViewIndex,
+      highestGameShotAll: ko.computed(function () {
+        return gameModel.players().reduce(function (highest, player) {
+          return (player.highestGameShot() > highest ? player.highestGameShot() : highest);
+        }, 0);
+      }, this),
 
-      gameModel.players.push(new PlayerModel(ko, gameModel, 1, scoreLimit, true, checkoutTable));
+      _switch_double: gameModel.switchToDoubleOut
+    });
 
-      $('#hideHelper').click(function () {
-        gameModel.activeHelper();
-      });
+    HotkeyService.startListeningToKeyboard($, gameModel);
 
-      $('#switch_view_btn').click(function () {
-        gameModel.switchView();
-      });
+    scoreLimit = gameModel.games[gameModel.gameIndex];
 
-      $('#up').click(function () {
-        gameModel.swapScore();
-      });
+    gameModel.players.push(new PlayerModel(ko, gameModel, 1, scoreLimit, true, checkoutTable));
 
-      $('#add-player').click(function () {
-        var red = Math.floor(Math.random() * 256);
-        var green = Math.floor(Math.random() * 256);
-        var blue = Math.floor(Math.random() * 256);
-        var hue = (red + ',' + green + ',' + blue);
-        gameModel.players.push(new PlayerModel(ko, gameModel, 2, scoreLimit, false, checkoutTable));
-        myLineChart.datasets.push(
-          {
-            fillColor: "rgba(" + hue + ",0.2)",
-            strokeColor: "rgba(" + hue + ",1)",
-            pointColor: "rgba(" + hue + ",1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(" + hue + ",1)",
-            points: []
-          });
-        myLineChart.update();
-      });
+    $('#hideHelper').click(function () {
+      gameModel.activeHelper();
+    });
+
+    $('#switch_view_btn').click(function () {
+      gameModel.switchView();
+    });
+
+    $('#up').click(function () {
+      gameModel.swapScore();
+    });
+
+    $('#add-player').click(function () {
+      var red = Math.floor(Math.random() * 256);
+      var green = Math.floor(Math.random() * 256);
+      var blue = Math.floor(Math.random() * 256);
+      var hue = (red + ',' + green + ',' + blue);
+      gameModel.players.push(new PlayerModel(ko, gameModel, 2, scoreLimit, false, checkoutTable));
+      myLineChart.datasets.push(
+        {
+          fillColor: "rgba(" + hue + ",0.2)",
+          strokeColor: "rgba(" + hue + ",1)",
+          pointColor: "rgba(" + hue + ",1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(" + hue + ",1)",
+          points: []
+        });
+      myLineChart.update();
     });
   });
