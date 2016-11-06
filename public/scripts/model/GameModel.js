@@ -173,8 +173,7 @@ define('GameModel', function () {
         if ((score <= 40 && score % 2 === 0) || (score === 50 && dartCount === 2) ||
           (score <= 60 && score % 3 === 0) ||
           (score <= 20) ||
-          (score === 25 && dartCount === 1))
-        {
+          (score === 25 && dartCount === 1)) {
           return true;
         }
       }
