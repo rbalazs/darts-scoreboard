@@ -15,7 +15,6 @@ define('HotkeyService', function () {
           $('#t20').trigger('click');
         } else if (evt.keyCode === 16) {
           gameModel.handleThrow(0);
-          return false;
         } else if (evt.keyCode === 8) {
           gameModel.undo();
         } else if (evt.keyCode === 40) {
