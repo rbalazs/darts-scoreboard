@@ -85,10 +85,10 @@ define('GameModel', function () {
         currentPlayer.history.splice((0 - _this.thrown()), _this.thrown());
         _this.jumpToNextPlayer(currentPlayer);
       } else if (currentPlayer.require() === 0) {
-        if (_this.switchToDoubleOut() === 0) {
+        if (!_this.switchToDoubleOut()) {
           _this.turnScore(currentPlayer);
           _this.winner(currentPlayer);
-        } else if (_this.switchToDoubleOut() === 1) {
+        } else if (_this.switchToDoubleOut()) {
           if (id[0] === 'd' || id === 'Bull') {
             _this.turnScore(currentPlayer);
             _this.winner(currentPlayer);
