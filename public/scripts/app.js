@@ -10,11 +10,14 @@ requirejs.config({
     PlayerModel: 'scripts/model/PlayerModel',
     CheckoutTable: 'scripts/service/CheckoutTable',
     HotkeyService: 'scripts/service/HotkeyService',
-    ChartWidget: 'scripts/service/ChartWidget'
+    ChartWidget: 'scripts/service/ChartWidget',
+    EventObserver: 'scripts/service/EventObserver'
   }
 });
 
-requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'CheckoutTable', 'HotkeyService', 'ChartWidget'],
+requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel',
+    'CheckoutTable', 'HotkeyService', 'ChartWidget', 'EventObserver'],
+
   /**
    * @param {jQuery} $
    * @param {ko} ko
@@ -24,21 +27,31 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'Chec
    * @param {CheckoutTable} CheckoutTable
    * @param {HotkeyService} HotkeyService
    * @param {ChartWidget} ChartWidget
+   * @param {EventObserver} EventObserver
    */
-  function ($, ko, knockstrap, GameModel, PlayerModel, CheckoutTable, HotkeyService, ChartWidget) {
+  function ($, ko, knockstrap, GameModel, PlayerModel, CheckoutTable,
+    HotkeyService, ChartWidget, EventObserver) {
+    eventObserver = new EventObserver();
+
     var scoreLimit;
     var chartWidget = new ChartWidget();
 
     gameModel = new GameModel(ko, chartWidget.getInstance());
     checkoutTable = new CheckoutTable();
 
+
     ko.components.register('darts-board-widget', {
-      viewModel: {require: 'scripts/component/dartsboard/dartsBoardWidget'},
-      template: {require: 'text!scripts/component/dartsboard/template/darts-board-widget.html'}
+      viewModel: {
+        require: 'scripts/component/dartsboard/dartsBoardWidget'
+      },
+      template: {
+        require: 'text!scripts/component/dartsboard/template/darts-board-widget.html'
+      }
     });
 
     ko.bindingHandlers.status = {
-      update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+      update: function (element, valueAccessor, allBindings, viewModel,
+        bindingContext) {
         var value = valueAccessor();
         var valueUnwrapped = ko.unwrap(value);
         var parent = $(element).parent();
@@ -58,7 +71,8 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'Chec
       _switch: gameModel.switchViewIndex,
       highestGameShotAll: ko.computed(function () {
         return gameModel.players().reduce(function (highest, player) {
-          return (player.highestGameShot() > highest ? player.highestGameShot() : highest);
+          return (player.highestGameShot() > highest ? player.highestGameShot() :
+            highest);
         }, 0);
       }, this),
 
@@ -69,7 +83,8 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'Chec
 
     scoreLimit = gameModel.games[gameModel.gameIndex];
 
-    gameModel.players.push(new PlayerModel(ko, gameModel, 1, scoreLimit, true, checkoutTable));
+    gameModel.players.push(new PlayerModel(ko, gameModel, 1, scoreLimit, true,
+      checkoutTable));
 
     $('#hideHelper').click(function () {
       gameModel.activeHelper();
@@ -88,17 +103,19 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'Chec
       var green = Math.floor(Math.random() * 256);
       var blue = Math.floor(Math.random() * 256);
       var hue = (red + ',' + green + ',' + blue);
-      gameModel.players.push(new PlayerModel(ko, gameModel, 2, scoreLimit, false, checkoutTable));
-      chartWidget.getInstance().datasets.push(
-        {
-          fillColor: "rgba(" + hue + ",0.2)",
-          strokeColor: "rgba(" + hue + ",1)",
-          pointColor: "rgba(" + hue + ",1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(" + hue + ",1)",
-          points: []
-        });
+      gameModel.players.push(new PlayerModel(ko, gameModel, 2, scoreLimit,
+        false, checkoutTable));
+      chartWidget.getInstance().datasets.push({
+        fillColor: "rgba(" + hue + ",0.2)",
+        strokeColor: "rgba(" + hue + ",1)",
+        pointColor: "rgba(" + hue + ",1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(" + hue + ",1)",
+        points: []
+      });
       chartWidget.getInstance().update();
     });
+
+    eventObserver.subscribe('SCORE', gameModel.handleThrow);
   });

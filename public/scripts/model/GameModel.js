@@ -67,7 +67,9 @@ define('GameModel', function () {
       self.currentPlayerIndex = nextPlayerIndex;
     };
 
-    this.handleThrow = function (scoreOfThrow, id) {
+    this.handleThrow = function (score) {
+      var scoreOfThrow = score.scoreOfThrow;
+      var scoreId = score.scoreId;
       var currentPlayer;
 
       currentPlayer = self.getCurrentPlayer();
@@ -89,7 +91,7 @@ define('GameModel', function () {
           self.turnScore(currentPlayer);
           self.winner(currentPlayer);
         } else if (self.switchToDoubleOut()) {
-          if (id[0] === 'd' || id === 'Bull') {
+          if (scoreId[0] === 'd' || scoreId === 'Bull') {
             self.turnScore(currentPlayer);
             self.winner(currentPlayer);
           } else {
