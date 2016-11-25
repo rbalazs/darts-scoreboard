@@ -130,7 +130,7 @@ define('CheckoutTable', function () {
     this.adviseThrow = function (score) {
       for (var property in this.table) {
         if (this.table.hasOwnProperty(property)) {
-          if (score === property) {
+          if (score === parseInt(property)) {
             return this.table[property];
           }
         }

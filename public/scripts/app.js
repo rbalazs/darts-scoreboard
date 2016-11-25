@@ -15,8 +15,10 @@ requirejs.config({
   }
 });
 
-requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel',
-    'CheckoutTable', 'HotkeyService', 'ChartWidget', 'EventObserver'],
+requirejs([
+    'jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel',
+    'CheckoutTable', 'HotkeyService', 'ChartWidget', 'EventObserver'
+  ],
 
   /**
    * @param {jQuery} $
@@ -29,16 +31,17 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel',
    * @param {ChartWidget} ChartWidget
    * @param {EventObserver} EventObserver
    */
-  function ($, ko, knockstrap, GameModel, PlayerModel, CheckoutTable,
-    HotkeyService, ChartWidget, EventObserver) {
-    eventObserver = new EventObserver();
-
+  function (
+    $, ko, knockstrap, GameModel, PlayerModel, CheckoutTable,
+    HotkeyService, ChartWidget, EventObserver
+  ) {
     var scoreLimit;
     var chartWidget = new ChartWidget();
+    var gameModel = new GameModel(ko, chartWidget.getInstance());
+    var checkoutTable = new CheckoutTable();
 
-    gameModel = new GameModel(ko, chartWidget.getInstance());
-    checkoutTable = new CheckoutTable();
-
+    // Global variable on purpose.
+    eventObserver = new EventObserver();
 
     ko.components.register('darts-board-widget', {
       viewModel: {
@@ -50,8 +53,7 @@ requirejs(['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel',
     });
 
     ko.bindingHandlers.status = {
-      update: function (element, valueAccessor, allBindings, viewModel,
-        bindingContext) {
+      update: function (element, valueAccessor) {
         var value = valueAccessor();
         var valueUnwrapped = ko.unwrap(value);
         var parent = $(element).parent();
