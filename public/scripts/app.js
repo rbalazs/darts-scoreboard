@@ -35,7 +35,6 @@ requirejs([
     $, ko, knockstrap, GameModel, PlayerModel, CheckoutTable,
     HotkeyService, ChartWidget, EventObserver
   ) {
-    var scoreLimit;
     var chartWidget = new ChartWidget();
     var gameModel = new GameModel(ko, chartWidget.getInstance());
     var checkoutTable = new CheckoutTable();
@@ -83,9 +82,7 @@ requirejs([
 
     HotkeyService.startListeningToKeyboard($, gameModel);
 
-    scoreLimit = gameModel.games[gameModel.gameIndex];
-
-    gameModel.players.push(new PlayerModel(ko, gameModel, 1, scoreLimit, true,
+    gameModel.players.push(new PlayerModel(ko, gameModel, 1, gameModel.games[gameModel.gameIndex], true,
       checkoutTable));
 
     $('#hideHelper').click(function () {
@@ -105,8 +102,10 @@ requirejs([
       var green = Math.floor(Math.random() * 256);
       var blue = Math.floor(Math.random() * 256);
       var hue = (red + ',' + green + ',' + blue);
-      gameModel.players.push(new PlayerModel(ko, gameModel, 2, scoreLimit,
-        false, checkoutTable));
+      var newPlayer = new PlayerModel(ko, gameModel, 2, gameModel.games[gameModel.gameIndex], false, checkoutTable);
+
+      gameModel.players.push(newPlayer);
+
       chartWidget.getInstance().datasets.push({
         fillColor: "rgba(" + hue + ",0.2)",
         strokeColor: "rgba(" + hue + ",1)",
