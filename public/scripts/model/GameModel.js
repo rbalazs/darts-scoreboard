@@ -182,35 +182,6 @@ define('GameModel', function () {
       return false;
     };
 
-    this.swapScore = function () {
-      self.gameIndex++;
-
-      if (self.gameIndex >= self.games.length) {
-        self.gameIndex = 0;
-      }
-
-      ko.utils.arrayForEach(self.players(), function (player) {
-        player.status(2);
-        player.history([]);
-        player.turnHistory([]);
-        player.requireByTurns = player.require();
-      });
-    };
-
-    this.switchView = function () {
-      var style;
-      var $switchable = $('#switchable');
-      var link = $switchable.attr('href');
-      if (self.switchViewIndex() === 1) {
-        style = link.replace('view', 'main');
-        self.switchViewIndex(0);
-      } else if (self.switchViewIndex() === 0) {
-        style = link.replace('main', 'view');
-        self.switchViewIndex(1);
-      }
-      $switchable.attr('href', style);
-    };
-
     this.undo = function () {
       if (self.thrown() === 0) {
         self.getCurrentPlayer().status(2);

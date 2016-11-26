@@ -101,14 +101,6 @@ var callback = function ($, ko, knockstrap, GameModel, PlayerModel, HotkeyServic
         gameModel.activeHelper();
       });
 
-      $('#switch_view_btn').click(function () {
-        gameModel.switchView();
-      });
-
-      $('#up').click(function () {
-        gameModel.swapScore();
-      });
-
       $('#add-player').click(function () {
         var red = Math.floor(Math.random() * 256);
         var green = Math.floor(Math.random() * 256);
