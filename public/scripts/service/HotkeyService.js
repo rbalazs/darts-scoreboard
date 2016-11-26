@@ -1,4 +1,4 @@
-/* global define */
+/* global define, eventObserver */
 define('HotkeyService', function () {
   return {
     /**

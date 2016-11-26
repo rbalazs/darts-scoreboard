@@ -131,7 +131,7 @@
       "beforeColon": false,
       "afterColon": true
     }],
-    "new-cap": [2, {                 // http://eslint.org/docs/rules/new-cap
+    "new-cap": [0, {                 // http://eslint.org/docs/rules/new-cap
       "newIsCap": true
     }],
     "new-parens": 2,                 // http://eslint.org/docs/rules/new-parens

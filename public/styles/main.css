@@ -3,66 +3,66 @@
     clear:both;
     float:left;
     left:355px;
-    position:absolute;
+    position:absolute
 }
 
 #dartboard {
     position:absolute;
     right:2px;
-    top:44px;
+    top:44px
 }
 
 #helper {
     float:left;
     left:330px;
     position:fixed;
-    width:285px;
+    width:285px
 }
 
 #hundredCounter {
-    margin-right:1px;
+    margin-right:1px
 }
 
 #myChart {
     bottom:0;
     left:0;
-    position:fixed;
+    position:fixed
 }
 
 #nameAndVictories {
     float:left;
     left:-3px;
     min-width:130px;
-    position:relative;
+    position:relative
 }
 
 #scoreBadge {
     font-size:20px;
     position:relative;
-    top:0;
+    top:0
 }
 
 #scoreboard {
     clear:both;
-    min-height: 50px;
     float:left;
-    min-width:100%;
+    min-height:50px;
+    min-width:100%
 }
 
 #scoreboard .score {
-    font-weight:700;
+    font-weight:700
 }
 
 #switch_double_btn {
-    background:#7b7b7b;
+    background:#7b7b7b
 }
 
 #switch_view_btn {
-    background:silver;
+    background:silver
 }
 
 #thrown {
-    float:right;
+    float:right
 }
 
 .checkoutHelper {
@@ -71,7 +71,7 @@
     margin-bottom:93px;
     margin-left:20px;
     position:relative;
-    top:0;
+    top:0
 }
 
 .controls {
@@ -79,24 +79,29 @@
     float:left;
     position:absolute;
     right:1px;
-    top:5px;
+    top:5px
 }
 
 .label {
     left:4px;
     position:relative;
-    top:-3px;
+    top:-3px
 }
 
 .name {
     border:none;
     font-size:18px;
-    width:110px;
+    width:110px
 }
 
 .player-card {
     float:left;
-    min-width:100px;
+    min-width:100px
+}
+
+.player-name-input {
+    background:none;
+    border:none
 }
 
 .playerBoard {
@@ -105,59 +110,54 @@
     height:50px;
     padding-left:10px;
     padding-right:15px;
-    width:400px;
+    width:400px
+}
+
+.playerCards {
+    clear:both;
+    float:left;
+    height:200px;
+    margin-top:30px;
+    width:400px
 }
 
 .playerList {
     height:50px;
     padding:0;
     position:absolute;
-    width:100%;
+    width:100%
 }
 
-.playerList .activePlayer{
-    background-color: #AFE1AB;
+.playerList .activePlayer {
+    background-color:#AFE1AB
 }
 
 .progress,#leg {
-    margin-bottom:4px!important;
+    margin-bottom:4px!important
 }
 
 .scoreCard {
+    display:none;
     margin-bottom:2px;
-    display: none;
-    padding:6px 10px 4px!important;
+    padding:6px 10px 4px!important
 }
 
 .scoreCard.activePlayer {
-    display: block;
-}
-
-.playerCards {
-    margin-top: 30px;
-    float: left;
-    clear: both;
-    height: 200px;
-    width: 400px
+    display:block
 }
 
 .stats {
     float:right;
     position:relative;
-    top:5px;
+    top:5px
 }
 
 .victoriesBadge {
     left:10px;
     position:relative;
-    top:-3px;
+    top:-3px
 }
 
 div #nameAndVictories span {
-    margin:0 10px 0 0;
-}
-
-.player-name-input {
-    border: none;
-    background: none;
+    margin:0 10px 0 0
 }

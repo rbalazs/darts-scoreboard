@@ -1,4 +1,4 @@
-/* global define*/
+/* global define, eventObserver*/
 define(['knockout', 'jquery'],
   /**
    * Handles the events occuring on the darts scoreboard svg.
