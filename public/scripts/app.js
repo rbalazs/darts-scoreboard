@@ -8,7 +8,7 @@ requirejs.config({
     knockstrap: 'bower_components/knockstrap/build/knockstrap',
     GameModel: 'scripts/model/GameModel',
     PlayerModel: 'scripts/model/PlayerModel',
-    CheckoutTable: 'scripts/service/CheckoutTable',
+    CheckoutAdviser: 'scripts/service/CheckoutAdviser',
     HotkeyService: 'scripts/service/HotkeyService',
     ChartWidget: 'scripts/service/ChartWidget',
     EventObserver: 'scripts/service/EventObserver',

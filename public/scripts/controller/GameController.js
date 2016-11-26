@@ -3,7 +3,7 @@
  *
  * @type {string[]}
  */
-var dependencies = ['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'CheckoutTable', 'HotkeyService', 'ChartWidget'];
+var dependencies = ['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'HotkeyService', 'ChartWidget'];
 
 /**
  * Returns the module responsible for controlling the application.
@@ -13,13 +13,12 @@ var dependencies = ['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerMode
  * @param {knockstrap} knockstrap
  * @param {GameModel} GameModel
  * @param {PlayerModel} PlayerModel
- * @param {CheckoutTable} CheckoutTable
  * @param {HotkeyService} HotkeyService
  * @param {ChartWidget} ChartWidget
  *
  * @return {GameController}
  */
-var callback = function ($, ko, knockstrap, GameModel, PlayerModel, CheckoutTable, HotkeyService, ChartWidget) {
+var callback = function ($, ko, knockstrap, GameModel, PlayerModel, HotkeyService, ChartWidget) {
   /**
    * The applications main controller.
    */
@@ -30,14 +29,12 @@ var callback = function ($, ko, knockstrap, GameModel, PlayerModel, CheckoutTabl
     this.execute = function () {
       var chartWidget = new ChartWidget();
       var gameModel = new GameModel(ko, chartWidget.getInstance());
-      var checkoutTable = new CheckoutTable();
-      var firstPlayer = new PlayerModel(ko, 1, gameModel.games[gameModel.gameIndex], true,
-        checkoutTable);
+      var firstPlayer = new PlayerModel(ko, 1, gameModel.games[gameModel.gameIndex], true);
       
       gameModel.players.push(firstPlayer);
       
       this.initKoBindings(gameModel);
-      this.initBasicEventListeners(gameModel, checkoutTable, chartWidget);
+      this.initBasicEventListeners(gameModel, chartWidget);
       
       HotkeyService.startListeningToKeyboard($, gameModel);
       
@@ -95,10 +92,9 @@ var callback = function ($, ko, knockstrap, GameModel, PlayerModel, CheckoutTabl
      *  - Etc.
      *
      * @param gameModel
-     * @param checkoutTable
      * @param chartWidget
      */
-    this.initBasicEventListeners = function (gameModel, checkoutTable, chartWidget) {
+    this.initBasicEventListeners = function (gameModel, chartWidget) {
       $('#hideHelper').click(function () {
         gameModel.activeHelper();
       });
@@ -116,10 +112,10 @@ var callback = function ($, ko, knockstrap, GameModel, PlayerModel, CheckoutTabl
         var green = Math.floor(Math.random() * 256);
         var blue = Math.floor(Math.random() * 256);
         var hue = (red + ',' + green + ',' + blue);
-        var newPlayer = new PlayerModel(ko, 2, gameModel.games[gameModel.gameIndex], false, checkoutTable);
-        
+        var newPlayer = new PlayerModel(ko, 2, gameModel.games[gameModel.gameIndex], false);
+
         gameModel.players.push(newPlayer);
-        
+
         chartWidget.getInstance().datasets.push({
           fillColor: 'rgba(' + hue + ',0.2)',
           strokeColor: 'rgba(' + hue + ',1)',

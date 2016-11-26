@@ -1,6 +1,6 @@
 /* global define*/
-define('PlayerModel', function () {
-  return function PlayerModel(ko, status, scoreLimit, firstToThrow, table) {
+define('PlayerModel', ['CheckoutAdviser'], function (CheckoutAdviser) {
+  return function PlayerModel(ko, status, scoreLimit, firstToThrow) {
     this.name = ko.observable('PhillTaylor');
     this.status = ko.observable(status);
     this.history = ko.observableArray([]);
@@ -12,7 +12,6 @@ define('PlayerModel', function () {
     this.hundredPlusCount = ko.observable(0);
     this.gameShotAttempnts = ko.observable(0);
     this.firstToThrow = ko.observable(firstToThrow || false);
-    this.checkoutTable = table;
 
     this.require = ko.computed(function () {
       return scoreLimit - this.history().reduce(
@@ -22,7 +21,7 @@ define('PlayerModel', function () {
     }, this);
 
     this.advise = ko.computed(function () {
-      return this.checkoutTable.adviseThrow(this.require());
+      return CheckoutAdviser.advise(this.require());
     }, this);
 
     this.roundAvg = ko.computed(function () {

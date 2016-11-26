@@ -1,7 +1,7 @@
 /* global define*/
-define('CheckoutTable', function () {
-  return function CheckoutTable() {
-    this.table = {
+define('CheckoutAdviser', function () {
+  return {
+    table: {
       41: '9 + D16',
       42: '10 + D16',
       43: '3 + D20',
@@ -125,9 +125,16 @@ define('CheckoutTable', function () {
       164: 'T20 + T18 + Bull',
       167: 'T20 + T19 + Bull',
       170: 'T20 + T20 + Bull'
-    };
+    },
 
-    this.adviseThrow = function (score) {
+    /**
+     * Advises the combination for the gameshot.
+     *
+     * @param {Number} score Score to adive against.
+     *
+     * @return {String}
+     */
+    advise: function (score) {
       for (var property in this.table) {
         if (this.table.hasOwnProperty(property)) {
           if (score === parseInt(property)) {
@@ -136,6 +143,6 @@ define('CheckoutTable', function () {
         }
       }
       return score;
-    };
+    }
   };
 });
