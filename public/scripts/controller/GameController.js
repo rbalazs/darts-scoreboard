@@ -36,7 +36,7 @@ var callback = function ($, ko, knockstrap, GameModel, PlayerModel, HotkeyServic
       this.initKoBindings(gameModel);
       this.initBasicEventListeners(gameModel, chartWidget);
 
-      HotkeyService.startListeningToKeyboard($, gameModel);
+      HotkeyService.init($, gameModel);
 
       eventObserver.subscribe('SCORE', gameModel.handleThrow);
     };
