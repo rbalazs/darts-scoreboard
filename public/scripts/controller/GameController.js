@@ -36,9 +36,10 @@ var callback = function ($, ko, knockstrap, GameModel, PlayerModel, HotkeyServic
       this.initKoBindings(gameModel);
       this.initBasicEventListeners(gameModel, chartWidget);
 
-      HotkeyService.init($, gameModel);
+      HotkeyService.init($);
 
       eventObserver.subscribe('SCORE', gameModel.handleThrow);
+      eventObserver.subscribe('UNDO', gameModel.undo);
     };
 
     /**

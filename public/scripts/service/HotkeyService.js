@@ -5,11 +5,10 @@ define('HotkeyService', function () {
      * Adds functionality to the keyboard.
      *
      * @param {jQuery} $ Jquery instance.
-     * @param {GameModel} gameModel Main contorller of the game.
      *
      * @return {boolean} False for discarding the event.
      */
-    init: function ($, gameModel) {
+    init: function ($) {
       $(document).keydown(function (evt) {
         var handled = true;
         switch (evt.keyCode) {
@@ -17,10 +16,13 @@ define('HotkeyService', function () {
           $('#t20').trigger('click');
           break;
         case 16:
-          gameModel.handleThrow(0);
+          eventObserver.notify('SCORE', {
+            scoreOfThrow: 0,
+            scoreId: 0
+          });
           break;
         case 8:
-          gameModel.undo();
+          eventObserver.notify('UNDO');
           break;
         case 40:
           $('#s20').trigger('click');
