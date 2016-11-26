@@ -54,7 +54,7 @@
     "no-sparse-arrays": 2,           // http://eslint.org/docs/rules/no-sparse-arrays
     "no-unreachable": 2,             // http://eslint.org/docs/rules/no-unreachable
     "use-isnan": 2,                  // http://eslint.org/docs/rules/use-isnan
-    "valid-jsdoc": 2,                // http://eslint.org/docs/rules/valid-jsdoc
+    "valid-jsdoc": 0,                // http://eslint.org/docs/rules/valid-jsdoc
     "valid-typeof": 2,               // http://eslint.org/docs/rules/valid-typeof
 
     /**
