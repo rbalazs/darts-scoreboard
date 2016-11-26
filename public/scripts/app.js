@@ -25,7 +25,7 @@ requirejs([
    * @param {ko} ko
    * @param {knockstrap} knockstrap
    * @param {GameModel} GameModel
-   * @param {PlayerModel}PlayerModel
+   * @param {PlayerModel} PlayerModel
    * @param {CheckoutTable} CheckoutTable
    * @param {HotkeyService} HotkeyService
    * @param {ChartWidget} ChartWidget
@@ -38,6 +38,8 @@ requirejs([
     var chartWidget = new ChartWidget();
     var gameModel = new GameModel(ko, chartWidget.getInstance());
     var checkoutTable = new CheckoutTable();
+    var firstPlayer = new PlayerModel(ko, 1, gameModel.games[gameModel.gameIndex], true,
+      checkoutTable);
 
     // Global variable on purpose.
     eventObserver = new EventObserver();
@@ -82,8 +84,7 @@ requirejs([
 
     HotkeyService.startListeningToKeyboard($, gameModel);
 
-    gameModel.players.push(new PlayerModel(ko, gameModel, 1, gameModel.games[gameModel.gameIndex], true,
-      checkoutTable));
+    gameModel.players.push(firstPlayer);
 
     $('#hideHelper').click(function () {
       gameModel.activeHelper();
@@ -102,7 +103,7 @@ requirejs([
       var green = Math.floor(Math.random() * 256);
       var blue = Math.floor(Math.random() * 256);
       var hue = (red + ',' + green + ',' + blue);
-      var newPlayer = new PlayerModel(ko, gameModel, 2, gameModel.games[gameModel.gameIndex], false, checkoutTable);
+      var newPlayer = new PlayerModel(ko, 2, gameModel.games[gameModel.gameIndex], false, checkoutTable);
 
       gameModel.players.push(newPlayer);
 
