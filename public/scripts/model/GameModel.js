@@ -23,15 +23,6 @@ define('GameModel', function () {
 
     this.nextPlayerToThrowFirst = 1;
 
-    this.activeHelper = function () {
-      if (this.isDoubleOut()) {
-        $('#helper').css('visibility', 'visible');
-      } else if (!this.isDoubleOut()) {
-        $('#helper').css('visibility', 'hidden');
-      }
-      return 0;
-    };
-
     this.jumpToNextPlayer = function (currentPlayer) {
       var nextPlayerIndex;
       var nextInLine;
@@ -66,7 +57,7 @@ define('GameModel', function () {
 
       self.currentPlayerIndex = nextPlayerIndex;
     };
-    
+
     this.handleBust = function (currentPlayer) {
       self.thrown(self.thrown() + 1);
       currentPlayer.history.splice((0 - self.thrown()), self.thrown());

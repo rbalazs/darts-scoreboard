@@ -84,7 +84,7 @@ var callback = function ($, ko, knockstrap, GameModel, PlayerModel, HotkeyServic
           }, 0);
         }, this),
 
-        _switch_double: gameModel.isDoubleOut
+        switchDobuleOut: gameModel.isDoubleOut
       });
     };
 
@@ -97,10 +97,6 @@ var callback = function ($, ko, knockstrap, GameModel, PlayerModel, HotkeyServic
      * @param chartWidget
      */
     this.initBasicEventListeners = function (gameModel, chartWidget) {
-      $('#hideHelper').click(function () {
-        gameModel.activeHelper();
-      });
-
       $('#add-player').click(function () {
         var red = Math.floor(Math.random() * 256);
         var green = Math.floor(Math.random() * 256);
