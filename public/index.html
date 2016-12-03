@@ -9,7 +9,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -21,7 +21,7 @@
     <div class="playerList" data-bind='template: { foreach: players}'>
         <div class="playerBoard">
             <div id="nameAndVictories">
-                <input class="player-name-input" data-bind="value: $data.name"></input>
+                <input class="player-name-input" data-bind="value: $data.name" title="Player name"/>
                 <span id="scoreBadge" class="badge" data-bind="text: $data.require"></span>
             </div>
             <div class="stats">
@@ -45,10 +45,10 @@
 
 <div class="playerCards" data-bind='template: { foreach: players}'>
     <div class="alert alert-info scoreCard" role="alert">
-        <h2>
+        <h3>
             <span data-bind="text: $data.name"></span> -
-            <span data-bind="text: $data.require"></span>
-        </h2>
+            <span data-bind="text: $data.advise"></span>
+        </h3>
         <div id="leg">
             <span class="" data-bind="status: $data.status"></span>
             <span style="font-size: 10px; " role="" data-bind="text: $data.turnHistory"></span>
@@ -59,13 +59,6 @@
     </div>
 </div>
 
-<div id="helper" style="visibility: hidden;">
-    <ul class="list-group playerList" data-bind='template: { foreach: players}'>
-        <div class="checkoutHelper alert alert-info" role="alert">
-            <span data-bind="text: $data.advise"></span>
-        </div>
-    </ul>
-</div>
 <div class="controls">
     <button id="hideHelper" class="btn btn-info" data-bind="toggle: switchDobuleOut">Dupla kiszálló</button>
     <button type="button" id="add-player" class="btn btn-default" aria-label="Left Align">

@@ -19,6 +19,12 @@ define('GameModel', function () {
 
     this.isDoubleOut = ko.observable(false);
 
+    this.isDoubleOut.subscribe(function (newValue) {
+      ko.utils.arrayForEach(self.players(), function (player) {
+        player.isDoubleOut(newValue);
+      });
+    });
+
     this.currentPlayerIndex = 0;
 
     this.nextPlayerToThrowFirst = 1;

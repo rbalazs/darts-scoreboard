@@ -12,6 +12,7 @@ define('PlayerModel', ['CheckoutAdviser'], function (CheckoutAdviser) {
     this.hundredPlusCount = ko.observable(0);
     this.gameShotAttempnts = ko.observable(0);
     this.firstToThrow = ko.observable(firstToThrow || false);
+    this.isDoubleOut = ko.observable(false);
 
     this.require = ko.computed(function () {
       return scoreLimit - this.history().reduce(
@@ -21,7 +22,11 @@ define('PlayerModel', ['CheckoutAdviser'], function (CheckoutAdviser) {
     }, this);
 
     this.advise = ko.computed(function () {
-      return CheckoutAdviser.advise(this.require());
+      if (this.isDoubleOut()) {
+        return CheckoutAdviser.advise(this.require());
+      } else {
+        return this.require();
+      }
     }, this);
 
     this.roundAvg = ko.computed(function () {
