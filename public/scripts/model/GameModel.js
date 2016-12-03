@@ -56,6 +56,7 @@ define('GameModel', function () {
       }
 
       self.thrown(0);
+
       currentPlayer.status(0);
 
       nextInLine = self.players()[nextPlayerIndex];
@@ -70,9 +71,53 @@ define('GameModel', function () {
       self.jumpToNextPlayer(currentPlayer);
     };
 
-    this.handleGameShot = function (currentPlayer) {
+    /**
+     * Handles a leg winning shot.
+     *
+     * - Reset the scores;
+     * - books the victory;
+     * - sets the next player;
+     */
+    this.handleGameShot = function () {
+      var currentPlayer = self.getCurrentPlayer();
+
       self.turnScore(currentPlayer);
-      self.handleVictory(currentPlayer);
+
+      // If player play alone, we add a victory point.
+      if (self.players().length === 1) {
+        currentPlayer.victories(currentPlayer.victories() + 1);
+        return;
+      }
+
+      // If player never made won with higher score, set new highest game shot.
+      if (currentPlayer.highestGameShot() < currentPlayer.requireByTurns) {
+        currentPlayer.highestGameShot(currentPlayer.requireByTurns);
+      }
+
+      // Reset all players.
+      ko.utils.arrayForEach(self.players(), function (player) {
+        player.status(2);
+        player.history([]);
+        player.turnHistory([]);
+        player.firstToThrow(false);
+        player.requireByTurns = player.require();
+      });
+
+      self.thrown(0);
+
+      // Move the to teh next player.
+      self.currentPlayerIndex = self.nextPlayerToThrowFirst;
+      self.players()[self.currentPlayerIndex].status(1);
+      self.players()[self.currentPlayerIndex].firstToThrow(true);
+
+      // Count the first player for the next round.
+      self.nextPlayerToThrowFirst++;
+      if (self.nextPlayerToThrowFirst >= self.players().length) {
+        self.nextPlayerToThrowFirst = 0;
+      }
+
+      // Book the victory.
+      currentPlayer.victories(currentPlayer.victories() + 1);
     };
 
     this.handleThrow = function (score) {
@@ -94,7 +139,7 @@ define('GameModel', function () {
 
       // Gameshot!
       if (currentPlayer.require() === 0 && !self.isDoubleOut()) {
-        self.handleGameShot(currentPlayer);
+        self.handleGameShot();
         return;
       }
 
@@ -102,7 +147,7 @@ define('GameModel', function () {
       if (currentPlayer.require() === 0 && self.isDoubleOut()) {
         // Hit.
         if (sectorId[0] === 'd' || sectorId === 'Bull') {
-          self.handleGameShot(currentPlayer);
+          self.handleGameShot();
           return;
         }
         // Hit remaining with simple shot.
@@ -123,39 +168,6 @@ define('GameModel', function () {
       } else {
         self.thrown(self.thrown() + 1);
       }
-    };
-
-    this.handleVictory = function (currentPlayer) {
-      if (self.players().length === 1) {
-        currentPlayer.victories(currentPlayer.victories() + 1);
-        return;
-      }
-
-      if (currentPlayer.highestGameShot() < currentPlayer.requireByTurns) {
-        currentPlayer.highestGameShot(currentPlayer.requireByTurns);
-      }
-
-      ko.utils.arrayForEach(self.players(), function (player) {
-        player.status(2);
-        player.history([]);
-        player.turnHistory([]);
-        player.firstToThrow(false);
-        player.requireByTurns = player.require();
-      });
-
-      self.thrown(0);
-
-      self.currentPlayerIndex = self.nextPlayerToThrowFirst;
-      self.players()[self.currentPlayerIndex].status(1);
-      self.players()[self.currentPlayerIndex].firstToThrow(true);
-
-      self.nextPlayerToThrowFirst++;
-
-      if (self.nextPlayerToThrowFirst >= self.players().length) {
-        self.nextPlayerToThrowFirst = 0;
-      }
-
-      currentPlayer.victories(currentPlayer.victories() + 1);
     };
 
     this.turnScore = function (currentPlayer) {
