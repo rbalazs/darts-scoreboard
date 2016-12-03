@@ -17,16 +17,16 @@ define('GameModel', function () {
 
     this.switchViewIndex = ko.observable(0);
 
-    this.switchToDoubleOut = ko.observable(false);
+    this.isDoubleOut = ko.observable(false);
 
     this.currentPlayerIndex = 0;
 
     this.nextPlayerToThrowFirst = 1;
 
     this.activeHelper = function () {
-      if (this.switchToDoubleOut()) {
+      if (this.isDoubleOut()) {
         $('#helper').css('visibility', 'visible');
-      } else if (!this.switchToDoubleOut()) {
+      } else if (!this.isDoubleOut()) {
         $('#helper').css('visibility', 'hidden');
       }
       return 0;
@@ -66,57 +66,74 @@ define('GameModel', function () {
 
       self.currentPlayerIndex = nextPlayerIndex;
     };
+    
+    this.handleBust = function (currentPlayer) {
+      self.thrown(self.thrown() + 1);
+      currentPlayer.history.splice((0 - self.thrown()), self.thrown());
+      self.jumpToNextPlayer(currentPlayer);
+    };
+
+    this.handleGameShot = function(currentPlayer) {
+      self.turnScore(currentPlayer);
+      self.handleVictory(currentPlayer);
+    };
 
     this.handleThrow = function (score) {
-      var scoreOfThrow = score.scoreOfThrow;
-      var scoreId = score.scoreId;
-      var currentPlayer;
+      var pointsScored = parseInt(score.scoreOfThrow);
+      var sectorId = score.scoreId;
+      var currentPlayer = self.getCurrentPlayer();
+      var isGameShotAttempt = self.checkForGameShot(
+        currentPlayer,
+        self.thrown(),
+        self.isDoubleOut()
+      );
 
-      currentPlayer = self.getCurrentPlayer();
-
-      var ifGameShot = self.checkForGameShot(currentPlayer, self.thrown(), self.switchToDoubleOut());
-
-      if (ifGameShot) {
+      if (isGameShotAttempt) {
         currentPlayer.gameShotAttempnts(currentPlayer.gameShotAttempnts() + 1);
       }
 
-      currentPlayer.history.push(parseInt(scoreOfThrow));
+      currentPlayer.history.push(pointsScored);
 
+      // Too much..
       if (currentPlayer.require() < 0) {
-        self.thrown(self.thrown() + 1);
-        currentPlayer.history.splice((0 - self.thrown()), self.thrown());
+        self.handleBust(currentPlayer);
+        return;
+      }
+
+      // Gameshot!
+      if (currentPlayer.require() === 0 && !self.isDoubleOut()) {
+        self.handleGameShot(currentPlayer);
+        return;
+      }
+
+      // Double out gameshot!
+      if (currentPlayer.require() === 0 && self.isDoubleOut()) {
+        // Hit.
+        if (sectorId[0] === 'd' || sectorId === 'Bull') {
+          self.handleGameShot(currentPlayer);
+          return;
+        }
+        // Hit remaining with simple shot.
+        self.handleBust(currentPlayer);
+        return;
+      }
+
+      // Double out with one point remaining.
+      if (self.isDoubleOut() && currentPlayer.require() === 1) {
+        self.handleBust(currentPlayer);
+        return;
+      }
+
+      // Is last shot?
+      if (self.thrown() === 2) {
+        self.turnScore(currentPlayer);
         self.jumpToNextPlayer(currentPlayer);
-      } else if (currentPlayer.require() === 0) {
-        if (!self.switchToDoubleOut()) {
-          self.turnScore(currentPlayer);
-          self.winner(currentPlayer);
-        } else if (self.switchToDoubleOut()) {
-          if (scoreId[0] === 'd' || scoreId === 'Bull') {
-            self.turnScore(currentPlayer);
-            self.winner(currentPlayer);
-          } else {
-            self.thrown(self.thrown() + 1);
-            currentPlayer.history.splice((0 - self.thrown()), self.thrown());
-            self.jumpToNextPlayer(currentPlayer);
-          }
-        }
       } else {
-        if (self.switchToDoubleOut() === 1 && currentPlayer.require() === 1) {
-          self.thrown(self.thrown() + 1);
-          currentPlayer.history.splice((0 - self.thrown()), self.thrown());
-          self.jumpToNextPlayer(currentPlayer);
-        } else {
-          if (self.thrown() === 2) {
-            self.turnScore(currentPlayer);
-            self.jumpToNextPlayer(currentPlayer);
-          } else {
-            self.thrown(self.thrown() + 1);
-          }
-        }
+        self.thrown(self.thrown() + 1);
       }
     };
 
-    this.winner = function (currentPlayer) {
+    this.handleVictory = function (currentPlayer) {
       if (self.players().length === 1) {
         currentPlayer.victories(currentPlayer.victories() + 1);
         return;

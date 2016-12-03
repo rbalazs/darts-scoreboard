@@ -84,7 +84,7 @@ var callback = function ($, ko, knockstrap, GameModel, PlayerModel, HotkeyServic
           }, 0);
         }, this),
 
-        _switch_double: gameModel.switchToDoubleOut
+        _switch_double: gameModel.isDoubleOut
       });
     };
 
