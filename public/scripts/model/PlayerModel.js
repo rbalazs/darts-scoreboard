@@ -24,9 +24,8 @@ define('PlayerModel', ['CheckoutAdviser'], function (CheckoutAdviser) {
     this.advise = ko.computed(function () {
       if (this.isDoubleOut()) {
         return CheckoutAdviser.advise(this.require());
-      } else {
-        return this.require();
       }
+      return this.require();
     }, this);
 
     this.roundAvg = ko.computed(function () {
