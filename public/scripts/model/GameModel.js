@@ -88,11 +88,7 @@ define('GameModel', function () {
 
       self.turnScore(currentPlayer);
 
-      // If player play alone, we add a victory point.
-      if (self.players().length === 1) {
-        currentPlayer.victories(currentPlayer.victories() + 1);
-        return;
-      }
+      currentPlayer.victories(currentPlayer.victories() + 1);
 
       // If player never made won with higher score, set new highest game shot.
       if (currentPlayer.highestGameShot() < currentPlayer.requireByTurns) {
@@ -110,19 +106,19 @@ define('GameModel', function () {
 
       self.thrown(0);
 
-      // Move the to teh next player.
-      self.currentPlayerIndex = self.nextPlayerToThrowFirst;
-      self.players()[self.currentPlayerIndex].status(1);
-      self.players()[self.currentPlayerIndex].firstToThrow(true);
+      // Move the to the next player.
+      if (self.players().length > 1) {
 
-      // Count the first player for the next round.
-      self.nextPlayerToThrowFirst++;
-      if (self.nextPlayerToThrowFirst >= self.players().length) {
-        self.nextPlayerToThrowFirst = 0;
+        self.currentPlayerIndex = self.nextPlayerToThrowFirst;
+        self.players()[self.currentPlayerIndex].status(1);
+        self.players()[self.currentPlayerIndex].firstToThrow(true);
+
+        // Count the first player for the next round.
+        self.nextPlayerToThrowFirst++;
+        if (self.nextPlayerToThrowFirst >= self.players().length) {
+          self.nextPlayerToThrowFirst = 0;
+        }
       }
-
-      // Book the victory.
-      currentPlayer.victories(currentPlayer.victories() + 1);
     };
 
     this.handleThrow = function (score) {
