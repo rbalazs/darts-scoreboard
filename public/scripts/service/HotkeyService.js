@@ -1,6 +1,11 @@
 /* global define, eventObserver */
 define('HotkeyService', function () {
-  return {
+  /**
+   * A module that is responsible for providing hot key service to the appilcation.
+   *
+   * @exports HotkeyService
+   */
+  var HotkeyService = {
     /**
      * Adds functionality to the keyboard.
      *
@@ -54,4 +59,6 @@ define('HotkeyService', function () {
       });
     }
   };
+
+  return HotkeyService;
 });

@@ -1,6 +1,13 @@
 /* global define*/
 define('PlayerModel', ['CheckoutAdviser'], function (CheckoutAdviser) {
-  return function PlayerModel(ko, status, scoreLimit, firstToThrow) {
+  /**
+   * @param ko
+   * @param status
+   * @param scoreLimit
+   * @param firstToThrow
+   * @constructor
+   */
+  var PlayerModel =  function (ko, status, scoreLimit, firstToThrow) {
     this.name = ko.observable('PhillTaylor');
     this.status = ko.observable(status);
     this.history = ko.observableArray([]);
@@ -65,4 +72,6 @@ define('PlayerModel', ['CheckoutAdviser'], function (CheckoutAdviser) {
         return Math.round((this.victories() / this.gameShotAttempnts()) * 100) + '%';
       }, this);
   };
+  
+  return PlayerModel;
 });

@@ -1,4 +1,32 @@
-/* global define, $*/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: model/GameModel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: model/GameModel.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* global define, $*/
 define('GameModel', function () {
   /**
    * @param ko
@@ -95,7 +123,7 @@ define('GameModel', function () {
       }
 
       // If player never made won with higher score, set new highest game shot.
-      if (currentPlayer.highestGameShot() < currentPlayer.requireByTurns) {
+      if (currentPlayer.highestGameShot() &lt; currentPlayer.requireByTurns) {
         currentPlayer.highestGameShot(currentPlayer.requireByTurns);
       }
 
@@ -137,19 +165,19 @@ define('GameModel', function () {
       currentPlayer.history.push(pointsScored);
 
       // Too much..
-      if (currentPlayer.require() < 0) {
+      if (currentPlayer.require() &lt; 0) {
         self.handleBust(currentPlayer);
         return;
       }
 
       // Gameshot!
-      if (currentPlayer.require() === 0 && !self.isDoubleOut()) {
+      if (currentPlayer.require() === 0 &amp;&amp; !self.isDoubleOut()) {
         self.handleGameShot();
         return;
       }
 
       // Double out gameshot!
-      if (currentPlayer.require() === 0 && self.isDoubleOut()) {
+      if (currentPlayer.require() === 0 &amp;&amp; self.isDoubleOut()) {
         // Hit.
         if (sectorId[0] === 'd' || sectorId === 'Bull') {
           self.handleGameShot();
@@ -161,7 +189,7 @@ define('GameModel', function () {
       }
 
       // Double out with one point remaining.
-      if (self.isDoubleOut() && currentPlayer.require() === 1) {
+      if (self.isDoubleOut() &amp;&amp; currentPlayer.require() === 1) {
         self.handleBust(currentPlayer);
         return;
       }
@@ -179,7 +207,7 @@ define('GameModel', function () {
       var countDarts = self.thrown() + 1;
       var turnThrows = currentPlayer.history.slice(-countDarts);
       var turnSum = 0;
-      for (var i = 0; i < countDarts; i++) {
+      for (var i = 0; i &lt; countDarts; i++) {
         turnSum += turnThrows[i];
       }
       if (turnSum !== 0) {
@@ -203,22 +231,22 @@ define('GameModel', function () {
       // If double out, then a game shot was thrown if:
       if (self.isDoubleOut()) {
         // player has equal or under the score 40 with even numbers,
-        return (currentPlayerScore <= 40 && currentPlayerScore % 2 === 0) ||
+        return (currentPlayerScore &lt;= 40 &amp;&amp; currentPlayerScore % 2 === 0) ||
           // or has 50 with all darts thrown (if not last shot, maybe rounding).
-          (currentPlayerScore === 50 && dartsThrown === 2);
+          (currentPlayerScore === 50 &amp;&amp; dartsThrown === 2);
       }
 
       // If simple out, then a game shot was thrown if:
       // player has equal or under the score 40 with even numbers,
-      return (currentPlayerScore <= 40 && currentPlayerScore % 2 === 0) ||
+      return (currentPlayerScore &lt;= 40 &amp;&amp; currentPlayerScore % 2 === 0) ||
         // or has 50 with all darts thrown (if not last shot, maybe rounding)
-        (currentPlayerScore === 50 && dartsThrown === 2) ||
+        (currentPlayerScore === 50 &amp;&amp; dartsThrown === 2) ||
         // or has equal or under 60 throwable with a tripple
-        (currentPlayerScore <= 60 && currentPlayerScore % 3 === 0) ||
+        (currentPlayerScore &lt;= 60 &amp;&amp; currentPlayerScore % 3 === 0) ||
         // player is under 20 (simple sector)
-        (currentPlayerScore <= 20) ||
+        (currentPlayerScore &lt;= 20) ||
         // player has 25 after, and had 2 darts.
-        (currentPlayerScore === 25 && dartsThrown === 1);
+        (currentPlayerScore === 25 &amp;&amp; dartsThrown === 1);
     };
 
     this.undo = function () {
@@ -226,7 +254,7 @@ define('GameModel', function () {
         self.getCurrentPlayer().status(2);
 
         self.currentPlayerIndex--;
-        if (self.currentPlayerIndex < 0) {
+        if (self.currentPlayerIndex &lt; 0) {
           self.currentPlayerIndex = (self.players().length - 1);
         }
 
@@ -248,3 +276,26 @@ define('GameModel', function () {
 
   return GameModel;
 });
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ChartWidget.html">ChartWidget</a></li><li><a href="module-CheckoutAdviser.html">CheckoutAdviser</a></li><li><a href="module-EventObserver.html">EventObserver</a></li><li><a href="module-HotkeyService.html">HotkeyService</a></li></ul><h3>Classes</h3><ul><li><a href="callback-GameController.html">GameController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#callback">callback</a></li><li><a href="global.html#dependencies">dependencies</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sun Jan 29 2017 12:32:21 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

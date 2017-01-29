@@ -1,6 +1,11 @@
 /* global define, Chart */
 define('ChartWidget', function () {
-  return function ChartWidget() {
+  /**
+   * Provides acces for a {Chart} instance.
+   *
+   * @exports ChartWidget
+   */
+  var ChartWidget = function () {
     /**
      * @type {ChartWidget}
      */
@@ -38,4 +43,6 @@ define('ChartWidget', function () {
       return self.instance;
     };
   };
+
+  return ChartWidget;
 });

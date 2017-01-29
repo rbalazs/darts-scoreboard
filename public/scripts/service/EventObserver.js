@@ -1,10 +1,24 @@
 /* global define */
 define('EventObserver', function () {
-  return function EventObserver() {
+  /**
+   * A module that is responsible for notifyng event handlers.
+   * 
+   * @exports EventObserver
+   */
+  var EventObserver = function () {
     var self = this;
 
+    /**
+     * @type {Array}
+     */
     this.subscriptions = [];
 
+    /**
+     * Subscribes given callback for givent event.
+     *
+     * @param eventEnum
+     * @param callback
+     */
     this.subscribe = function (eventEnum, callback) {
       self.subscriptions.push({
         'eventEnum': eventEnum,
@@ -12,6 +26,12 @@ define('EventObserver', function () {
       });
     };
 
+    /**
+     * Notifys given events subscribers with given arguments.
+     *
+     * @param eventEnum
+     * @param args
+     */
     this.notify = function (eventEnum, args) {
       self.subscriptions.forEach(function (item) {
         if (item.eventEnum === eventEnum) {
@@ -20,4 +40,6 @@ define('EventObserver', function () {
       });
     };
   };
+
+  return EventObserver;
 });
