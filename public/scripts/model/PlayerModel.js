@@ -5,6 +5,9 @@ define('PlayerModel', ['CheckoutAdviser'], function (CheckoutAdviser) {
    * @param status
    * @param scoreLimit
    * @param firstToThrow
+   *
+   * @exports PlayerModel
+   *
    * @constructor
    */
   var PlayerModel =  function (ko, status, scoreLimit, firstToThrow) {

@@ -3,6 +3,9 @@ define('GameModel', function () {
   /**
    * @param ko
    * @param myLineChart
+   *
+   * @exports GameModel
+   *
    * @constructor
    */
   var GameModel = function (ko, myLineChart) {
