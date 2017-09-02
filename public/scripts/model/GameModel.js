@@ -3,18 +3,24 @@ define('GameModel', function () {
   /**
    * @param ko
    * @param myLineChart
+   * @param {GameShotDetectorService} GameShotDetectorService
    *
    * @exports GameModel
    *
    * @constructor
    */
-  var GameModel = function (ko, myLineChart) {
+  var GameModel = function (ko, myLineChart, GameShotDetectorService) {
     var self = this;
 
     this.games = [101, 301, 501];
 
     this.chart = myLineChart;
-
+  
+    /**
+     * @type {GameShotDetectorService}
+     */
+    this.gameShotDetectorService = GameShotDetectorService;
+    
     this.chartCount = 0;
 
     this.gameIndex = 1;
@@ -129,7 +135,7 @@ define('GameModel', function () {
       var sectorId = score.scoreId;
       var currentPlayer = self.getCurrentPlayer();
 
-      if (self.wasGameShotAttemptThrown()) {
+      if (self.gameShotDetectorService.isGameShotAttempt(self.getCurrentPlayer().require(), self.thrown(), self.isDoubleOut())) {
         currentPlayer.gameShotAttempnts(currentPlayer.gameShotAttempnts() + 1);
       }
 
@@ -188,36 +194,6 @@ define('GameModel', function () {
       if (turnSum >= 100) {
         currentPlayer.hundredPlusCount((currentPlayer.hundredPlusCount() + 1));
       }
-    };
-
-    /**
-     * Return whether game shot attempt was thrown.
-     *
-     * @return {boolean}
-     */
-    this.wasGameShotAttemptThrown = function () {
-      var currentPlayerScore = self.getCurrentPlayer().require();
-      var dartsThrown = self.thrown();
-
-      // If double out, then a game shot was thrown if:
-      if (self.isDoubleOut()) {
-        // player has equal or under the score 40 with even numbers,
-        return (currentPlayerScore <= 40 && currentPlayerScore % 2 === 0) ||
-          // or has 50 with all darts thrown (if not last shot, maybe rounding).
-          (currentPlayerScore === 50 && dartsThrown === 2);
-      }
-
-      // If simple out, then a game shot was thrown if:
-      // player has equal or under the score 40 with even numbers,
-      return (currentPlayerScore <= 40 && currentPlayerScore % 2 === 0) ||
-        // or has 50 with all darts thrown (if not last shot, maybe rounding)
-        (currentPlayerScore === 50 && dartsThrown === 2) ||
-        // or has equal or under 60 throwable with a tripple
-        (currentPlayerScore <= 60 && currentPlayerScore % 3 === 0) ||
-        // player is under 20 (simple sector)
-        (currentPlayerScore <= 20) ||
-        // player has 25 after, and had 2 darts.
-        (currentPlayerScore === 25 && dartsThrown === 1);
     };
 
     this.undo = function () {

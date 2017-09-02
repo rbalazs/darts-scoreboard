@@ -12,6 +12,7 @@ requirejs.config({
     HotkeyService: 'scripts/service/HotkeyService',
     ChartWidget: 'scripts/service/ChartWidget',
     EventObserver: 'scripts/service/EventObserver',
+    GameShotDetectorService: 'scripts/service/GameShotDetectorService',
     GameController: 'scripts/controller/GameController'
   }
 });

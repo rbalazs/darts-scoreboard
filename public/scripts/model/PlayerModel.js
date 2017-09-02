@@ -75,6 +75,6 @@ define('PlayerModel', ['CheckoutAdviser'], function (CheckoutAdviser) {
         return Math.round((this.victories() / this.gameShotAttempnts()) * 100) + '%';
       }, this);
   };
-  
+
   return PlayerModel;
 });

@@ -4,7 +4,7 @@
  *
  * @type {string[]}
  */
-var dependencies = ['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'HotkeyService', 'ChartWidget'];
+var dependencies = ['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'HotkeyService', 'ChartWidget', 'GameShotDetectorService'];
 
 /**
  * Returns the module responsible for controlling the application.
@@ -16,10 +16,11 @@ var dependencies = ['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerMode
  * @param {PlayerModel} PlayerModel
  * @param {HotkeyService} HotkeyService
  * @param {ChartWidget} ChartWidget
+ * @param {GameShotDetectorService} GameShotDetectorService
  *
  * @return {GameController}
  */
-var callback = function ($, ko, knockstrap, GameModel, PlayerModel, HotkeyService, ChartWidget) {
+var callback = function ($, ko, knockstrap, GameModel, PlayerModel, HotkeyService, ChartWidget, GameShotDetectorService) {
   /**
    * @constructor
    */
@@ -29,7 +30,7 @@ var callback = function ($, ko, knockstrap, GameModel, PlayerModel, HotkeyServic
      */
     this.execute = function () {
       var chartWidget = new ChartWidget();
-      var gameModel = new GameModel(ko, chartWidget.getInstance());
+      var gameModel = new GameModel(ko, chartWidget.getInstance(), GameShotDetectorService);
       var firstPlayer = new PlayerModel(ko, 1, gameModel.games[gameModel.gameIndex], true);
 
       gameModel.players.push(firstPlayer);
