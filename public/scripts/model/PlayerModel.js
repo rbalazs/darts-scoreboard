@@ -10,8 +10,11 @@ define('PlayerModel', ['CheckoutAdviser'], function (CheckoutAdviser) {
    *
    * @constructor
    */
-  var PlayerModel =  function (ko, status, scoreLimit, firstToThrow) {
-    this.name = ko.observable('PhillTaylor');
+  var PlayerModel = function (ko, status, scoreLimit, firstToThrow) {
+    this.name = ko.observable(function () {
+      var items = ['Michael van Gerwen', 'Gary Anderson', 'Peter Wright', 'Phil Taylor', 'Adrian Lewis', 'Dave Chisnall', 'Raymond van Barneveld'];
+      return items[Math.floor(Math.random() * items.length)];
+    }());
     this.status = ko.observable(status);
     this.history = ko.observableArray([]);
     this.turnHistory = ko.observableArray([]);
@@ -26,9 +29,9 @@ define('PlayerModel', ['CheckoutAdviser'], function (CheckoutAdviser) {
 
     this.require = ko.computed(function () {
       return scoreLimit - this.history().reduce(
-          function (total, num) {
-            return total + num;
-          }, 0);
+        function (total, num) {
+          return total + num;
+        }, 0);
     }, this);
 
     this.advise = ko.computed(function () {
@@ -40,9 +43,9 @@ define('PlayerModel', ['CheckoutAdviser'], function (CheckoutAdviser) {
 
     this.roundAvg = ko.computed(function () {
       var avg = this.history().reduce(
-          function (total, num) {
-            return total + num;
-          }, 0)
+        function (total, num) {
+          return total + num;
+        }, 0)
         / this.history().length;
 
       if (this.history().length >= 3) {
@@ -54,9 +57,9 @@ define('PlayerModel', ['CheckoutAdviser'], function (CheckoutAdviser) {
 
     this.totalAvg = ko.computed(function () {
       return Math.round(this.allTurnHistory().reduce(
-          function (total, num) {
-            return total + num;
-          }, 0)
+        function (total, num) {
+          return total + num;
+        }, 0)
         / this.allTurnHistory().length);
     }, this);
 
