@@ -15,12 +15,12 @@ define(function () {
     this.games = [101, 301, 501];
 
     this.chart = myLineChart;
-  
+
     /**
      * @type {GameShotDetectorService}
      */
     this.gameShotDetectorService = GameShotDetectorService;
-    
+
     this.chartCount = 0;
 
     this.gameIndex = 1;
