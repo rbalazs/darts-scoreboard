@@ -1,5 +1,5 @@
 /* global define, $*/
-define('GameModel', function () {
+define(function () {
   /**
    * @param ko
    * @param myLineChart

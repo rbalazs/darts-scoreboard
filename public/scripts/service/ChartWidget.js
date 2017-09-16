@@ -1,5 +1,5 @@
 /* global define, Chart */
-define('ChartWidget', function () {
+define(function () {
   /**
    * Provides acces for a {Chart} instance.
    *

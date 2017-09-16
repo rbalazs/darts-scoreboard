@@ -6,18 +6,15 @@ requirejs.config({
     text: 'bower_components/requirejs-text/text',
     knockout: 'bower_components/knockout/dist/knockout',
     knockstrap: 'bower_components/knockstrap/build/knockstrap',
-    GameModel: 'scripts/model/GameModel',
-    PlayerModel: 'scripts/model/PlayerModel',
-    CheckoutAdviser: 'scripts/service/CheckoutAdviser',
-    HotkeyService: 'scripts/service/HotkeyService',
-    ChartWidget: 'scripts/service/ChartWidget',
-    EventObserver: 'scripts/service/EventObserver',
-    GameShotDetectorService: 'scripts/service/GameShotDetectorService',
+
+    models: 'scripts/model/',
+    services: 'scripts/service/',
+
     GameController: 'scripts/controller/GameController'
   }
 });
 
-requirejs(['GameController', 'EventObserver'],
+requirejs(['GameController', 'services/EventObserver'],
   /**
    * Executes application main logic.
    *

@@ -1,5 +1,5 @@
 /* global define*/
-define('PlayerModel', ['CheckoutAdviser'], function (CheckoutAdviser) {
+define(['services/CheckoutAdviser'], function (CheckoutAdviser) {
   /**
    * @param ko
    * @param status

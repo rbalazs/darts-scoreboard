@@ -1,8 +1,8 @@
 /* global define*/
-define('CheckoutAdviser', function () {
+define(function () {
   /**
    * A module that is responsible for advising combination for a gameshot.
-   * 
+   *
    * @exports CheckoutAdviser
    */
   var CheckoutAdviser = {

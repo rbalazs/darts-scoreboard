@@ -1,5 +1,5 @@
 /* global define */
-define('GameShotDetectorService', function () {
+define(function () {
   /**
    * A module that is responsible for detecting whether game shot attempt was thrown.
    *

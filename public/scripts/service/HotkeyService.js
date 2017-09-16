@@ -1,5 +1,5 @@
 /* global define, eventObserver */
-define('HotkeyService', function () {
+define(function () {
   /**
    * A module that is responsible for providing hot key service to the appilcation.
    *

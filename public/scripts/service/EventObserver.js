@@ -1,8 +1,8 @@
 /* global define */
-define('EventObserver', function () {
+define([], function () {
   /**
    * A module that is responsible for notifyng event handlers.
-   * 
+   *
    * @exports EventObserver
    */
   var EventObserver = function () {

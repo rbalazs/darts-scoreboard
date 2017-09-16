@@ -4,7 +4,7 @@
  *
  * @type {string[]}
  */
-var dependencies = ['jquery', 'knockout', 'knockstrap', 'GameModel', 'PlayerModel', 'HotkeyService', 'ChartWidget', 'GameShotDetectorService'];
+var dependencies = ['jquery', 'knockout', 'knockstrap', 'models/GameModel', 'models/PlayerModel', 'services/HotkeyService', 'services/ChartWidget', 'services/GameShotDetectorService'];
 
 /**
  * Returns the module responsible for controlling the application.
