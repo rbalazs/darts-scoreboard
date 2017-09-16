@@ -117,7 +117,6 @@ define(function () {
 
       // Move the to the next player.
       if (self.players().length > 1) {
-
         self.currentPlayerIndex = self.nextPlayerToThrowFirst;
         self.players()[self.currentPlayerIndex].status(1);
         self.players()[self.currentPlayerIndex].firstToThrow(true);

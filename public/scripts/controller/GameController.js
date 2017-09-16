@@ -85,14 +85,18 @@ define(
        */
       this.initBasicEventListeners = function (gameModel, chartWidget) {
         $('#add-player').click(function () {
-          var red = Math.floor(Math.random() * 256);
-          var green = Math.floor(Math.random() * 256);
-          var blue = Math.floor(Math.random() * 256);
-          var hue = (red + ',' + green + ',' + blue);
-          var newPlayer = new PlayerModel(ko, 2, gameModel.games[gameModel.gameIndex], false);
+          // Add a new player to the game.
+          gameModel.players.push(
+            new PlayerModel(
+              ko,
+              2,
+              gameModel.games[gameModel.gameIndex],
+              false
+            )
+          );
 
-          gameModel.players.push(newPlayer);
-
+          // Get a new random hue for the chart.
+          var hue = chartWidget.generateRandomHue();
           chartWidget.getInstance().datasets.push({
             fillColor: 'rgba(' + hue + ',0.2)',
             strokeColor: 'rgba(' + hue + ',1)',
