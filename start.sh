@@ -21,13 +21,13 @@ tput cup 7 15
 echo "1. Start"
  
 tput cup 8 15
-echo "2. Reset database"
+echo "wp: 2. Reset database"
  
 tput cup 9 15
-echo "3. Run tests"
+echo "wp: 3. Run tests"
  
 tput cup 10 15
-echo "4. Remove npm and node modules"
+echo "wp: 4. Remove npm and node modules"
  
 # Set bold mode 
 tput bold
