@@ -41,5 +41,6 @@ tput rc
 if [ $choice = 1 ]
    then
         echo "Starting up application.."
-        npm install && grunt serve
+        docker run --name darts-scoreboard -ti --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp node:8 npm install &&
+        docker run --name darts-scoreboard -d -ti -p 4141:80 --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp digitallyseamless/nodejs-bower-grunt grunt serve
 fi

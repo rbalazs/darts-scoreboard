@@ -21,6 +21,22 @@ define(
 
         gameModel.players.push(firstPlayer);
 
+          $.ajax({
+              type: 'GET',
+              url: 'http://127.0.0.1/api/players',
+              contentType: "application/json",
+              dataType: "json",
+              success: function (data) {
+                  data.forEach(function (item) {
+                      var player = new PlayerModel(ko, 1, gameModel.games[gameModel.gameIndex], true, item.name);
+                      gameModel.players.push(player);
+                  });
+              },
+              error: function (jq, st, error) {
+                  alert(error);
+              }
+          });
+
         this.initKoBindings(gameModel);
         this.initBasicEventListeners(gameModel, chartWidget);
 
