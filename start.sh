@@ -1,5 +1,8 @@
 #!/bin/bash
- 
+
+ # docker run -p 80:80 --name darts-scoreboard -ti --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp darts-scoreboard:0.0.1 grunt serv
+ # docker run --name darts-scoreboard -ti --rm -v "$PWD":/usr/src/myapp -w /usr/src/myapp darts-scoreboard:0.0.1 npm install
+
 # clear the screen
 tput clear
  
