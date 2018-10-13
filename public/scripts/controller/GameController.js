@@ -33,7 +33,7 @@ define(
                   });
               },
               error: function (jq, st, error) {
-                  alert(error);
+                  console.log(error);
               }
           });
 
