@@ -36,9 +36,9 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "express": "~4.12.4",
-    "requirejs": "~2.1.14",
-    "bower": "1.7.9"
+    "bower": "1.7.9",
+    "express": "^4.16.4",
+    "requirejs": "~2.1.14"
   },
   "scripts": {
     "postinstall": "bower install"
