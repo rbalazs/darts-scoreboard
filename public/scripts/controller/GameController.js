@@ -23,7 +23,7 @@ define(
 
           $.ajax({
               type: 'GET',
-              url: 'http://127.0.0.1/api/players',
+              url: 'http://127.0.0.1:8080/api/players',
               contentType: "application/json",
               dataType: "json",
               success: function (data) {
