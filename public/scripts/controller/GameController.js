@@ -11,52 +11,34 @@ define(
          * @constructor
          */
         return function GameController() {
-
-            var self = this;
+            /**
+             * @type {GameController}
+             */
+            let self = this;
 
             this.chartWidget = new ChartWidget();
 
             this.gameModel = new GameModel(ko, self.chartWidget.getInstance(), GameShotDetectorService);
 
-            this.loadEncounter = function() {
+            this.loadEncounter = function () {
                 $.ajax({
                     type: 'GET',
-                    url: 'http://127.0.0.1:8080/api/encounters/1',
+                    url: BACKEND_API_URL + '/api/encounters/2',
                     contentType: "application/json",
                     dataType: "json",
                     success: function (data) {
                         data.players.forEach(function (playerAPIResource) {
                             $.ajax({
                                 type: 'GET',
-                                url: 'http://127.0.0.1:8080' + playerAPIResource,
+                                url: BACKEND_API_URL + playerAPIResource,
                                 contentType: "application/json",
                                 dataType: "json",
-                                success: function (data) {
-                                    var player = new PlayerModel(ko, 1, self.gameModel.games[self.gameModel.gameIndex], true, data.name);
-                                    var hue = self.chartWidget.generateRandomHue();
-
-                                    self.gameModel.players.push(player);
-                                    self.chartWidget.getInstance().datasets.push({
-                                        fillColor: 'rgba(' + hue + ',0.2)',
-                                        strokeColor: 'rgba(' + hue + ',1)',
-                                        pointColor: 'rgba(' + hue + ',1)',
-                                        pointStrokeColor: '#fff',
-                                        pointHighlightFill: '#fff',
-                                        pointHighlightStroke: 'rgba(' + hue + ',1)',
-                                        points: []
-                                    });
-
-                                    self.chartWidget.getInstance().update();
-                                },
-                                error: function (jq, st, error) {
-                                    console.log(error);
-                                }
+                                success: self.insertPlayer,
+                                error: self.logError
                             });
                         });
                     },
-                    error: function (jq, st, error) {
-                        console.log(error);
-                    }
+                    error: self.logError
                 });
             };
 
@@ -88,9 +70,9 @@ define(
 
                 ko.bindingHandlers.status = {
                     update: function (element, valueAccessor) {
-                        var value = valueAccessor();
-                        var valueUnwrapped = ko.unwrap(value);
-                        var parent = $(element).parent();
+                        let value = valueAccessor();
+                        let valueUnwrapped = ko.unwrap(value);
+                        let parent = $(element).parent();
                         if (valueUnwrapped === 1) {
                             parent.parent().addClass('activePlayer');
                         } else if (valueUnwrapped === 0) {
@@ -114,6 +96,28 @@ define(
 
                     switchDobuleOut: self.gameModel.isDoubleOut
                 });
+            };
+
+            this.insertPlayer = function (data) {
+                let player = new PlayerModel(ko, 1, self.gameModel.games[self.gameModel.gameIndex], true, data.name);
+                let hue = self.chartWidget.generateRandomHue();
+
+                self.gameModel.players.push(player);
+                self.chartWidget.getInstance().datasets.push({
+                    fillColor: 'rgba(' + hue + ',0.2)',
+                    strokeColor: 'rgba(' + hue + ',1)',
+                    pointColor: 'rgba(' + hue + ',1)',
+                    pointStrokeColor: '#fff',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(' + hue + ',1)',
+                    points: []
+                });
+
+                self.chartWidget.getInstance().update();
+            };
+
+            this.logError = function (jq, st, error) {
+                console.log(error);
             };
         };
     });
