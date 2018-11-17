@@ -17,13 +17,10 @@ define(
             this.execute = function () {
                 var chartWidget = new ChartWidget();
                 var gameModel = new GameModel(ko, chartWidget.getInstance(), GameShotDetectorService);
-                var firstPlayer = new PlayerModel(ko, 1, gameModel.games[gameModel.gameIndex], true);
-
-                gameModel.players.push(firstPlayer);
 
                 $.ajax({
                     type: 'GET',
-                    url: 'http://127.0.0.1:8080/api/encounters/1',
+                    url: 'http://127.0.0.1:8080/api/encounters/2',
                     contentType: "application/json",
                     dataType: "json",
                     success: function (data) {
