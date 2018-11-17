@@ -10,14 +10,15 @@ define(
         /**
          * @constructor
          */
-        var GameController = function () {
-            /**
-             * Starts up the application.
-             */
-            this.execute = function () {
-                var chartWidget = new ChartWidget();
-                var gameModel = new GameModel(ko, chartWidget.getInstance(), GameShotDetectorService);
+        return function GameController() {
 
+            var self = this;
+
+            this.chartWidget = new ChartWidget();
+
+            this.gameModel = new GameModel(ko, self.chartWidget.getInstance(), GameShotDetectorService);
+
+            this.loadEncounter = function() {
                 $.ajax({
                     type: 'GET',
                     url: 'http://127.0.0.1:8080/api/encounters/2',
@@ -31,8 +32,21 @@ define(
                                 contentType: "application/json",
                                 dataType: "json",
                                 success: function (data) {
-                                    var player = new PlayerModel(ko, 1, gameModel.games[gameModel.gameIndex], true, data.name);
-                                    gameModel.players.push(player);
+                                    var player = new PlayerModel(ko, 1, self.gameModel.games[self.gameModel.gameIndex], true, data.name);
+                                    var hue = self.chartWidget.generateRandomHue();
+
+                                    self.gameModel.players.push(player);
+                                    self.chartWidget.getInstance().datasets.push({
+                                        fillColor: 'rgba(' + hue + ',0.2)',
+                                        strokeColor: 'rgba(' + hue + ',1)',
+                                        pointColor: 'rgba(' + hue + ',1)',
+                                        pointStrokeColor: '#fff',
+                                        pointHighlightFill: '#fff',
+                                        pointHighlightStroke: 'rgba(' + hue + ',1)',
+                                        points: []
+                                    });
+
+                                    self.chartWidget.getInstance().update();
                                 },
                                 error: function (jq, st, error) {
                                     console.log(error);
@@ -44,22 +58,25 @@ define(
                         console.log(error);
                     }
                 });
+            };
 
-                this.initKoBindings(gameModel);
-                this.initBasicEventListeners(gameModel, chartWidget);
+            /**
+             * Starts up the application.
+             */
+            this.execute = function () {
+                this.loadEncounter();
+                this.initKoBindings();
 
                 HotkeyService.init($);
 
-                eventObserver.subscribe('SCORE', gameModel.handleThrow);
-                eventObserver.subscribe('UNDO', gameModel.undo);
+                eventObserver.subscribe('SCORE', self.gameModel.handleThrow);
+                eventObserver.subscribe('UNDO', self.gameModel.undo);
             };
 
             /**
              * Sets the necessery knockout default bindings.
-             *
-             * @param gameModel
              */
-            this.initKoBindings = function (gameModel) {
+            this.initKoBindings = function () {
                 ko.components.register('darts-board-widget', {
                     viewModel: {
                         require: 'scripts/component/dartsboard/dartsBoardWidget'
@@ -85,56 +102,18 @@ define(
                 };
 
                 ko.applyBindings({
-                    players: gameModel.players,
-                    thrown: gameModel.thrown,
-                    _switch: gameModel.switchViewIndex,
+                    players: self.gameModel.players,
+                    thrown: self.gameModel.thrown,
+                    _switch: self.gameModel.switchViewIndex,
                     highestGameShotAll: ko.computed(function () {
-                        return gameModel.players().reduce(function (highest, player) {
+                        return self.gameModel.players().reduce(function (highest, player) {
                             return (player.highestGameShot() > highest ? player.highestGameShot() :
                                 highest);
                         }, 0);
                     }, this),
 
-                    switchDobuleOut: gameModel.isDoubleOut
-                });
-            };
-
-            /**
-             * Sets the basic event listeners:
-             *  - Add player
-             *  - Etc.
-             *
-             * @param gameModel
-             * @param chartWidget
-             */
-            this.initBasicEventListeners = function (gameModel, chartWidget) {
-                $('#add-player').click(function () {
-                    // Add a new player to the game.
-                    gameModel.players.push(
-                        new PlayerModel(
-                            ko,
-                            2,
-                            gameModel.games[gameModel.gameIndex],
-                            false
-                        )
-                    );
-
-                    // Get a new random hue for the chart.
-                    var hue = chartWidget.generateRandomHue();
-                    chartWidget.getInstance().datasets.push({
-                        fillColor: 'rgba(' + hue + ',0.2)',
-                        strokeColor: 'rgba(' + hue + ',1)',
-                        pointColor: 'rgba(' + hue + ',1)',
-                        pointStrokeColor: '#fff',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(' + hue + ',1)',
-                        points: []
-                    });
-
-                    chartWidget.getInstance().update();
+                    switchDobuleOut: self.gameModel.isDoubleOut
                 });
             };
         };
-
-        return GameController;
     });
