@@ -21,7 +21,7 @@ define(
             this.loadEncounter = function() {
                 $.ajax({
                     type: 'GET',
-                    url: 'http://127.0.0.1:8080/api/encounters/2',
+                    url: 'http://127.0.0.1:8080/api/encounters/1',
                     contentType: "application/json",
                     dataType: "json",
                     success: function (data) {
