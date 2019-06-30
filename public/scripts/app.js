@@ -27,5 +27,8 @@ requirejs(['GameController', 'services/EventObserver'],
     // Global variable on purpose.
     eventObserver = new EventObserver();
 
+    // Config global variables, to be refactored.
+    BACKEND_API_URL = 'http://127.0.0.1:8080';
+
     gameController.execute();
   });

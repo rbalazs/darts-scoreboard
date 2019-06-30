@@ -1,7 +1,10 @@
+body {
+    background-color: floralwhite;
+}
+
 #button-holder {
     bottom:5px;
     clear:both;
-    float:left;
     left:355px;
     position:absolute
 }
@@ -13,7 +16,6 @@
 }
 
 #helper {
-    float:left;
     left:330px;
     position:fixed;
     width:285px
@@ -30,7 +32,6 @@
 }
 
 #nameAndVictories {
-    float:left;
     left:-3px;
     min-width:130px;
     position:relative
@@ -44,7 +45,6 @@
 
 #scoreboard {
     clear:both;
-    float:left;
     min-height:50px;
     min-width:100%
 }
@@ -62,7 +62,6 @@
 }
 
 #thrown {
-    float:right
 }
 
 .checkoutHelper {
@@ -76,7 +75,6 @@
 
 .controls {
     clear:both;
-    float:left;
     position:absolute;
     right:1px;
     top:5px
@@ -95,7 +93,6 @@
 }
 
 .player-card {
-    float:left;
     min-width:100px
 }
 
@@ -105,28 +102,21 @@
 }
 
 .playerBoard {
-    border:1px dotted silver;
-    float:left;
-    height:50px;
-    padding-left:10px;
-    padding-right:15px;
-    width:400px
+    border: 1px dotted silver;
+    background-color: azure;
+    padding-left: 10px;
+    padding: 10px;
+    padding-right: 15px;
+    width: 400px;
 }
 
 .playerCards {
     clear:both;
-    float:left;
     height:200px;
     margin-top:30px;
     width:400px
 }
 
-.playerList {
-    height:50px;
-    padding:0;
-    position:absolute;
-    width:100%
-}
 
 .playerList .activePlayer {
     background-color:#AFE1AB
@@ -147,7 +137,6 @@
 }
 
 .stats {
-    float:right;
     position:relative;
     top:5px
 }

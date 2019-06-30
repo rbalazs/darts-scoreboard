@@ -10,11 +10,16 @@ define(['services/CheckoutAdviser'], function (CheckoutAdviser) {
    *
    * @constructor
    */
-  var PlayerModel = function (ko, status, scoreLimit, firstToThrow) {
-    this.name = ko.observable(function () {
-      var items = ['Michael van Gerwen', 'Gary Anderson', 'Peter Wright', 'Phil Taylor', 'Adrian Lewis', 'Dave Chisnall', 'Raymond van Barneveld'];
-      return items[Math.floor(Math.random() * items.length)];
-    }());
+  var PlayerModel = function (ko, status, scoreLimit, firstToThrow, name) {
+      if (name) {
+          this.name = ko.observable(name);
+      } else {
+          this.name = ko.observable(function () {
+              var items = ['Michael van Gerwen', 'Gary Anderson', 'Peter Wright', 'Phil Taylor', 'Adrian Lewis', 'Dave Chisnall', 'Raymond van Barneveld'];
+              return items[Math.floor(Math.random() * items.length)];
+          }());
+      }
+
     this.status = ko.observable(status);
     this.history = ko.observableArray([]);
     this.turnHistory = ko.observableArray([]);
