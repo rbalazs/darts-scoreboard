@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "bower": "1.7.9",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "requirejs": "~2.1.14"
   },
   "scripts": {
